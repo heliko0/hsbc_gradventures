@@ -1,0 +1,321 @@
+.pageRoot {
+  background: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.pageInner {
+  max-width: 412px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.pageContent {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px 32px 32px;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #333333;
+}
+
+.headerTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 23px;
+  white-space: nowrap;
+}
+
+.headerSubtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: -0.2px; 
+}
+
+/* Divider */
+.dividerContainer {
+  position: relative;
+  height: 0;
+  width: 100%;
+}
+
+.dividerLineWrapper {
+  position: absolute;
+  top: -1px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.dividerSvg {
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+
+/* Intro */
+.sectionIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: #000000;
+}
+
+.sectionIntroTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+}
+
+.sectionIntroText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+/* Layout */
+.mainLayout {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 713px;
+}
+
+.cardsAndIntro {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Card */
+.cardRoot {
+  position: relative;
+  background: #ffffff;
+}
+
+.cardRootActive .cardBorder {
+  border-color: #db0011;
+  inset: -1px;
+}
+
+.cardBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #767676;
+  pointer-events: none;
+}
+
+.cardContent {
+  box-sizing: border-box;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cardTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333333;
+}
+
+.cardDescription {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+}
+
+/* Checkbox */
+.checkboxRoot {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.checkboxChecked {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+}
+
+.checkboxInner {
+  box-sizing: border-box;
+  padding: 4px;
+  width: 100%;
+  height: 100%;
+}
+
+.checkboxIcon {
+  width: 12px;
+  height: 12px;
+}
+
+.checkboxCheckedBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #000000;
+}
+
+.checkboxUncheckedBorder {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  background: #ffffff;
+  border: 1px solid #767676;
+}
+
+/* Bullet list */
+.cardBenefitsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cardBenefitRow {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.bulletWrapper {
+  width: 8px;
+  height: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bulletSquare {
+  width: 5.657px;
+  height: 5.657px;
+  background: #db0011;
+  transform: rotate(315deg);
+}
+
+.cardBenefitText {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+}
+
+/* Learn more */
+.learnMoreButton {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #000000;
+  text-decoration: underline;
+}
+
+/* CTA */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.notificationBanner {
+  position: relative;
+  background: #ebeff4;
+  width: 100%;
+}
+
+.notificationBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #305a85;
+  pointer-events: none;
+}
+
+.notificationContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  box-sizing: border-box;
+}
+
+.infoIconWrapper {
+  width: 18px;
+  height: 18px;
+}
+
+.infoIconSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.notificationText {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+}
+
+/* Button */
+.primaryButton {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 11px 20px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  background: #db0011;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+.primaryButton:hover:not(.primaryButtonDisabled) {
+  background: #c00010;
+}
+
+/* 🔹 Disabled state — matches your screenshot */
+.primaryButton:disabled {
+  background-color: #e5e5e5;   /* light grey */
+  color: #b3b3b3;              /* soft grey text */
+  cursor: not-allowed;
+  opacity: 1;                  /* prevents browsers from dimming it further */
+}

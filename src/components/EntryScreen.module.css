@@ -1,0 +1,366 @@
+/* Layout */
+.entryScreenRoot {
+  background: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.entryScreenInner {
+  max-width: 412px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.entryScreenContent {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px 32px 32px;
+  width: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #333333;
+}
+
+.headerTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 23px;
+  white-space: nowrap;
+}
+
+.headerSubtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  letter-spacing: -0.2px; 
+}
+
+/* Divider */
+.dividerContainer {
+  position: relative;
+  height: 0;
+  width: 100%;
+}
+
+.dividerLineWrapper {
+  position: absolute;
+  bottom: 0;
+  top: -1px;
+  left: 0;
+  right: 0;
+}
+
+.dividerSvg {
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+
+/* Sections */
+.sectionTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+/* Benefits */
+.benefitsSection {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  padding-bottom: 12px;
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.benefitRow {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.benefitIconWrapper {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 3px;   /* 👈 moves icon upward */
+}
+
+.benefitIconSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.benefitText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  color: #333333;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.2px; 
+}
+
+.benefitTitle {
+  font-size: 16px;
+}
+
+.benefitDescription {
+  font-size: 12px;
+}
+
+/* Loan properties */
+.loanPropertiesSection {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.loanHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #333333;
+}
+
+.loanDescription {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+/* Slider */
+.sliderSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.sliderLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #333333;
+}
+
+.sliderInputRow {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.sliderTextInputWrapper {
+  position: relative;
+  flex: 1;
+  background: #ffffff;
+  display: flex;
+  align-items: stretch;
+}
+
+.sliderTextInputBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #767676;
+  pointer-events: none;
+}
+
+.sliderTextInputBorderError {
+  border-color: #db0011;
+}
+
+.sliderTextInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 11px 16px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+  box-sizing: border-box;
+}
+
+.sliderSecondaryLabelWrapper {
+  width: 140px;
+  box-sizing: border-box;
+  background: #ededed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 24px;
+}
+
+.sliderSecondaryLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  line-height: 14px;
+  color: #333333;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.errorText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #db0011;
+}
+
+/* Slider track */
+.sliderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.sliderTrackWrapper {
+  position: relative;
+  height: 32px;
+  width: 100%;
+  cursor: pointer;
+}
+
+.sliderTrack {
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  display: flex;
+}
+
+.sliderTrackFilled {
+  height: 8px;
+  min-height: 1px;
+  background: #db0011;
+  flex-shrink: 0;
+  width: calc(var(--sliderPercentage, 0) * 1%);
+}
+
+.sliderTrackRemaining {
+  height: 8px;
+  min-height: 1px;
+  background: #ededed;
+  flex-shrink: 0;
+  width: calc(100% - (var(--sliderPercentage, 0) * 1%));
+}
+
+.sliderHandle {
+  position: absolute;
+  top: 0;
+  width: 32px;
+  height: 32px;
+  cursor: grab;
+  left: calc(var(--sliderPercentage, 0) * 1% - 16px);
+}
+
+.sliderHandleInner {
+  position: absolute;
+  inset: -1.56%;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 1px solid #d7d8d6;
+}
+
+/* Slider min/max */
+.sliderMinMaxRow {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+}
+
+.sliderMaxValue {
+  text-align: right;
+}
+
+/* CTA */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.notificationBanner {
+  position: relative;
+  width: 100%;
+  background: #ebeff4;
+}
+
+.notificationBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #305a85;
+  pointer-events: none;
+}
+
+.notificationContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  box-sizing: border-box;
+}
+
+.infoIconWrapper {
+  width: 18px;
+  height: 18px;
+}
+
+.infoIconSvg {
+  width: 100%;
+  height: 100%;
+}
+
+.notificationText {
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+}
+
+/* Primary button */
+.primaryButton {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: #db0011;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+  padding: 11px 20px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+}
+
+.primaryButton:hover {
+  background: #c00010;
+}
