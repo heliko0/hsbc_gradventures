@@ -18,6 +18,8 @@
   gap: 32px;
   padding: 48px 32px 32px;
   width: 100%;
+  max-width: 412px;
+  margin: 0 auto;
 }
 
 /* Header */
@@ -369,7 +371,6 @@
   background-color: #c00010;
 }
 
-/* 🔹 Disabled state — matches screenshot */
 .primaryButton:disabled {
   background-color: #D7D8D6;
   color: #b3b3b3;

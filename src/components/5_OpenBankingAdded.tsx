@@ -127,132 +127,12 @@ function SecondaryButton() {
   );
 }
 
-function ChooseWhatWeAnalyseHeader() {
+function LinkAccounts({ toggles, onToggle }: CategoriesProps) {
   return (
-    <div className={styles.chooseWhatWeAnalyseHeader}>
-      <p className={styles.chooseWhatWeAnalyseTitle}>Choose what we analyse:</p>
-      <p className={styles.chooseWhatWeAnalyseSubtitle}>Note: turning off may reduce assessment confidence.</p>
-    </div>
-  );
-}
-
-function BankTransactionsIcon() {
-  return (
-    <div className={styles.categoryIcon}>
-      <svg className={styles.categoryIconSvg} fill="none" viewBox="0 0 24 24">
-        <g>
-          <g></g>
-          <path clipRule="evenodd" d={svgPaths.p282a4b00} fill="#333333" fillRule="evenodd" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function RentIcon() {
-  return (
-    <div className={styles.categoryIcon}>
-      <svg className={styles.categoryIconSvg} fill="none" viewBox="0 0 24 24">
-        <g>
-          <g></g>
-          <g>
-            <path d={svgPaths.p126e7ef2} fill="#333333" />
-            <path d={svgPaths.p54a3a70} fill="#333333" />
-            <path d={svgPaths.p2b98ba80} fill="#333333" />
-            <path clipRule="evenodd" d={svgPaths.p307db300} fill="#333333" fillRule="evenodd" />
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function UtilityIcon() {
-  return (
-    <div className={styles.categoryIcon}>
-      <svg className={styles.categoryIconSvg} fill="none" viewBox="0 0 24 24">
-        <g>
-          <g></g>
-          <path d={svgPaths.p22bd5b00} fill="#333333" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function PhoneIcon() {
-  return (
-    <div className={styles.categoryIcon}>
-      <svg className={styles.categoryIconSvg} fill="none" viewBox="0 0 24 24">
-        <g>
-          <g></g>
-          <path clipRule="evenodd" d={svgPaths.p36d04200} fill="#333333" fillRule="evenodd" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Switch({ isOn, onClick }: { isOn: boolean; onClick: () => void }) {
-  return (
-    <div className={`${styles.switch} ${isOn ? styles.switchOn : styles.switchOff}`} onClick={onClick}>
-      <div className={`${styles.switchKnob} ${isOn ? styles.switchKnobOn : styles.switchKnobOff}`} />
-    </div>
-  );
-}
-
-function BankTransactions({ isOn, onClick }: { isOn: boolean; onClick: () => void }) {
-  return (
-    <div className={styles.categoryRow}>
-      <div className={styles.categoryContent}>
-        <BankTransactionsIcon />
-        <div className={styles.categoryText}>
-          <p className={styles.categoryLabel}>Bank Transactions</p>
-        </div>
-        <Switch isOn={isOn} onClick={onClick} />
-      </div>
-    </div>
-  );
-}
-
-function Rent({ isOn, onClick }: { isOn: boolean; onClick: () => void }) {
-  return (
-    <div className={styles.categoryRow}>
-      <div className={styles.categoryContent}>
-        <RentIcon />
-        <div className={styles.categoryText}>
-          <p className={styles.categoryLabel}>Rent </p>
-        </div>
-        <Switch isOn={isOn} onClick={onClick} />
-      </div>
-    </div>
-  );
-}
-
-function UtilityBill({ isOn, onClick }: { isOn: boolean; onClick: () => void }) {
-  return (
-    <div className={styles.categoryRow}>
-      <div className={styles.categoryContent}>
-        <UtilityIcon />
-        <div className={styles.categoryText}>
-          <p className={styles.categoryLabel}>Utility Bill</p>
-        </div>
-        <Switch isOn={isOn} onClick={onClick} />
-      </div>
-    </div>
-  );
-}
-
-function PhoneBill({ isOn, onClick }: { isOn: boolean; onClick: () => void }) {
-  return (
-    <div className={styles.categoryRow}>
-      <div className={styles.categoryContent}>
-        <PhoneIcon />
-        <div className={styles.categoryText}>
-          <p className={styles.categoryLabel}>Phone Bill</p>
-        </div>
-        <Switch isOn={isOn} onClick={onClick} />
-      </div>
+    <div className={styles.linkAccountsSection}>
+      <HeaderSection />
+      <AccountsAdded />
+      <SecondaryButton />
     </div>
   );
 }
@@ -267,41 +147,11 @@ interface CategoriesProps {
   onToggle: (key: keyof CategoriesProps['toggles']) => void;
 }
 
-function Categories({ toggles, onToggle }: CategoriesProps) {
+function KeySections({ toggles, onToggle }: CategoriesProps) {
   return (
-    <div className={styles.categories}>
-      <BankTransactions isOn={toggles.bankTransactions} onClick={() => onToggle('bankTransactions')} />
-      <Rent isOn={toggles.rent} onClick={() => onToggle('rent')} />
-      <UtilityBill isOn={toggles.utility} onClick={() => onToggle('utility')} />
-      <PhoneBill isOn={toggles.phone} onClick={() => onToggle('phone')} />
-    </div>
-  );
-}
-
-function CategoriesContainer({ toggles, onToggle }: CategoriesProps) {
-  return (
-    <div className={styles.categoriesContainer}>
-      <Categories toggles={toggles} onToggle={onToggle} />
-    </div>
-  );
-}
-
-function ChooseWhatWeAnalyse({ toggles, onToggle }: CategoriesProps) {
-  return (
-    <div className={styles.chooseWhatWeAnalyse}>
-      <ChooseWhatWeAnalyseHeader />
-      <CategoriesContainer toggles={toggles} onToggle={onToggle} />
-    </div>
-  );
-}
-
-function LinkAccounts({ toggles, onToggle }: CategoriesProps) {
-  return (
-    <div className={styles.linkAccountsSection}>
-      <HeaderSection />
-      <AccountsAdded />
-      <SecondaryButton />
-      <ChooseWhatWeAnalyse toggles={toggles} onToggle={onToggle} />
+    <div className={styles.keySections}>
+      <WhatIsOpenBanking />
+      <LinkAccounts toggles={toggles} onToggle={onToggle} />
     </div>
   );
 }
@@ -359,8 +209,7 @@ function Cta({ onContinue }: { onContinue: () => void }) {
 function Content({ toggles, onToggle, onContinue }: CategoriesProps & { onContinue: () => void }) {
   return (
     <div className={styles.mainContent}>
-      <WhatIsOpenBanking />
-      <LinkAccounts toggles={toggles} onToggle={onToggle} />
+      <KeySections toggles={toggles} onToggle={onToggle} />
       <Cta onContinue={onContinue} />
     </div>
   );

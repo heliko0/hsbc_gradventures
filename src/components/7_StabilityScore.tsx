@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, useMotionValue, useTransform } from 'motion/react';
 import svgPaths from "../imports/svg-bos869ogsu";
+import svgPathsModal from "../imports/svg-vwo2sfhrp7";
 import imgEllipse7 from "figma:asset/9b0b144e58086cdc7a06ddf4fde1d5e0491a12cb.png";
 import styles from './7_StabilityScore.module.css';
 
@@ -82,13 +83,13 @@ function Gauge({ score }: { score: number }) {
 
   /** Position transformation along the arc */
   const circleLeft = useTransform(progress, (p) => {
-    const scoreAngle = startAngle + ((endAngle - startAngle) * (p / 100));
+    const scoreAngle = startAngle + ((endAngle - startAngle) * (p / 1000));
     const angleRad = (scoreAngle * Math.PI) / 180;
     return centerX + radius * Math.cos(angleRad);
   });
 
   const circleTop = useTransform(progress, (p) => {
-    const scoreAngle = startAngle + ((endAngle - startAngle) * (p / 100));
+    const scoreAngle = startAngle + ((endAngle - startAngle) * (p / 1000));
     const angleRad = (scoreAngle * Math.PI) / 180;
     return centerY + radius * Math.sin(angleRad);
   });
@@ -213,6 +214,150 @@ function Score1({ score }: { score: number }) {
     <div className={styles.scoreSection}>
       <Gauge score={score} />
       <ScoreText />
+    </div>
+  );
+}
+
+function Frame2({ onOpenModal }: { onOpenModal: () => void }) {
+  return (
+    <div className={styles.linkContainer}>
+      <button type="button" onClick={onOpenModal} className={styles.linkButton}>
+        <span className={styles.linkText}>Why is this different?</span>
+        <span> ⓘ</span>
+      </button>
+    </div>
+  );
+}
+
+function Frame1({ onOpenModal }: { onOpenModal: () => void }) {
+  return (
+    <div className={styles.greyPanel}>
+      <div className={styles.greyPanelInner}>
+        <div className={styles.greyPanelContent}>
+          <p className={styles.greyPanelText}>
+            <span>Your </span>
+            <span>hybrid </span>
+            <span>score is </span>
+            over <span className={styles.greyPanelBold}>180 points higher</span>
+            <span> than a traditional credit score</span>
+          </p>
+          <Frame2 onOpenModal={onOpenModal} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <div className={styles.closeIcon}>
+      <svg className={styles.closeIconSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
+        <g>
+          <g></g>
+          <path clipRule="evenodd" d={svgPathsModal.p6810480} fill="#333333" fillRule="evenodd" />
+        </g>
+      </svg>
+    </div>
+  );
+}
+
+function CloseButton({ onClose }: { onClose: () => void }) {
+  return (
+    <div className={styles.closeButtonWrapper}>
+      <div className={styles.closeButtonInner}>
+        <div className={styles.closeButtonContent}>
+          <button type="button" onClick={onClose} className={styles.closeButton}>
+            <CloseIcon />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ModalContent() {
+  return (
+    <div className={styles.modalContent}>
+      <div className={styles.modalContentInner}>
+        <div className={styles.modalContentWrapper}>
+          <div className={styles.modalBody}>
+            <p className={styles.modalTitle}>Why your hybrid score can be different</p>
+            <div className={styles.modalSections}>
+              <div className={styles.modalSection}>
+                <p className={styles.modalSectionTitle}>What traditional scores use</p>
+                <p className={styles.modalSectionText}>
+                  Traditional credit scores mostly look at:
+                  <br />
+                  {` • Credit cards, loans and overdrafts`}
+                  <br />
+                  {` • How long you've had them`}
+                  <br />
+                  {` • Missed or late payments`}
+                  <br />
+                  {` • How much of your credit you're using`}
+                </p>
+              </div>
+              
+              <div className={styles.modalSection}>
+                <p className={styles.modalSectionTitle}>What alternative data adds to your score</p>
+                <div className={styles.modalSectionTextMulti}>
+                  <p>
+                    Your hybrid Stability Score uses alternative data to add more of your real-life finances:
+                    <br />
+                    {` • Regular payments like rent, utilities and phone bills`}
+                    <br />
+                    {` • Income coming into your accounts`}
+                    <br />
+                    {` • How steady your balances are over time`}
+                  </p>
+                  <p>This can give you credit for good money habits, even if you're newer to credit or don't use many credit products.</p>
+                </div>
+              </div>
+              
+              <div className={styles.modalSection}>
+                <p className={styles.modalSectionTitle}>What this means for you</p>
+                <div className={styles.modalSectionContent}>
+                  <p className={styles.modalSectionText}>Your hybrid score can be higher this time because it's also spotting:</p>
+                  <div className={styles.modalDetailsList}>
+                    <div className={styles.modalListItem}>
+                      <Success />
+                      <p className={styles.modalListText}>Strong on-time payment history</p>
+                    </div>
+                    <div className={styles.modalListItem}>
+                      <Success />
+                      <p className={styles.modalListText}>Stable deposits across accounts</p>
+                    </div>
+                    <div className={styles.modalListItem}>
+                      <Success />
+                      <p className={styles.modalListText}>Consistent invoices paid</p>
+                    </div>
+                  </div>
+                  <p className={styles.modalSectionText}>Together, those patterns suggest you may be more stable than your traditional score alone shows.</p>
+                </div>
+              </div>
+              
+              <div className={styles.modalSection}>
+                <p className={styles.modalSectionTitle}>Does this change my credit score elsewhere?</p>
+                <div className={styles.modalSectionTextMulti}>
+                  <p>{` No. Your Stability Score is specific to this application and how we assess affordability. Other lenders and credit agencies may use different methods. `}</p>
+                  <p>However, if you accept a loan agreement with us, this will then affect your credit score.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Modal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+        <CloseButton onClose={onClose} />
+        <ModalContent />
+      </div>
     </div>
   );
 }
@@ -408,39 +553,48 @@ function ElementsContainer() {
   );
 }
 
-function OnLightButtonPrimary() {
+function OnLightButtonPrimary({ onClick }: { onClick: () => void }) {
   return (
-    <div className={styles.primaryButton}>
+    <button type="button" onClick={onClick} className={styles.primaryButton}>
       <div className={styles.buttonInner}>
         <div className={styles.buttonContentWrapper}>
           <ElementsContainer />
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 
-function Cta() {
+function Cta({ onContinue }: { onContinue: () => void }) {
   return (
     <div className={styles.ctaSection}>
       <NotificationContextual />
-      <OnLightButtonPrimary />
+      <OnLightButtonPrimary onClick={onContinue} />
     </div>
   );
 }
 
-function Content5({ score }: { score: number }) {
+function Content5({ score, onOpenModal, onContinue }: { score: number; onOpenModal: () => void; onContinue: () => void }) {
   return (
     <div className={styles.mainContent}>
       <Score1 score={score} />
+      <Frame1 onOpenModal={onOpenModal} />
       <ScoreAnalysisInfo />
-      <Cta />
+      <Cta onContinue={onContinue} />
     </div>
   );
 }
 
-export default function Component7StabilityScore() {
-  const userScore = 84;
+export interface StabilityScoreProps {
+  onContinue: () => void;
+}
+
+export default function Component7StabilityScore({ onContinue }: StabilityScoreProps) {
+  const userScore = 845;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
   
   return (
     <div className={styles.root}>
@@ -454,9 +608,10 @@ export default function Component7StabilityScore() {
               </svg>
             </div>
           </div>
-          <Content5 score={userScore} />
+          <Content5 score={userScore} onOpenModal={handleOpenModal} onContinue={onContinue} />
         </div>
       </div>
+      {isModalOpen && <Modal onClose={handleCloseModal} />}
     </div>
   );
 }

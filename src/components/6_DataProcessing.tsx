@@ -46,7 +46,7 @@ function TextContent({ onComplete }: { onComplete?: () => void }) {
         setCurrentIndex((prevIndex) => prevIndex + 1); // 👈 no modulo
         setIsVisible(true);
       }, 300); // match CSS transition
-    }, 3000); // change every 3s
+    }, 1000); // change every 3s
 
     return () => clearInterval(interval);
   }, [currentIndex, onComplete]); // depend on currentIndex and onComplete

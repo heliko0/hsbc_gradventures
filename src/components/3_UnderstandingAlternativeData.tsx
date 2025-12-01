@@ -1,6 +1,7 @@
 // 3UnderstandingAlternativeData.tsx
 import React from 'react';
 import svgPaths from '../imports/svg-1a9s5wdjkt';
+import svgPathsExtended from '../imports/svg-l7xr3kb7hk';
 import styles from './3_UnderstandingAlternativeData.module.css';
 
 function Header() {
@@ -100,12 +101,22 @@ function UtilityIcon() {
   );
 }
 
-function GigIcon() {
+function SavingsIcon() {
+  return (
+    <svg className={styles.iconSvg} fill="none" viewBox="0 0 24 24">
+      <g>
+        <path d={svgPathsExtended.pbc7aa00} fill="#333333" />
+      </g>
+    </svg>
+  );
+}
+
+function CarPaymentsIcon() {
   return (
     <svg className={styles.iconSvg} fill="none" viewBox="0 0 24 24">
       <g>
         <path
-          d={svgPaths.pa266dc0}
+          d={svgPathsExtended.paa85e00}
           fill="#333333"
           fillRule="evenodd"
           clipRule="evenodd"
@@ -124,19 +135,24 @@ function CardsList() {
         description="Typical income and spending patterns"
       />
       <Card
+        icon={<SavingsIcon />}
+        title="Savings"
+        description="How much you have set aside"
+      />
+      <Card
         icon={<RentIcon />}
         title="Rent "
-        description="Demonstrates reliable monthly commitments"
+        description="Regular monthly housing payments"
       />
       <Card
         icon={<UtilityIcon />}
         title="Utility and Phone Bill"
-        description="Steady bill payments made on schedule"
+        description="On‑time essential bill payments"
       />
       <Card
-        icon={<GigIcon />}
-        title="Gig or Self-Employed Earnings"
-        description="Platform payouts or accounting summaries give us insight into your income stability"
+        icon={<CarPaymentsIcon />}
+        title="Car Payments"
+        description="Fixed instalments paid regularly"
       />
     </div>
   );

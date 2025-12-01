@@ -7,10 +7,11 @@ import OpenBanking from './components/4_OpenBanking';
 import OpenBankingAdded from './components/5_OpenBankingAdded';
 import DataProcessing from './components/6_DataProcessing';
 import StabilityScore from './components/7_StabilityScore';
+import ReviewYourLoan from './components/9_ReviewYourLoan';
 
 export default function App() {
   // TEMPORARY: Set to latest screen for development
-  const [currentScreen, setCurrentScreen] = useState<'entry' | 'assessment' | 'understanding' | 'openbanking' | 'openbankingadded' | 'dataprocessing' | 'stabilityscore'>('entry');
+  const [currentScreen, setCurrentScreen] = useState<'entry' | 'assessment' | 'understanding' | 'openbanking' | 'openbankingadded' | 'dataprocessing' | 'stabilityscore' | 'reviewloan'>('reviewloan');
 
   const handleStartApplication = () => {
     setCurrentScreen('assessment');
@@ -44,8 +45,21 @@ export default function App() {
     setCurrentScreen('stabilityscore');
   };
 
+  const handleStabilityScoreContinue = () => {
+    setCurrentScreen('reviewloan');
+  };
+
+  const handleReviewLoanSubmit = () => {
+    // Add next screen here when ready
+    console.log('Application submitted!');
+  };
+
+  if (currentScreen === 'reviewloan') {
+    return <ReviewYourLoan onSubmit={handleReviewLoanSubmit} />;
+  }
+
   if (currentScreen === 'stabilityscore') {
-    return <StabilityScore />;
+    return <StabilityScore onContinue={handleStabilityScoreContinue} />;
   }
 
   if (currentScreen === 'dataprocessing') {

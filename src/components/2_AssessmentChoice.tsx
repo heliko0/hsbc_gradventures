@@ -193,7 +193,7 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
 
               <div className={styles.cardsList}>
                 <AssessmentCard
-                  title="Traditional (Credit Score)"
+                  title="Traditional (credit score only)"
                   description="We'll check your credit report and do standard affordability checks."
                   benefits={[
                     'Best if you have pre-existing credit history',
@@ -206,7 +206,7 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
                 />
 
                 <AssessmentCard
-                  title="Alternative (Additional Data)"
+                  title="Hybrid (credit + alternative data)"
                   description="We consider more of your real-life finances (with your permission), like bank transactions, rent, and utilities."
                   benefits={[
                     "Best if you're new to credit or have a thin-file",
