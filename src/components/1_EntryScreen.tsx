@@ -1,7 +1,7 @@
-// components/ui/EntryScreen.tsx
+// components/ui/1EntryScreen.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import svgPaths from '../imports/svg-hf8fuwzgy3';
-import styles from './EntryScreen.module.css';
+import styles from './1_EntryScreen.module.css';
 
 function Header() {
   return (
@@ -200,7 +200,11 @@ function Slider({
   );
 }
 
-function LoanProperties() {
+interface LoanPropertiesProps {
+  onValidityChange: (valid: boolean) => void;
+}
+
+function LoanProperties({ onValidityChange }: LoanPropertiesProps) {
   const MIN_LOAN = 1000;
   const MAX_LOAN = 50000;
   const LOAN_STEP = 1000;
@@ -235,21 +239,22 @@ function LoanProperties() {
   const formatMonthsToYears = (months: number) => {
   const years = Math.floor(months / 12);
   const remainingMonths = months % 12;
-  const nbsp = '\u00A0'; // non-breaking space
+  const nbsp = '\u00A0';
 
   if (years === 0) {
-    // e.g. "6 Months"
     return `${remainingMonths}${nbsp}Month${remainingMonths !== 1 ? 's' : ''}`;
   } else if (remainingMonths === 0) {
-    // e.g. "5 Years"
     return `${years}${nbsp}Year${years !== 1 ? 's' : ''}`;
   } else {
-    // e.g. "5 Years 11 Months"
-    return `${years}${nbsp}Year${years !== 1 ? 's' : ''}${nbsp}${remainingMonths}${nbsp}Month${
-      remainingMonths !== 1 ? 's' : ''
-    }`;
+    return `${years}${nbsp}Year${years !== 1 ? 's' : ''}${nbsp}${remainingMonths}${nbsp}Month${remainingMonths !== 1 ? 's' : ''}`;
   }
 };
+
+  // Notify parent whenever validity changes
+  useEffect(() => {
+    const isValid = !loanAmountError && !monthsError;
+    onValidityChange(isValid);
+  }, [loanAmountError, monthsError, onValidityChange]);
 
   const handleLoanAmountChange = (value: number) => {
     setLoanAmount(value);
@@ -346,7 +351,12 @@ function InfoIcon() {
   );
 }
 
-function Cta({ onStartApplication }: { onStartApplication: () => void }) {
+interface CtaProps {
+  onStartApplication: () => void;
+  isFormValid: boolean;
+}
+
+function Cta({ onStartApplication, isFormValid }: CtaProps) {
   return (
     <div className={styles.ctaSection}>
       <div className={styles.notificationBanner}>
@@ -360,7 +370,8 @@ function Cta({ onStartApplication }: { onStartApplication: () => void }) {
       </div>
 
       <button
-        onClick={onStartApplication}
+        onClick={isFormValid ? onStartApplication : undefined}
+        disabled={!isFormValid}
         className={styles.primaryButton}
         type="button"
       >
@@ -375,6 +386,8 @@ export interface EntryScreenProps {
 }
 
 export default function EntryScreen({ onStartApplication }: EntryScreenProps) {
+  const [isFormValid, setIsFormValid] = useState(false);
+
   return (
     <div className={styles.entryScreenRoot}>
       <div className={styles.entryScreenInner}>
@@ -390,8 +403,8 @@ export default function EntryScreen({ onStartApplication }: EntryScreenProps) {
           </div>
 
           <Benefits />
-          <LoanProperties />
-          <Cta onStartApplication={onStartApplication} />
+          <LoanProperties onValidityChange={setIsFormValid} />
+          <Cta onStartApplication={onStartApplication} isFormValid={isFormValid} />
         </div>
       </div>
     </div>

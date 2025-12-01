@@ -1,7 +1,7 @@
 // components/ui/AssessmentChoice.tsx
 import React from 'react';
 import svgPaths from '../imports/svg-yerdz9yfhi';
-import styles from './AssessmentChoice.module.css';
+import styles from './2_AssessmentChoice.module.css';
 
 function Header() {
   return (
@@ -132,6 +132,33 @@ function InfoIcon() {
   );
 }
 
+function Cta({ onContinue, canContinue }: { onContinue: () => void; canContinue: boolean }) {
+  return (
+    <section className={styles.ctaSection}>
+      <div className={styles.notificationBanner}>
+        <div className={styles.notificationBorder} />
+        <div className={styles.notificationContent}>
+          <InfoIcon />
+          <p className={styles.notificationText}>
+            Continuing won't affect your credit score
+          </p>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        onClick={canContinue ? onContinue : undefined}
+        disabled={!canContinue}
+        className={`${styles.primaryButton} ${
+          !canContinue ? styles.primaryButtonDisabled : ''
+        }`}
+      >
+        <span>Continue</span>
+      </button>
+    </section>
+  );
+}
+
 interface AssessmentChoiceProps {
   onContinue: () => void;
 }
@@ -185,6 +212,7 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
                     "Best if you're new to credit or have a thin-file",
                     'Recognises steady non-credit payments (e.g., rent, phone, utilities)',
                     "Good for those with variable income, e.g. if you're a freelancer, gig-worker, or self-employed",
+                    "See the factors boosting or holding back your score - and how to fix them"
                   ]}
                   checked={alternativeSelected}
                   onToggle={() => setAlternativeSelected((prev) => !prev)}
@@ -193,28 +221,7 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
               </div>
             </div>
 
-            <section className={styles.ctaSection}>
-              <div className={styles.notificationBanner}>
-                <div className={styles.notificationBorder} />
-                <div className={styles.notificationContent}>
-                  <InfoIcon />
-                  <p className={styles.notificationText}>
-                    Continuing won't affect your credit score
-                  </p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={canContinue ? onContinue : undefined}
-                disabled={!canContinue}
-                className={`${styles.primaryButton} ${
-                  !canContinue ? styles.primaryButtonDisabled : ''
-                }`}
-              >
-                Continue
-              </button>
-            </section>
+            <Cta onContinue={onContinue} canContinue={canContinue} />
           </main>
         </div>
       </div>

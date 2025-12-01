@@ -1,0 +1,101 @@
+/* components/ui/TechLoader.module.css */
+
+.loaderRoot {
+  /* This ensures it fills your .loadingContainer context */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Adds depth to the rotation */
+  perspective: 800px; 
+}
+
+.loaderSvg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  /* Optional: Global slow spin makes it feel more spatial */
+  animation: globalSpin 60s linear infinite; 
+}
+
+/* 
+  Shared Line Styles 
+  Thinner strokes (0.6) make it look more elegant/less crowded
+*/
+.orbitLine {
+  fill: none;
+  stroke-width: 1px; 
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke; /* Keeps lines sharp at any size */
+  transform-origin: 50% 50%;
+}
+
+/* 
+  GROUPS 
+  Different durations (19s vs 14s) ensure the Red and Dark
+  layers drift apart and come back together unpredictably.
+*/
+.groupDark {
+  stroke: #000000;
+  opacity: 0.8;
+  transform-origin: 50% 50%;
+  animation: wobble 19s ease-in-out infinite alternate;
+}
+
+.groupRed {
+  stroke: #db0011;
+  opacity: 0.8;
+  transform-origin: 50% 50%;
+  animation: wobble 14s ease-in-out infinite alternate-reverse;
+}
+
+/* 
+  INDIVIDUAL LINES 
+  This creates the "breathing" ripple.
+*/
+.groupDark .orbitLine {
+  animation: pulseWave 4s ease-in-out infinite;
+  animation-delay: calc(var(--index) * -0.4s);
+  transform: rotate(var(--rotate-offset));
+}
+
+.groupRed .orbitLine {
+  animation: pulseWave 5s ease-in-out infinite;
+  animation-delay: calc(var(--index) * -0.5s);
+  transform: rotate(var(--rotate-offset));
+}
+
+/* 
+  ANIMATIONS 
+*/
+
+/* Rotates the whole cluster slowly */
+@keyframes globalSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Tilts the groups in 3D space */
+@keyframes wobble {
+  0% { transform: rotate(0deg) rotateX(15deg) rotateY(10deg); }
+  50% { transform: rotate(180deg) rotateX(-10deg) rotateY(-10deg); }
+  100% { transform: rotate(360deg) rotateX(15deg) rotateY(10deg); }
+}
+
+/* Squashes and stretches the ellipses */
+@keyframes pulseWave {
+  0% {
+    opacity: 0.3;
+    rx: 10px; ry: 40px; /* Tall and thin */
+  }
+  50% {
+    opacity: 0.8;
+    rx: 30px; ry: 25px; /* Short and fat (circle-ish) */
+  }
+  100% {
+    opacity: 0.3;
+    rx: 10px; ry: 40px;
+  }
+}

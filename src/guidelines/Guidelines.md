@@ -1,61 +1,39 @@
-**Add your own guidelines here**
-<!--
+When generating a new screen, copy the structural rules, spacing rules, sizing rules, and naming conventions from the reference screen exactly.
 
-System Guidelines
+Match these attributes precisely:
 
-Use this file to provide the AI with rules and guidelines you want it to follow.
-This template outlines a few examples of things you can add. You can add your own sections and format it to suit your needs
+Layout spacing (vertical + horizontal gap values)
+Padding inside containers and cards
+Font families, font weights, font sizes, and line heights
+Letter spacing and text casing
+Icon sizes, stroke thickness, and icon positioning
+Button height, font size, padding, corner radius, and colour states
+Checkbox / bullet / info icon sizing and alignment
+Divider height, margins, and stroke colour
+Container width and position (max-width, margins, alignment)
+Card border thickness, radius, and hover/active style
 
-TIP: More context isn't always better. It can confuse the LLM. Try and add the most important rules you need
+Structure & naming requirements:
 
-# General guidelines
-
-Any general rules you want the AI to follow.
-For example:
-
-* Only use absolute positioning when necessary. Opt for responsive and well structured layouts that use flexbox and grid by default
-* Refactor code as you go to keep code clean
-* Keep file sizes small and put helper functions and components in their own files.
-
---------------
-
-# Design system guidelines
-Rules for how the AI should make generations look like your company's design system
-
-Additionally, if you select a design system to use in the prompt box, you can reference
-your design system's components, tokens, variables and components.
-For example:
-
-* Use a base font-size of 14px
-* Date formats should always be in the format “Jun 10”
-* The bottom toolbar should only ever have a maximum of 4 items
-* Never use the floating action button with the bottom toolbar
-* Chips should always come in sets of 3 or more
-* Don't use a dropdown if there are 2 or fewer options
-
-You can also create sub sections and add more specific details
-For example:
+Maintain the same file structure, screens should have one .tsx file and one .module.css file, CSS should all be contained within the latter. It is important that inline CSS is minimised.
+Use the same component names and nesting structure as the reference screen (e.g., Header, SectionIntro, CardRoot, CardContent, CardBenefitRow, PrimaryButton, NotificationBanner, etc.)
+Maintain the same naming case style (PascalCase for components, camelCase for class names, and hyphenated layer name suffixes if used)
+If any names are misspelt, correct them to the best of your ability
+Place elements in the same hierarchy order and use the same grouping strategy
+Every reusable UI pattern MUST be a variant of the existing component (do not recreate new instances)
+Preserve auto-layout directions and alignment exactly (e.g., flex-column, align-start, justify-start)
+Maintain the same constraint / resizing behavior for responsive layouts
 
 
-## Button
-The Button component is a fundamental interactive element in our design system, designed to trigger actions or navigate
-users through the application. It provides visual feedback and clear affordances to enhance user experience.
+Output requirement:
 
-### Usage
-Buttons should be used for important actions that users need to take, such as form submissions, confirming choices,
-or initiating processes. They communicate interactivity and should have clear, action-oriented labels.
+The new screen must be visually and structurally indistinguishable from the reference screen in spacing rhythm and construction — only the content should differ.
+If multiple equally plausible interpretations exist, choose the one that is most consistent with the code semantics and component reuse logic rather than pure visuals.
 
-### Variants
-* Primary Button
-  * Purpose : Used for the main action in a section or page
-  * Visual Style : Bold, filled with the primary brand color
-  * Usage : One primary button per section to guide users toward the most important action
-* Secondary Button
-  * Purpose : Used for alternative or supporting actions
-  * Visual Style : Outlined with the primary color, transparent background
-  * Usage : Can appear alongside a primary button for less important actions
-* Tertiary Button
-  * Purpose : Used for the least important actions
-  * Visual Style : Text-only with no border, using primary color
-  * Usage : For actions that should be available but not emphasized
--->
+Fail-safe rules:
+
+Do NOT adjust or optimise spacing on your own — even by 1px — unless the reference screen includes a variant for that spacing.
+If you encounter a design element that is similar to an existing component, reuse the existing component rather than rebuilding it.
+Never introduce new component names unless absolutely necessary.
+
+Before finalizing the screen, run an internal consistency check against the reference screen and adjust any spacing or alignment deviations to pixel-accuracy.

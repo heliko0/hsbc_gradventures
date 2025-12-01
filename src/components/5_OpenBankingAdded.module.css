@@ -1,0 +1,436 @@
+/* Layout */
+.openBankingAddedRoot {
+  background: #ffffff;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.openBankingAddedInner {
+  max-width: 412px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.openBankingAddedContent {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 48px 32px 32px;
+  width: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #333333;
+  width: 364px;
+}
+
+.headerTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 23px;
+  white-space: nowrap;
+}
+
+.headerSubtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  width: 100%;
+  letter-spacing: -0.2px; 
+}
+
+/* Divider */
+.dividerContainer {
+  position: relative;
+  height: 0;
+  width: 100%;
+}
+
+.dividerLineWrapper {
+  position: absolute;
+  bottom: 0;
+  top: -1px;
+  left: 0;
+  right: 0;
+}
+
+.dividerSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Main Content */
+.mainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+/* What is Open Banking Section */
+.whatIsOpenBanking {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  color: #000000;
+}
+
+.whatIsOpenBankingTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  white-space: nowrap;
+}
+
+.whatIsOpenBankingDescription {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  width: 100%;
+}
+
+/* Link Accounts Section */
+.linkAccountsSection {
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  overflow: clip;
+}
+
+.linkAccountsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #000000;
+  width: 100%;
+}
+
+.linkAccountsTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  white-space: nowrap;
+}
+
+.linkAccountsDescription {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  width: 100%;
+}
+
+/* Accounts Added */
+.accountsAdded {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.accountsAddedLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.connectedBanks {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  width: 78px;
+}
+
+.bankRow {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+}
+
+.bankLogo {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.bankLogoSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.bankName {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #000000;
+  white-space: nowrap;
+}
+
+/* Secondary Button */
+.secondaryButton {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.secondaryButtonBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #333333;
+  pointer-events: none;
+}
+
+.secondaryButtonInner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.secondaryButtonContent {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding: 9px 20px 11px;
+  width: 100%;
+}
+
+.secondaryButtonText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #333333;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Choose What We Analyse */
+.chooseWhatWeAnalyse {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.chooseWhatWeAnalyseHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: #000000;
+}
+
+.chooseWhatWeAnalyseTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.chooseWhatWeAnalyseSubtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.categoriesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Category Row */
+.categoryRow {
+  background: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 0;
+  width: 100%;
+  border-bottom: 1px solid #d7d8d6;
+}
+
+.categoryContent {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  width: 100%;
+}
+
+.categoryIcon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.categoryIconSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.categoryText {
+  flex-grow: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2px 0 0;
+  min-width: 0;
+}
+
+.categoryLabel {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: #333333;
+  white-space: nowrap;
+}
+
+/* Switch */
+.switch {
+  height: 31px;
+  width: 51px;
+  border-radius: 100px;
+  overflow: clip;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease;
+}
+
+.switchOn {
+  background: #000000;
+}
+
+.switchOff {
+  background: #999999;
+}
+
+.switchKnob {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border-radius: 100px;
+  width: 27px;
+  height: 27px;
+  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+}
+
+.switchKnobOn {
+  right: 2px;
+}
+
+.switchKnobOff {
+  left: 2px;
+}
+
+/* CTA Section */
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  justify-content: flex-end;
+  width: 348px;
+}
+
+/* Notification */
+.notificationContextual {
+  background: #ebeff4;
+  width: 100%;
+  position: relative;
+}
+
+.notificationBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #305a85;
+  pointer-events: none;
+}
+
+.notificationContent {
+  box-sizing: border-box;
+  display: flex;
+  gap: 12px;
+  padding: 11px 16px;
+  width: 100%;
+}
+
+.notificationIcon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.notificationIconSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.notificationMessage {
+  flex-grow: 1;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+  min-width: 0;
+}
+
+/* Primary Button */
+.primaryButton {
+  background: #db0011;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.primaryButtonInner {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.primaryButtonContent {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding: 11px 20px;
+  width: 100%;
+}
+
+.primaryButtonText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.primaryButton:hover {
+  background: #c00010;
+}
