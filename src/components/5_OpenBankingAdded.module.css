@@ -1,28 +1,21 @@
 /* Layout */
 .openBankingAddedRoot {
   background: #ffffff;
-  min-height: 100vh;
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
 .openBankingAddedInner {
-  max-width: 412px;
-  margin: 0 auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.openBankingAddedContent {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 32px;
   padding: 48px 32px 32px;
   width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
   flex: 1;
 }
 
@@ -32,21 +25,18 @@
   flex-direction: column;
   gap: 8px;
   color: #333333;
-  width: 364px;
 }
 
 .headerTitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
   font-size: 23px;
-  white-space: nowrap;
 }
 
 .headerSubtitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  width: 100%;
   letter-spacing: -0.2px; 
 }
 
@@ -59,8 +49,8 @@
 
 .dividerLineWrapper {
   position: absolute;
-  bottom: 0;
   top: -1px;
+  bottom: 0;
   left: 0;
   right: 0;
 }
@@ -68,20 +58,20 @@
 .dividerSvg {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 1px;
 }
 
-/* Main Content */
-.mainContent {
+/* Content - Main wrapper */
+.content {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  flex-grow: 1;
   width: 100%;
-  flex: 1;
+  min-height: 1px;
   justify-content: space-between;
 }
 
-/* Key Sections */
+/* Key Sections - Top section with WhatIsOpenBanking and LinkAccounts */
 .keySections {
   display: flex;
   flex-direction: column;
@@ -233,142 +223,13 @@
   white-space: nowrap;
 }
 
-/* Choose What We Analyse */
-.chooseWhatWeAnalyse {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-}
-
-.chooseWhatWeAnalyseHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
-  color: #000000;
-}
-
-.chooseWhatWeAnalyseTitle {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-.chooseWhatWeAnalyseSubtitle {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  white-space: nowrap;
-}
-
-.categoriesContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-}
-
-.categories {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-/* Category Row */
-.categoryRow {
-  background: #ffffff;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 12px 0;
-  width: 100%;
-  border-bottom: 1px solid #d7d8d6;
-}
-
-.categoryContent {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  width: 100%;
-}
-
-.categoryIcon {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-}
-
-.categoryIconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.categoryText {
-  flex-grow: 1;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 2px 0 0;
-  min-width: 0;
-}
-
-.categoryLabel {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  color: #333333;
-  white-space: nowrap;
-}
-
-/* Switch */
-.switch {
-  height: 31px;
-  width: 51px;
-  border-radius: 100px;
-  overflow: clip;
-  cursor: pointer;
-  position: relative;
-  flex-shrink: 0;
-  transition: background-color 0.3s ease;
-}
-
-.switchOn {
-  background: #000000;
-}
-
-.switchOff {
-  background: #999999;
-}
-
-.switchKnob {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #ffffff;
-  border-radius: 100px;
-  width: 27px;
-  height: 27px;
-  box-shadow: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-}
-
-.switchKnobOn {
-  right: 2px;
-}
-
-.switchKnobOff {
-  left: 2px;
-}
-
 /* CTA Section */
 .ctaSection {
   display: flex;
   flex-direction: column;
   gap: 12px;
   justify-content: flex-end;
-  width: 348px;
+  width: 100%;
 }
 
 /* Notification */

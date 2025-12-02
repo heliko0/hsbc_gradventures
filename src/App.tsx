@@ -1,105 +1,117 @@
 // App.tsx
-import { useState } from "react";
-import EntryScreen from "./components/1_EntryScreen";
-import AssessmentChoice from "./components/2_AssessmentChoice";
-import UnderstandingAlternativeData from "./components/3_UnderstandingAlternativeData";
-import OpenBanking from "./components/4_OpenBanking";
-import OpenBankingAdded from "./components/5_OpenBankingAdded";
-import DataProcessing from "./components/6_DataProcessing";
-import StabilityScore from "./components/7_StabilityScore";
-import ReviewYourLoan from "./components/9_ReviewYourLoan";
+import { useState, useEffect } from 'react';
+import EntryScreen from './components/1_EntryScreen';
+import AssessmentChoice from './components/2_AssessmentChoice';
+import UnderstandingAlternativeData from './components/3_UnderstandingAlternativeData';
+import OpenBanking from './components/4_OpenBanking';
+import OpenBankingAdded from './components/5_OpenBankingAdded';
+import DataProcessing from './components/6_DataProcessing';
+import StabilityScore from './components/7_StabilityScore';
+import ReviewYourLoan from './components/9_ReviewYourLoan';
+import Approval from './components/10_Approval';
+import ApprovalAccepted from './components/10b_ApprovalAccepted';
 
 export default function App() {
-    // TEMPORARY: Set to latest screen for development
-    const [currentScreen, setCurrentScreen] = useState<
-        | "entry"
-        | "assessment"
-        | "understanding"
-        | "openbanking"
-        | "openbankingadded"
-        | "dataprocessing"
-        | "stabilityscore"
-        | "reviewloan"
-    >("entry");
+  
+  const [currentScreen, setCurrentScreen] = useState<'entry' | 'assessment' | 'understanding' | 'openbanking' | 'openbankingadded' | 'dataprocessing' | 'stabilityscore' | 'reviewloan' | 'approval' | 'approvalaccepted'>('approval');
+  
+  // Store loan properties from entry screen
+  const [loanAmount, setLoanAmount] = useState(10000);
+  const [months, setMonths] = useState(62);
 
-    const handleStartApplication = () => {
-        setCurrentScreen("assessment");
-    };
+  // Scroll to top when screen changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentScreen]);
 
-    const handleAssessmentContinue = () => {
-        setCurrentScreen("understanding");
-    };
+  const handleStartApplication = () => {
+    setCurrentScreen('assessment');
+  };
 
-    const handleUnderstandingBack = () => {
-        setCurrentScreen("assessment");
-    };
+  const handleAssessmentContinue = () => {
+    setCurrentScreen('understanding');
+  };
 
-    const handleUnderstandingContinue = () => {
-        setCurrentScreen("openbanking");
-    };
+  const handleUnderstandingBack = () => {
+    setCurrentScreen('assessment');
+  };
 
-    const handleOpenBankingAddAccounts = () => {
-        setCurrentScreen("openbankingadded");
-    };
+  const handleUnderstandingContinue = () => {
+    setCurrentScreen('openbanking');
+  };
 
-    const handleOpenBankingSkip = () => {
-        setCurrentScreen("dataprocessing");
-    };
+  const handleOpenBankingAddAccounts = () => {
+    setCurrentScreen('openbankingadded');
+  };
 
-    const handleOpenBankingAddedContinue = () => {
-        setCurrentScreen("dataprocessing");
-    };
+  const handleOpenBankingSkip = () => {
+    setCurrentScreen('dataprocessing');
+  };
 
-    const handleDataProcessingComplete = () => {
-        setCurrentScreen("stabilityscore");
-    };
+  const handleOpenBankingAddedContinue = () => {
+    setCurrentScreen('dataprocessing');
+  };
 
-    const handleStabilityScoreContinue = () => {
-        setCurrentScreen("reviewloan");
-    };
+  const handleDataProcessingComplete = () => {
+    setCurrentScreen('stabilityscore');
+  };
 
-    const handleReviewLoanSubmit = () => {
-        // Add next screen here when ready
-        console.log("Application submitted!");
-    };
+  const handleStabilityScoreContinue = () => {
+    setCurrentScreen('reviewloan');
+  };
 
-    if (currentScreen === "reviewloan") {
-        return <ReviewYourLoan onSubmit={handleReviewLoanSubmit} />;
-    }
+  const handleReviewLoanSubmit = () => {
+    setCurrentScreen('approval');
+  };
 
-    if (currentScreen === "stabilityscore") {
-        return <StabilityScore onContinue={handleStabilityScoreContinue} />;
-    }
+  const handleViewAgreement = () => {
+    setCurrentScreen('approvalaccepted');
+  };
 
-    if (currentScreen === "dataprocessing") {
-        return <DataProcessing onComplete={handleDataProcessingComplete} />;
-    }
+  const handleReviewLoan = () => {
+    setCurrentScreen('reviewloan');
+  };
 
-    if (currentScreen === "openbankingadded") {
-        return <OpenBankingAdded onContinue={handleOpenBankingAddedContinue} />;
-    }
+  if (currentScreen === 'approvalaccepted') {
+    return <ApprovalAccepted onReviewLoan={handleReviewLoan} />;
+  }
 
-    if (currentScreen === "openbanking") {
-        return (
-            <OpenBanking
-                onAddAccounts={handleOpenBankingAddAccounts}
-                onSkip={handleOpenBankingSkip}
-            />
-        );
-    }
+  if (currentScreen === 'approval') {
+    return <Approval onViewAgreement={handleViewAgreement} />;
+  }
 
-    if (currentScreen === "understanding") {
-        return (
-            <UnderstandingAlternativeData
-                onBack={handleUnderstandingBack}
-                onContinue={handleUnderstandingContinue}
-            />
-        );
-    }
+  if (currentScreen === 'reviewloan') {
+    return <ReviewYourLoan onSubmit={handleReviewLoanSubmit} initialLoanAmount={loanAmount} initialMonths={months} />;
+  }
 
-    if (currentScreen === "assessment") {
-        return <AssessmentChoice onContinue={handleAssessmentContinue} />;
-    }
+  if (currentScreen === 'stabilityscore') {
+    return <StabilityScore onContinue={handleStabilityScoreContinue} />;
+  }
 
-    return <EntryScreen onStartApplication={handleStartApplication} />;
+  if (currentScreen === 'dataprocessing') {
+    return <DataProcessing onComplete={handleDataProcessingComplete} />;
+  }
+
+  if (currentScreen === 'openbankingadded') {
+    return <OpenBankingAdded onContinue={handleOpenBankingAddedContinue} />;
+  }
+
+  if (currentScreen === 'openbanking') {
+    return <OpenBanking onAddAccounts={handleOpenBankingAddAccounts} onSkip={handleOpenBankingSkip} />;
+  }
+
+  if (currentScreen === 'understanding') {
+    return (
+      <UnderstandingAlternativeData
+        onBack={handleUnderstandingBack}
+        onContinue={handleUnderstandingContinue}
+      />
+    );
+  }
+
+  if (currentScreen === 'assessment') {
+    return <AssessmentChoice onContinue={handleAssessmentContinue} />;
+  }
+
+  return <EntryScreen onStartApplication={handleStartApplication} onLoanAmountChange={setLoanAmount} onMonthsChange={setMonths} />;
 }

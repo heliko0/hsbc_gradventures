@@ -26,38 +26,25 @@ function SectionIntro() {
   );
 }
 
-interface CheckboxProps {
+interface RadioButtonProps {
   checked: boolean;
   onClick: () => void;
 }
 
-function Checkbox({ checked, onClick }: CheckboxProps) {
+function RadioButton({ checked, onClick }: RadioButtonProps) {
   return (
     <button
       type="button"
-      className={styles.checkboxRoot}
+      className={styles.radioButtonRoot}
       onClick={onClick}
       aria-pressed={checked}
     >
-      {checked ? (
-        <div className={styles.checkboxChecked}>
-          <div className={styles.checkboxInner}>
-            <svg className={styles.checkboxIcon} fill="none" viewBox="0 0 12 12">
-              <g>
-                <path
-                  d={svgPaths.p13ddaaf0}
-                  fill="#333333"
-                  fillRule="evenodd"
-                  clipRule="evenodd"
-                />
-              </g>
-            </svg>
-          </div>
-          <div className={styles.checkboxCheckedBorder} />
-        </div>
-      ) : (
-        <div className={styles.checkboxUncheckedBorder} />
-      )}
+      <svg className={styles.radioButtonSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
+        <g>
+          <circle cx="10" cy="10" fill="white" r="9.5" stroke="black" />
+          {checked && <circle cx="10" cy="10" fill="#333333" r="6" />}
+        </g>
+      </svg>
     </button>
   );
 }
@@ -93,7 +80,7 @@ function AssessmentCard({
       <div className={styles.cardContent}>
         <div className={styles.cardHeader}>
           <p className={styles.cardTitle}>{title}</p>
-          <Checkbox checked={checked} onClick={onToggle} />
+          <RadioButton checked={checked} onClick={onToggle} />
         </div>
         <p className={styles.cardDescription}>{description}</p>
 
@@ -164,10 +151,9 @@ interface AssessmentChoiceProps {
 }
 
 export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) {
-  const [traditionalSelected, setTraditionalSelected] = React.useState(false);
-  const [alternativeSelected, setAlternativeSelected] = React.useState(false);
+  const [selectedOption, setSelectedOption] = React.useState<'traditional' | 'hybrid' | null>(null);
 
-  const canContinue = traditionalSelected || alternativeSelected;
+  const canContinue = selectedOption !== null;
 
   const handleLearnMore = () => {
     console.log('Learn more clicked');
@@ -200,8 +186,8 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
                     'The most familiar and established lending method',
                     'Pull your score quickly and easily with credit bureaus ',
                   ]}
-                  checked={traditionalSelected}
-                  onToggle={() => setTraditionalSelected((prev) => !prev)}
+                  checked={selectedOption === 'traditional'}
+                  onToggle={() => setSelectedOption('traditional')}
                   onLearnMore={handleLearnMore}
                 />
 
@@ -214,8 +200,8 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
                     "Good for those with variable income, e.g. if you're a freelancer, gig-worker, or self-employed",
                     "See the factors boosting or holding back your score - and how to fix them"
                   ]}
-                  checked={alternativeSelected}
-                  onToggle={() => setAlternativeSelected((prev) => !prev)}
+                  checked={selectedOption === 'hybrid'}
+                  onToggle={() => setSelectedOption('hybrid')}
                   onLearnMore={handleLearnMore}
                 />
               </div>

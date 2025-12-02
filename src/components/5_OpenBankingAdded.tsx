@@ -1,5 +1,4 @@
-// 5OpenBankingAdded.tsx - Second Open Banking screen with account toggles
-import { useState } from 'react';
+// 5_OpenBankingAdded.tsx - Second Open Banking screen with account toggles
 import svgPaths from "../imports/svg-rnajv1bdey";
 import styles from './5_OpenBankingAdded.module.css';
 
@@ -20,7 +19,7 @@ function WhatIsOpenBanking() {
   return (
     <div className={styles.whatIsOpenBanking}>
       <p className={styles.whatIsOpenBankingTitle}>What is Open Banking?</p>
-      <p className={styles.whatIsOpenBankingDescription}>We use Open Banking (read‑only) to identify regular payments like rent, utilities, and phone bills. </p>
+      <p className={styles.whatIsOpenBankingDescription}>We use Open Banking (read‑only) to identify regular payments like rent, utilities, and phone bills.</p>
     </div>
   );
 }
@@ -127,7 +126,7 @@ function SecondaryButton() {
   );
 }
 
-function LinkAccounts({ toggles, onToggle }: CategoriesProps) {
+function LinkAccounts() {
   return (
     <div className={styles.linkAccountsSection}>
       <HeaderSection />
@@ -137,21 +136,11 @@ function LinkAccounts({ toggles, onToggle }: CategoriesProps) {
   );
 }
 
-interface CategoriesProps {
-  toggles: {
-    bankTransactions: boolean;
-    rent: boolean;
-    utility: boolean;
-    phone: boolean;
-  };
-  onToggle: (key: keyof CategoriesProps['toggles']) => void;
-}
-
-function KeySections({ toggles, onToggle }: CategoriesProps) {
+function KeySections() {
   return (
     <div className={styles.keySections}>
       <WhatIsOpenBanking />
-      <LinkAccounts toggles={toggles} onToggle={onToggle} />
+      <LinkAccounts />
     </div>
   );
 }
@@ -206,44 +195,28 @@ function Cta({ onContinue }: { onContinue: () => void }) {
   );
 }
 
-function Content({ toggles, onToggle, onContinue }: CategoriesProps & { onContinue: () => void }) {
+function Content({ onContinue }: { onContinue: () => void }) {
   return (
-    <div className={styles.mainContent}>
-      <KeySections toggles={toggles} onToggle={onToggle} />
+    <div className={styles.content}>
+      <KeySections />
       <Cta onContinue={onContinue} />
     </div>
   );
 }
 
 export default function OpenBankingAdded({ onContinue }: OpenBankingAddedProps) {
-  const [toggles, setToggles] = useState({
-    bankTransactions: true,
-    rent: true,
-    utility: true,
-    phone: true,
-  });
-
-  const handleToggle = (key: keyof typeof toggles) => {
-    setToggles((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }));
-  };
-
   return (
     <div className={styles.openBankingAddedRoot}>
       <div className={styles.openBankingAddedInner}>
-        <div className={styles.openBankingAddedContent}>
-          <Header />
-          <div className={styles.dividerContainer}>
-            <div className={styles.dividerLineWrapper}>
-              <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
-                <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
-              </svg>
-            </div>
+        <Header />
+        <div className={styles.dividerContainer}>
+          <div className={styles.dividerLineWrapper}>
+            <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
+              <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
+            </svg>
           </div>
-          <Content toggles={toggles} onToggle={handleToggle} onContinue={onContinue} />
         </div>
+        <Content onContinue={onContinue} />
       </div>
     </div>
   );

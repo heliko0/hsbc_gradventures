@@ -615,11 +615,13 @@ function Cta({ onSubmit, isValid }: { onSubmit: () => void; isValid: boolean }) 
 
 export interface ReviewYourLoanProps {
   onSubmit: () => void;
+  initialLoanAmount?: number;
+  initialMonths?: number;
 }
 
-export default function Component9ReviewYourLoan({ onSubmit }: ReviewYourLoanProps) {
-  const [loanAmount, setLoanAmount] = useState(10000);
-  const [months, setMonths] = useState(62);
+export default function Component9ReviewYourLoan({ onSubmit, initialLoanAmount = 10000, initialMonths = 62 }: ReviewYourLoanProps) {
+  const [loanAmount, setLoanAmount] = useState(initialLoanAmount);
+  const [months, setMonths] = useState(initialMonths);
   const [isValid, setIsValid] = useState(true);
 
   // Calculate loan details
@@ -650,9 +652,9 @@ export default function Component9ReviewYourLoan({ onSubmit }: ReviewYourLoanPro
         <div className={styles.innerContainer}>
           <Header />
 
-          <div className={styles.dividerWrapper}>
-            <div className={styles.dividerContainer}>
-              <svg className={styles.divider} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
+          <div className={styles.dividerContainer}>
+            <div className={styles.dividerLineWrapper}>
+              <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
                 <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
               </svg>
             </div>
@@ -674,9 +676,9 @@ export default function Component9ReviewYourLoan({ onSubmit }: ReviewYourLoanPro
             monthlyRepayment={monthlyRepayment}
           />
 
-          <div className={styles.dividerWrapper}>
-            <div className={styles.dividerContainer}>
-              <svg className={styles.divider} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
+          <div className={styles.dividerContainer}>
+            <div className={styles.dividerLineWrapper}>
+              <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
                 <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
               </svg>
             </div>

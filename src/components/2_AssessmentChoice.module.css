@@ -30,7 +30,6 @@
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
   font-size: 23px;
-  white-space: nowrap;
 }
 
 .headerSubtitle {
@@ -148,8 +147,8 @@
   color: #333333;
 }
 
-/* Checkbox */
-.checkboxRoot {
+/* Radio Button */
+.radioButtonRoot {
   border: none;
   padding: 0;
   margin: 0;
@@ -157,39 +156,13 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
+  flex-shrink: 0;
 }
 
-.checkboxChecked {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-}
-
-.checkboxInner {
-  box-sizing: border-box;
-  padding: 4px;
+.radioButtonSvg {
+  display: block;
   width: 100%;
   height: 100%;
-}
-
-.checkboxIcon {
-  width: 12px;
-  height: 12px;
-}
-
-.checkboxCheckedBorder {
-  position: absolute;
-  inset: 0;
-  border: 1px solid #000000;
-}
-
-.checkboxUncheckedBorder {
-  position: relative;
-  width: 20px;
-  height: 20px;
-  background: #ffffff;
-  border: 1px solid #767676;
 }
 
 /* Bullet list */

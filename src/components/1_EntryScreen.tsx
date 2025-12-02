@@ -202,9 +202,11 @@ function Slider({
 
 interface LoanPropertiesProps {
   onValidityChange: (valid: boolean) => void;
+  onLoanAmountChange: (amount: number) => void;
+  onMonthsChange: (months: number) => void;
 }
 
-function LoanProperties({ onValidityChange }: LoanPropertiesProps) {
+function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }: LoanPropertiesProps) {
   const MIN_LOAN = 1000;
   const MAX_LOAN = 50000;
   const LOAN_STEP = 1000;
@@ -250,6 +252,12 @@ function LoanProperties({ onValidityChange }: LoanPropertiesProps) {
   }
 };
 
+  // Notify parent of initial values on mount
+  useEffect(() => {
+    onLoanAmountChange(loanAmount);
+    onMonthsChange(months);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Notify parent whenever validity changes
   useEffect(() => {
     const isValid = !loanAmountError && !monthsError;
@@ -260,12 +268,14 @@ function LoanProperties({ onValidityChange }: LoanPropertiesProps) {
     setLoanAmount(value);
     setLoanAmountInput(formatCurrency(value));
     setLoanAmountError('');
+    onLoanAmountChange(value);
   };
 
   const handleMonthsChange = (value: number) => {
     setMonths(value);
     setMonthsInput(value.toString());
     setMonthsError('');
+    onMonthsChange(value);
   };
 
   const handleLoanAmountInputChange = (value: string) => {
@@ -279,6 +289,7 @@ function LoanProperties({ onValidityChange }: LoanPropertiesProps) {
       } else {
         setLoanAmount(parsed);
         setLoanAmountError('');
+        onLoanAmountChange(parsed);
       }
     }
   };
@@ -292,6 +303,7 @@ function LoanProperties({ onValidityChange }: LoanPropertiesProps) {
       } else {
         setMonths(parsed);
         setMonthsError('');
+        onMonthsChange(parsed);
       }
     }
   };
@@ -383,9 +395,11 @@ function Cta({ onStartApplication, isFormValid }: CtaProps) {
 
 export interface EntryScreenProps {
   onStartApplication: () => void;
+  onLoanAmountChange: (amount: number) => void;
+  onMonthsChange: (months: number) => void;
 }
 
-export default function EntryScreen({ onStartApplication }: EntryScreenProps) {
+export default function EntryScreen({ onStartApplication, onLoanAmountChange, onMonthsChange }: EntryScreenProps) {
   const [isFormValid, setIsFormValid] = useState(false);
 
   return (
@@ -403,7 +417,11 @@ export default function EntryScreen({ onStartApplication }: EntryScreenProps) {
           </div>
 
           <Benefits />
-          <LoanProperties onValidityChange={setIsFormValid} />
+          <LoanProperties 
+            onValidityChange={setIsFormValid}
+            onLoanAmountChange={onLoanAmountChange}
+            onMonthsChange={onMonthsChange}
+          />
           <Cta onStartApplication={onStartApplication} isFormValid={isFormValid} />
         </div>
       </div>

@@ -1,4 +1,4 @@
-// 4OpenBanking.tsx - First Open Banking screen
+// 4_OpenBanking.tsx - First Open Banking screen
 import styles from './4_OpenBanking.module.css';
 
 interface OpenBankingProps {
@@ -33,34 +33,32 @@ function HeaderSection() {
   );
 }
 
+function LinkAccounts() {
+  return (
+    <div className={styles.linkAccountsSection}>
+      <HeaderSection />
+    </div>
+  );
+}
+
 function PrimaryButton({ onClick }: { onClick: () => void }) {
   return (
     <div className={styles.primaryButton} onClick={onClick}>
       <div className={styles.primaryButtonInner}>
         <div className={styles.primaryButtonContent}>
-          <p className={styles.primaryButtonText}>Add accounts</p>
+          <p className={styles.primaryButtonText}>Add other accounts</p>
         </div>
       </div>
     </div>
   );
 }
 
-function LinkAccounts({ onAddAccounts }: { onAddAccounts: () => void }) {
-  return (
-    <div className={styles.linkAccountsSection}>
-      <HeaderSection />
-      <div className={styles.buttonContainer}>
-        <PrimaryButton onClick={onAddAccounts} />
-      </div>
-    </div>
-  );
-}
-
-function Content({ onAddAccounts }: { onAddAccounts: () => void }) {
+function ContentTop({ onAddAccounts }: { onAddAccounts: () => void }) {
   return (
     <div className={styles.contentTop}>
       <WhatIsOpenBanking />
-      <LinkAccounts onAddAccounts={onAddAccounts} />
+      <LinkAccounts />
+      <PrimaryButton onClick={onAddAccounts} />
     </div>
   );
 }
@@ -86,10 +84,10 @@ function Cta({ onSkip }: { onSkip: () => void }) {
   );
 }
 
-function MainContent({ onAddAccounts, onSkip }: { onAddAccounts: () => void; onSkip: () => void }) {
+function Content({ onAddAccounts, onSkip }: { onAddAccounts: () => void; onSkip: () => void }) {
   return (
-    <div className={styles.mainContent}>
-      <Content onAddAccounts={onAddAccounts} />
+    <div className={styles.content}>
+      <ContentTop onAddAccounts={onAddAccounts} />
       <Cta onSkip={onSkip} />
     </div>
   );
@@ -99,17 +97,15 @@ export default function OpenBanking({ onAddAccounts, onSkip }: OpenBankingProps)
   return (
     <div className={styles.openBankingRoot}>
       <div className={styles.openBankingInner}>
-        <div className={styles.openBankingContent}>
-          <Header />
-          <div className={styles.dividerContainer}>
-            <div className={styles.dividerLineWrapper}>
-              <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
-                <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
-              </svg>
-            </div>
+        <Header />
+        <div className={styles.dividerContainer}>
+          <div className={styles.dividerLineWrapper}>
+            <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
+              <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
+            </svg>
           </div>
-          <MainContent onAddAccounts={onAddAccounts} onSkip={onSkip} />
         </div>
+        <Content onAddAccounts={onAddAccounts} onSkip={onSkip} />
       </div>
     </div>
   );

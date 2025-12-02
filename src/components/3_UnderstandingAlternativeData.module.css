@@ -21,61 +21,46 @@
   position: relative;
   width: 100%;
 }
-
 /* Header */
 .header {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: flex-start;
-  line-height: normal;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
 }
 
 .headerTitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
-  position: relative;
-  flex-shrink: 0;
   font-size: 23px;
-  margin: 0;
 }
 
 .headerSubtitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
-  min-width: 100%;
-  position: relative;
-  flex-shrink: 0;
   font-size: 16px;
-  width: min-content;
-  margin: 0;
+  letter-spacing: -0.2px; 
 }
 
 /* Divider */
 .dividerContainer {
-  height: 0;
   position: relative;
-  flex-shrink: 0;
+  height: 0;
   width: 100%;
 }
 
 .dividerLineWrapper {
   position: absolute;
+  top: -1px;
   bottom: 0;
   left: 0;
   right: 0;
-  top: -1px;
 }
 
 .dividerSvg {
   display: block;
   width: 100%;
-  height: 100%;
+  height: 1px;
 }
 
 /* Section Intro */

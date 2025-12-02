@@ -601,9 +601,9 @@ export default function Component7StabilityScore({ onContinue }: StabilityScoreP
       <div className={styles.container}>
         <div className={styles.innerContainer}>
           <Header />
-          <div className={styles.dividerWrapper}>
-            <div className={styles.dividerContainer}>
-              <svg className={styles.divider} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
+          <div className={styles.dividerContainer}>
+            <div className={styles.dividerLineWrapper}>
+              <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
                 <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
               </svg>
             </div>

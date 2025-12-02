@@ -20,7 +20,7 @@ function SectionIntro() {
     <section className={styles.sectionIntro}>
       <p className={styles.sectionIntroTitle}>What is Alternative data?</p>
       <p className={styles.sectionIntroText}>
-        We ask for optional extra data (with your permission) to see responsible habits that a credit report can miss.
+        Alternative data is financial information like income patterns, bills, and spending habits, that show how you actually manage your money. This is a new way to measure reliability, rather than just using what’s on your credit file.
       </p>
     </section>
   );
