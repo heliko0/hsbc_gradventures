@@ -160,20 +160,19 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
   };
 
   return (
-    <div className={styles.pageRoot}>
-      <div className={styles.pageInner}>
-        <div className={styles.pageContent}>
-          <Header />
+    <div className={styles.root}>
+      <div className={styles.inner}>
+        <Header />
 
-          <div className={styles.dividerContainer}>
-            <div className={styles.dividerLineWrapper}>
-              <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
-                <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
-              </svg>
-            </div>
+        <div className={styles.dividerContainer}>
+          <div className={styles.dividerLineWrapper}>
+            <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
+              <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
+            </svg>
           </div>
+        </div>
 
-          <main className={styles.mainLayout}>
+        <main className={styles.mainLayout}>
             <div className={styles.cardsAndIntro}>
               <SectionIntro />
 
@@ -209,7 +208,6 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
 
             <Cta onContinue={onContinue} canContinue={canContinue} />
           </main>
-        </div>
       </div>
     </div>
   );

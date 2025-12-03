@@ -1,24 +1,20 @@
 /* Layout */
-.entryScreenRoot {
+.root {
   background: #ffffff;
+  position: relative;
   min-height: 100vh;
   width: 100%;
 }
 
-.entryScreenInner {
-  max-width: 412px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.entryScreenContent {
+.inner {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 48px 32px 32px;
+  align-items: flex-start;
+  padding: 48px 32px 32px 32px;
   width: 100%;
-  max-width: 412px;
+  max-width: 500px;
   margin: 0 auto;
 }
 
@@ -59,9 +55,7 @@
 }
 
 .dividerSvg {
-  display: block;
   width: 100%;
-  height: 1px;
 }
 
 /* Sections */

@@ -7,7 +7,7 @@ import TechLoader from './TechLoader';
 const STATUS_MESSAGES = [
   "Verifying linked accounts…",
   "Spotting regular payments…",
-  "Summarizing income patterns…",
+  "Summarising income patterns…",
   "Checking stability indicators…",
   "Preparing your result…"
 ];
@@ -33,7 +33,7 @@ function TextContent({ onComplete }: { onComplete?: () => void }) {
     if (currentIndex === STATUS_MESSAGES.length - 1) {
       const timeout = setTimeout(() => {
         onComplete?.();
-      }, 3000);
+      }, 1000);
       return () => clearTimeout(timeout);
     }
 
@@ -71,8 +71,8 @@ function EncryptionFooter() {
 
 export default function DataProcessing({ onComplete }: DataProcessingProps) {
   return (
-    <div className={styles.dataProcessingRoot}>
-      <div className={styles.dataProcessingInner}>
+    <div className={styles.root}>
+      <div className={styles.inner}>
         <LoadingAnimation />
         <TextContent onComplete={onComplete} />
         <EncryptionFooter />

@@ -1,5 +1,5 @@
 /* Layout */
-.dataProcessingRoot {
+.root {
   background: #ffffff;
   min-height: 100vh;
   width: 100%;
@@ -7,8 +7,8 @@
   overflow: hidden;
 }
 
-.dataProcessingInner {
-  max-width: 412px;
+.inner {
+  max-width: 500px;
   margin: 0 auto;
   width: 100%;
   min-height: 100vh;

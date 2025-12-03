@@ -280,25 +280,23 @@ interface UnderstandingAlternativeDataProps {
 
 export default function UnderstandingAlternativeData({ onBack, onContinue }: UnderstandingAlternativeDataProps) {
   return (
-    <div className={styles.pageRoot}>
-      <div className={styles.pageInner}>
-        <div className={styles.pageContent}>
-          <Header />
+    <div className={styles.root}>
+      <div className={styles.inner}>
+        <Header />
 
-          <div className={styles.dividerContainer}>
-            <div className={styles.dividerLineWrapper}>
-              <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
-                <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
-              </svg>
-            </div>
+        <div className={styles.dividerContainer}>
+          <div className={styles.dividerLineWrapper}>
+            <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
+              <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
+            </svg>
           </div>
-
-          <SectionIntro />
-          <DataSourcesSection />
-          <PrivacySection />
-          <HowWeUseItSection />
-          <Cta onBack={onBack} onContinue={onContinue} />
         </div>
+
+        <SectionIntro />
+        <DataSourcesSection />
+        <PrivacySection />
+        <HowWeUseItSection />
+        <Cta onBack={onBack} onContinue={onContinue} />
       </div>
     </div>
   );

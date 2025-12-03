@@ -95,8 +95,8 @@ function Content({ onAddAccounts, onSkip }: { onAddAccounts: () => void; onSkip:
 
 export default function OpenBanking({ onAddAccounts, onSkip }: OpenBankingProps) {
   return (
-    <div className={styles.openBankingRoot}>
-      <div className={styles.openBankingInner}>
+    <div className={styles.root}>
+      <div className={styles.inner}>
         <Header />
         <div className={styles.dividerContainer}>
           <div className={styles.dividerLineWrapper}>

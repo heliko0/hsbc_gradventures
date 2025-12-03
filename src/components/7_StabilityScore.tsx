@@ -60,19 +60,20 @@ function Frame({ score }: { score: number }) {
 }
 
 function Gauge({ score }: { score: number }) {
-  /** ARC DIMENSIONS — ROUNDED TO NEAREST EVEN NUMBERS */
-  const ARC_CONTAINER_SIZE = 292;     // .arcContainer width/height (stays even)
-  const ARC_INNER_DIAMETER = 262;     // 261.58 → rounded to 262
-  const radius = ARC_INNER_DIAMETER / 2 - 3; // try -1 or +1
+  /** ARC DIMENSIONS */
+  const ARC_CONTAINER_SIZE = 292;
+  const ARC_INNER_DIAMETER = 261.58;
+  const radius = ARC_INNER_DIAMETER / 2;
 
+  /** ARC CENTER POSITION - using centered positioning */
+  // arcContainer is centered at 50% with translateX(-50%)
+  // So its center is at 50% of gaugeContainer (348px max)
+  // The center of the 292px container is at 146px from its own edge
+  const centerX = 174; // 50% of 348px
+  const centerY = 146; // 292px / 2
 
-  /** ARC POSITION — ROUNDED */
-  const arcOffsetLeft = 28;  // from CSS (already even)
-  const arcOffsetTop = 0;
-
-  /** TRUE ARC CENTER — ROUNDED */
-  const centerX = arcOffsetLeft + ARC_CONTAINER_SIZE / 2; // 28 + 146 = 174
-  const centerY = arcOffsetTop + ARC_CONTAINER_SIZE / 2;  // 0 + 146 = 146
+  /** ROTATION OFFSET */
+  const rotationDeg = 352.876; // The arc is rotated by this amount
 
   /** ANGLES */
   const startAngle = 180;
@@ -81,16 +82,20 @@ function Gauge({ score }: { score: number }) {
   /** ANIMATED PROGRESS VALUE */
   const progress = useMotionValue(0);
 
-  /** Position transformation along the arc */
+  /** Position transformation along the arc - accounting for rotation */
   const circleLeft = useTransform(progress, (p) => {
     const scoreAngle = startAngle + ((endAngle - startAngle) * (p / 1000));
-    const angleRad = (scoreAngle * Math.PI) / 180;
+    // Add the rotation offset to get the actual visual position
+    const actualAngle = scoreAngle + rotationDeg;
+    const angleRad = (actualAngle * Math.PI) / 180;
     return centerX + radius * Math.cos(angleRad);
   });
 
   const circleTop = useTransform(progress, (p) => {
     const scoreAngle = startAngle + ((endAngle - startAngle) * (p / 1000));
-    const angleRad = (scoreAngle * Math.PI) / 180;
+    // Add the rotation offset to get the actual visual position
+    const actualAngle = scoreAngle + rotationDeg;
+    const angleRad = (actualAngle * Math.PI) / 180;
     return centerY + radius * Math.sin(angleRad);
   });
 
@@ -186,13 +191,11 @@ function Gauge({ score }: { score: number }) {
         className={styles.circleIndicatorContainer}
         style={{ left: circleLeft, top: circleTop }}
       >
-        <div className={styles.circleRotated}>
-          <div className={styles.circleInner}>
-            <div className={styles.circleSvgWrapper}>
-              <svg className={styles.circleSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 40 40">
-                <circle cx="19.6546" cy="19.6546" fill="white" r="15.6546" stroke="#28B67A" strokeWidth="8" />
-              </svg>
-            </div>
+        <div className={styles.circleIndicatorInner}>
+          <div className={styles.circleSvgWrapper}>
+            <svg className={styles.circleSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 40 40">
+              <circle cx="19.6546" cy="19.6546" fill="white" r="15.6546" stroke="#28B67A" strokeWidth="8" />
+            </svg>
           </div>
         </div>
       </motion.div>
@@ -515,52 +518,38 @@ function Information() {
   );
 }
 
-function StatusIconContainer() {
+function NotificationIconContainer() {
   return (
-    <div className={styles.statusIconContainer}>
+    <div className={styles.notificationIconContainer}>
       <Information />
     </div>
   );
 }
 
-function MessageContainer() {
+function NotificationMessageContainer() {
   return (
-    <div className={styles.messageContainer}>
-      <p className={styles.messageText}>Reviewing won't affect your credit score</p>
+    <div className={styles.notificationMessageContainer}>
+      <p className={styles.notificationText}>Reviewing won't affect your credit score</p>
     </div>
   );
 }
 
-function NotificationContextual() {
+function NotificationBanner() {
   return (
-    <div className={styles.notification}>
+    <div className={styles.notificationBanner}>
       <div className={styles.notificationBorder} />
-      <div className={styles.notificationInner}>
-        <div className={styles.notificationContent}>
-          <StatusIconContainer />
-          <MessageContainer />
-        </div>
+      <div className={styles.notificationContent}>
+        <NotificationIconContainer />
+        <NotificationMessageContainer />
       </div>
     </div>
   );
 }
 
-function ElementsContainer() {
-  return (
-    <div className={styles.buttonElements}>
-      <p className={styles.buttonText}>Review your loan</p>
-    </div>
-  );
-}
-
-function OnLightButtonPrimary({ onClick }: { onClick: () => void }) {
+function PrimaryButton({ onClick }: { onClick: () => void }) {
   return (
     <button type="button" onClick={onClick} className={styles.primaryButton}>
-      <div className={styles.buttonInner}>
-        <div className={styles.buttonContentWrapper}>
-          <ElementsContainer />
-        </div>
-      </div>
+      Review your loan
     </button>
   );
 }
@@ -568,8 +557,8 @@ function OnLightButtonPrimary({ onClick }: { onClick: () => void }) {
 function Cta({ onContinue }: { onContinue: () => void }) {
   return (
     <div className={styles.ctaSection}>
-      <NotificationContextual />
-      <OnLightButtonPrimary onClick={onContinue} />
+      <NotificationBanner />
+      <PrimaryButton onClick={onContinue} />
     </div>
   );
 }
@@ -598,18 +587,16 @@ export default function Component7StabilityScore({ onContinue }: StabilityScoreP
   
   return (
     <div className={styles.root}>
-      <div className={styles.container}>
-        <div className={styles.innerContainer}>
-          <Header />
-          <div className={styles.dividerContainer}>
-            <div className={styles.dividerLineWrapper}>
-              <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
-                <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
-              </svg>
-            </div>
+      <div className={styles.inner}>
+        <Header />
+        <div className={styles.dividerContainer}>
+          <div className={styles.dividerLineWrapper}>
+            <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
+              <line stroke="#9B9B9B" x1="0" x2="348" y1="0.5" y2="0.5" />
+            </svg>
           </div>
-          <Content5 score={userScore} onOpenModal={handleOpenModal} onContinue={onContinue} />
         </div>
+        <Content5 score={userScore} onOpenModal={handleOpenModal} onContinue={onContinue} />
       </div>
       {isModalOpen && <Modal onClose={handleCloseModal} />}
     </div>

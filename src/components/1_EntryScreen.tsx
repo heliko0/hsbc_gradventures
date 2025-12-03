@@ -54,7 +54,7 @@ function Benefits() {
         />
         <Benefit
           title="Flexibility"
-          description="Choose your repayment data"
+          description="Choose your repayment date"
         />
       </div>
     </section>
@@ -403,27 +403,25 @@ export default function EntryScreen({ onStartApplication, onLoanAmountChange, on
   const [isFormValid, setIsFormValid] = useState(false);
 
   return (
-    <div className={styles.entryScreenRoot}>
-      <div className={styles.entryScreenInner}>
-        <div className={styles.entryScreenContent}>
-          <Header />
+    <div className={styles.root}>
+      <div className={styles.inner}>
+        <Header />
 
-          <div className={styles.dividerContainer}>
-            <div className={styles.dividerLineWrapper}>
-              <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
-                <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
-              </svg>
-            </div>
+        <div className={styles.dividerContainer}>
+          <div className={styles.dividerLineWrapper}>
+            <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
+              <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
+            </svg>
           </div>
-
-          <Benefits />
-          <LoanProperties 
-            onValidityChange={setIsFormValid}
-            onLoanAmountChange={onLoanAmountChange}
-            onMonthsChange={onMonthsChange}
-          />
-          <Cta onStartApplication={onStartApplication} isFormValid={isFormValid} />
         </div>
+
+        <Benefits />
+        <LoanProperties 
+          onValidityChange={setIsFormValid}
+          onLoanAmountChange={onLoanAmountChange}
+          onMonthsChange={onMonthsChange}
+        />
+        <Cta onStartApplication={onStartApplication} isFormValid={isFormValid} />
       </div>
     </div>
   );

@@ -206,8 +206,8 @@ function Content({ onContinue }: { onContinue: () => void }) {
 
 export default function OpenBankingAdded({ onContinue }: OpenBankingAddedProps) {
   return (
-    <div className={styles.openBankingAddedRoot}>
-      <div className={styles.openBankingAddedInner}>
+    <div className={styles.root}>
+      <div className={styles.inner}>
         <Header />
         <div className={styles.dividerContainer}>
           <div className={styles.dividerLineWrapper}>

@@ -7,13 +7,13 @@ import OpenBanking from './components/4_OpenBanking';
 import OpenBankingAdded from './components/5_OpenBankingAdded';
 import DataProcessing from './components/6_DataProcessing';
 import StabilityScore from './components/7_StabilityScore';
-import ReviewYourLoan from './components/9_ReviewYourLoan';
-import Approval from './components/10_Approval';
-import ApprovalAccepted from './components/10b_ApprovalAccepted';
+import ReviewYourLoan from './components/8_ReviewYourLoan';
+import Approval from './components/9_Approval';
+import ApprovalAccepted from './components/9b_ApprovalAccepted';
 
 export default function App() {
   
-  const [currentScreen, setCurrentScreen] = useState<'entry' | 'assessment' | 'understanding' | 'openbanking' | 'openbankingadded' | 'dataprocessing' | 'stabilityscore' | 'reviewloan' | 'approval' | 'approvalaccepted'>('approval');
+  const [currentScreen, setCurrentScreen] = useState<'entry' | 'assessment' | 'understanding' | 'openbanking' | 'openbankingadded' | 'dataprocessing' | 'stabilityscore' | 'reviewloan' | 'approval' | 'approvalaccepted'>('entry');
   
   // Store loan properties from entry screen
   const [loanAmount, setLoanAmount] = useState(10000);
