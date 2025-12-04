@@ -1,117 +1,161 @@
 // App.tsx
-import { useState, useEffect } from 'react';
-import EntryScreen from './components/1_EntryScreen';
-import AssessmentChoice from './components/2_AssessmentChoice';
-import UnderstandingAlternativeData from './components/3_UnderstandingAlternativeData';
-import OpenBanking from './components/4_OpenBanking';
-import OpenBankingAdded from './components/5_OpenBankingAdded';
-import DataProcessing from './components/6_DataProcessing';
-import StabilityScore from './components/7_StabilityScore';
-import ReviewYourLoan from './components/8_ReviewYourLoan';
-import Approval from './components/9_Approval';
-import ApprovalAccepted from './components/9b_ApprovalAccepted';
+import { useState, useEffect } from "react";
+import EntryScreen from "./components/1_EntryScreen";
+import AssessmentChoice from "./components/2_AssessmentChoice";
+import UnderstandingAlternativeData from "./components/3_UnderstandingAlternativeData";
+import OpenBanking from "./components/4_OpenBanking";
+import OpenBankingAdded from "./components/5_OpenBankingAdded";
+import DataProcessing from "./components/6_DataProcessing";
+import StabilityScore from "./components/7_StabilityScore";
+import ReviewYourLoan from "./components/8_ReviewYourLoan";
+import Approval from "./components/9_Approval";
+import ApprovalAccepted from "./components/9b_ApprovalAccepted";
+import api from "./api/axios";
 
 export default function App() {
-  
-  const [currentScreen, setCurrentScreen] = useState<'entry' | 'assessment' | 'understanding' | 'openbanking' | 'openbankingadded' | 'dataprocessing' | 'stabilityscore' | 'reviewloan' | 'approval' | 'approvalaccepted'>('entry');
-  
-  // Store loan properties from entry screen
-  const [loanAmount, setLoanAmount] = useState(10000);
-  const [months, setMonths] = useState(62);
+    const [currentScreen, setCurrentScreen] = useState<
+        | "entry"
+        | "assessment"
+        | "understanding"
+        | "openbanking"
+        | "openbankingadded"
+        | "dataprocessing"
+        | "stabilityscore"
+        | "reviewloan"
+        | "approval"
+        | "approvalaccepted"
+    >("entry");
 
-  // Scroll to top when screen changes
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [currentScreen]);
+    // Store loan properties from entry screen
+    const [loanAmount, setLoanAmount] = useState(10000);
+    const [months, setMonths] = useState(62);
+    const [isLoading, setIsLoading] = useState(false);
 
-  const handleStartApplication = () => {
-    setCurrentScreen('assessment');
-  };
+    // Scroll to top when screen changes
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [currentScreen]);
 
-  const handleAssessmentContinue = () => {
-    setCurrentScreen('understanding');
-  };
+    const handleStartApplication = () => {
+        setCurrentScreen("assessment");
+    };
 
-  const handleUnderstandingBack = () => {
-    setCurrentScreen('assessment');
-  };
+    const handleAssessmentContinue = () => {
+        setCurrentScreen("understanding");
+    };
 
-  const handleUnderstandingContinue = () => {
-    setCurrentScreen('openbanking');
-  };
+    const handleUnderstandingBack = () => {
+        setCurrentScreen("assessment");
+    };
 
-  const handleOpenBankingAddAccounts = () => {
-    setCurrentScreen('openbankingadded');
-  };
+    const handleUnderstandingContinue = () => {
+        setCurrentScreen("openbanking");
+    };
 
-  const handleOpenBankingSkip = () => {
-    setCurrentScreen('dataprocessing');
-  };
+    const handleOpenBankingAddAccounts = () => {
+        setCurrentScreen("openbankingadded");
+    };
 
-  const handleOpenBankingAddedContinue = () => {
-    setCurrentScreen('dataprocessing');
-  };
+    const handleOpenBankingSkip = () => {
+        setCurrentScreen("dataprocessing");
+    };
 
-  const handleDataProcessingComplete = () => {
-    setCurrentScreen('stabilityscore');
-  };
+    const handleOpenBankingAddedContinue = async () => {
+        setIsLoading(true);
+        try {
+            const response = await api.post("/your-endpoint", { // TODO: This is a mock! Please start 
+                message: "hello",
+                data: { foo: "bar" },
+            });
+            console.log("API response:", response.data);
 
-  const handleStabilityScoreContinue = () => {
-    setCurrentScreen('reviewloan');
-  };
+            // Move to next screen after successful API call
+            setCurrentScreen("dataprocessing");
+        } catch (error) {
+            console.error("Error calling backend:", error);
+            // Optionally handle error - show error message, stay on same screen, etc.
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-  const handleReviewLoanSubmit = () => {
-    setCurrentScreen('approval');
-  };
+    const handleDataProcessingComplete = () => {
+        setCurrentScreen("stabilityscore");
+    };
 
-  const handleViewAgreement = () => {
-    setCurrentScreen('approvalaccepted');
-  };
+    const handleStabilityScoreContinue = () => {
+        setCurrentScreen("reviewloan");
+    };
 
-  const handleReviewLoan = () => {
-    setCurrentScreen('reviewloan');
-  };
+    const handleReviewLoanSubmit = () => {
+        setCurrentScreen("approval");
+    };
 
-  if (currentScreen === 'approvalaccepted') {
-    return <ApprovalAccepted onReviewLoan={handleReviewLoan} />;
-  }
+    const handleViewAgreement = () => {
+        setCurrentScreen("approvalaccepted");
+    };
 
-  if (currentScreen === 'approval') {
-    return <Approval onViewAgreement={handleViewAgreement} />;
-  }
+    const handleReviewLoan = () => {
+        setCurrentScreen("reviewloan");
+    };
 
-  if (currentScreen === 'reviewloan') {
-    return <ReviewYourLoan onSubmit={handleReviewLoanSubmit} initialLoanAmount={loanAmount} initialMonths={months} />;
-  }
+    if (currentScreen === "approvalaccepted") {
+        return <ApprovalAccepted onReviewLoan={handleReviewLoan} />;
+    }
 
-  if (currentScreen === 'stabilityscore') {
-    return <StabilityScore onContinue={handleStabilityScoreContinue} />;
-  }
+    if (currentScreen === "approval") {
+        return <Approval onViewAgreement={handleViewAgreement} />;
+    }
 
-  if (currentScreen === 'dataprocessing') {
-    return <DataProcessing onComplete={handleDataProcessingComplete} />;
-  }
+    if (currentScreen === "reviewloan") {
+        return (
+            <ReviewYourLoan
+                onSubmit={handleReviewLoanSubmit}
+                initialLoanAmount={loanAmount}
+                initialMonths={months}
+            />
+        );
+    }
 
-  if (currentScreen === 'openbankingadded') {
-    return <OpenBankingAdded onContinue={handleOpenBankingAddedContinue} />;
-  }
+    if (currentScreen === "stabilityscore") {
+        return <StabilityScore onContinue={handleStabilityScoreContinue} />;
+    }
 
-  if (currentScreen === 'openbanking') {
-    return <OpenBanking onAddAccounts={handleOpenBankingAddAccounts} onSkip={handleOpenBankingSkip} />;
-  }
+    if (currentScreen === "dataprocessing") {
+        return <DataProcessing onComplete={handleDataProcessingComplete} />;
+    }
 
-  if (currentScreen === 'understanding') {
+    if (currentScreen === "openbankingadded") {
+        return <OpenBankingAdded onContinue={handleOpenBankingAddedContinue} />;
+    }
+
+    if (currentScreen === "openbanking") {
+        return (
+            <OpenBanking
+                onAddAccounts={handleOpenBankingAddAccounts}
+                onSkip={handleOpenBankingSkip}
+            />
+        );
+    }
+
+    if (currentScreen === "understanding") {
+        return (
+            <UnderstandingAlternativeData
+                onBack={handleUnderstandingBack}
+                onContinue={handleUnderstandingContinue}
+            />
+        );
+    }
+
+    if (currentScreen === "assessment") {
+        return <AssessmentChoice onContinue={handleAssessmentContinue} />;
+    }
+
     return (
-      <UnderstandingAlternativeData
-        onBack={handleUnderstandingBack}
-        onContinue={handleUnderstandingContinue}
-      />
+        <EntryScreen
+            onStartApplication={handleStartApplication}
+            onLoanAmountChange={setLoanAmount}
+            onMonthsChange={setMonths}
+        />
     );
-  }
-
-  if (currentScreen === 'assessment') {
-    return <AssessmentChoice onContinue={handleAssessmentContinue} />;
-  }
-
-  return <EntryScreen onStartApplication={handleStartApplication} onLoanAmountChange={setLoanAmount} onMonthsChange={setMonths} />;
 }
