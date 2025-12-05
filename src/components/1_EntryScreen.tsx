@@ -1,67 +1,12 @@
-// components/ui/1EntryScreen.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import svgPaths from '../imports/svg-hf8fuwzgy3';
 import styles from './1_EntryScreen.module.css';
 
-function Header() {
-  return (
-    <div className={styles.header}>
-      <p className={styles.headerTitle}>Find a loan that's right for you</p>
-      <p className={styles.headerSubtitle}>
-        Apply for a personal loan and get an answer in minutes
-      </p>
-    </div>
-  );
-}
+// ============================================================================
+// TYPES
+// ============================================================================
 
-function BenefitIcon() {
-  return (
-    <div className={styles.benefitIconWrapper}>
-      <svg className={styles.benefitIconSvg} fill="none" viewBox="0 0 18 18">
-        <g>
-          <circle cx="9" cy="9" r="9" fill="#00847F" />
-          <path d={svgPaths.p2801d500} fill="#ffffff" />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-function Benefit({ title, description }: { title: string; description: string }) {
-  return (
-    <div className={styles.benefitRow}>
-      <BenefitIcon />
-      <div className={styles.benefitText}>
-        <p className={styles.benefitTitle}>{title}</p>
-        <p className={styles.benefitDescription}>{description}</p>
-      </div>
-    </div>
-  );
-}
-
-function Benefits() {
-  return (
-    <section className={styles.benefitsSection}>
-      <p className={styles.sectionTitle}>Key benefits</p>
-      <div className={styles.benefitsList}>
-        <Benefit
-          title="Instant funds"
-          description="If approved, receive the money instantly after signing the loan agreement"
-        />
-        <Benefit
-          title="Approval for everyone"
-          description="Choose how we assess your creditworthiness"
-        />
-        <Benefit
-          title="Flexibility"
-          description="Choose your repayment date"
-        />
-      </div>
-    </section>
-  );
-}
-
-interface SliderProps {
+type SliderProps = {
   value: number;
   min: number;
   max: number;
@@ -74,9 +19,89 @@ interface SliderProps {
   inputValue: string;
   onInputChange: (value: string) => void;
   error?: string;
-}
+};
 
-function Slider({
+type LoanPropertiesProps = {
+  onValidityChange: (valid: boolean) => void;
+  onLoanAmountChange: (amount: number) => void;
+  onMonthsChange: (months: number) => void;
+};
+
+type CtaProps = {
+  onStartApplication: () => void;
+  isFormValid: boolean;
+};
+
+export type EntryScreenProps = {
+  onStartApplication: () => void;
+  onLoanAmountChange: (amount: number) => void;
+  onMonthsChange: (months: number) => void;
+};
+
+// ============================================================================
+// COMPONENTS
+// ============================================================================
+
+const Header: React.FC = () => (
+  <div className={styles.header}>
+    <p className={styles.headerTitle}>Find a loan that's right for you</p>
+    <p className={styles.headerSubtitle}>
+      Apply for a personal loan and get an answer in minutes
+    </p>
+  </div>
+);
+
+const BenefitIcon: React.FC = () => (
+  <div className={styles.benefitIconWrapper}>
+    <svg className={styles.benefitIconSvg} fill="none" viewBox="0 0 18 18">
+      <g>
+        <circle cx="9" cy="9" r="9" fill="#00847F" />
+        <path d={svgPaths.p2801d500} fill="#ffffff" />
+      </g>
+    </svg>
+  </div>
+);
+
+type BenefitProps = {
+  title: string;
+  description: string;
+};
+
+const Benefit: React.FC<BenefitProps> = ({ title, description }) => (
+  <div className={styles.benefitRow}>
+    <BenefitIcon />
+    <div className={styles.benefitText}>
+      <p className={styles.benefitTitle}>{title}</p>
+      <p className={styles.benefitDescription}>{description}</p>
+    </div>
+  </div>
+);
+
+const Benefits: React.FC = () => (
+  <section className={styles.benefitsSection}>
+    <p className={styles.sectionTitle}>Key benefits</p>
+    <div className={styles.benefitsList}>
+      <Benefit
+        title="Instant funds"
+        description="If approved, receive the money instantly after signing the loan agreement"
+      />
+      <Benefit
+        title="Approval for everyone"
+        description="Choose how we assess your creditworthiness"
+      />
+      <Benefit
+        title="Flexibility"
+        description="Choose your repayment date"
+      />
+    </div>
+  </section>
+);
+
+// ============================================================================
+// SLIDER COMPONENT
+// ============================================================================
+
+const Slider: React.FC<SliderProps> = ({
   value,
   min,
   max,
@@ -89,66 +114,62 @@ function Slider({
   inputValue,
   onInputChange,
   error,
-}: SliderProps) {
-  const sliderRef = useRef<HTMLDivElement | null>(null);
+}) => {
+  const sliderRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const percentage = ((value - min) / (max - min)) * 100;
 
-  const updateSliderValue = (clientX: number) => {
+  const updateSliderValue = (clientX: number): void => {
     if (!sliderRef.current) return;
     const rect = sliderRef.current.getBoundingClientRect();
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const perc = x / rect.width;
     const rawValue = min + perc * (max - min);
     const steppedValue = Math.round(rawValue / step) * step;
-    const newValue = Math.min(max, Math.max(min, steppedValue));
+    const newValue = Math.max(min, Math.min(max, steppedValue));
     onChange(newValue);
   };
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
     setIsDragging(true);
     updateSliderValue(e.clientX);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (isDragging) {
-      updateSliderValue(e.clientX);
-    }
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
     setIsDragging(true);
-    updateSliderValue(e.touches[0].clientX);
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    if (isDragging && e.touches.length > 0) {
+    if (e.touches.length > 0) {
       updateSliderValue(e.touches[0].clientX);
     }
-  };
-
-  const handleTouchEnd = () => {
-    setIsDragging(false);
   };
 
   useEffect(() => {
     if (!isDragging) return;
 
+    const handleMouseMove = (e: MouseEvent): void => {
+      updateSliderValue(e.clientX);
+    };
+
+    const handleTouchMove = (e: TouchEvent): void => {
+      if (e.touches.length > 0) {
+        updateSliderValue(e.touches[0].clientX);
+      }
+    };
+
+    const handleEnd = (): void => {
+      setIsDragging(false);
+    };
+
     document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mouseup', handleEnd);
     document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener('touchend', handleEnd);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('mouseup', handleEnd);
       document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleTouchEnd);
+      document.removeEventListener('touchend', handleEnd);
     };
   }, [isDragging]);
 
@@ -158,7 +179,12 @@ function Slider({
 
       <div className={styles.sliderInputRow}>
         <div className={styles.sliderTextInputWrapper}>
-          <div className={`${styles.sliderTextInputBorder} ${error ? styles.sliderTextInputBorderError : ''}`} />
+          <div
+            className={`${styles.sliderTextInputBorder} ${
+              error ? styles.sliderTextInputBorderError : ''
+            }`}
+            aria-hidden="true"
+          />
           <input
             type="text"
             value={inputValue}
@@ -198,37 +224,51 @@ function Slider({
       </div>
     </div>
   );
-}
+};
 
-interface LoanPropertiesProps {
-  onValidityChange: (valid: boolean) => void;
-  onLoanAmountChange: (amount: number) => void;
-  onMonthsChange: (months: number) => void;
-}
+// ============================================================================
+// LOAN PROPERTIES COMPONENT
+// ============================================================================
 
-function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }: LoanPropertiesProps) {
+const LoanProperties: React.FC<LoanPropertiesProps> = ({
+  onValidityChange,
+  onLoanAmountChange,
+  onMonthsChange,
+}) => {
   const MIN_LOAN = 1000;
   const MAX_LOAN = 50000;
   const LOAN_STEP = 1000;
-
   const MIN_MONTHS = 6;
   const MAX_MONTHS = 96;
 
-  const formatCurrency = (value: number) => `£${value.toLocaleString()}`;
+  const formatCurrency = (value: number): string => `£${value.toLocaleString()}`;
 
-  // ---- NEW: compute middle values ----
-  const midpointLoan = Math.round(((MIN_LOAN + MAX_LOAN) / 2) / LOAN_STEP) * LOAN_STEP;
+  const formatMonthsToYears = (months: number): string => {
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    const nbsp = '\u00A0';
+
+    if (years === 0) {
+      return `${remainingMonths}${nbsp}Month${remainingMonths !== 1 ? 's' : ''}`;
+    }
+    if (remainingMonths === 0) {
+      return `${years}${nbsp}Year${years !== 1 ? 's' : ''}`;
+    }
+    return `${years}${nbsp}Year${years !== 1 ? 's' : ''}${nbsp}${remainingMonths}${nbsp}Month${
+      remainingMonths !== 1 ? 's' : ''
+    }`;
+  };
+
+  const midpointLoan =
+    Math.round(((MIN_LOAN + MAX_LOAN) / 2) / LOAN_STEP) * LOAN_STEP;
   const midpointMonths = Math.round((MIN_MONTHS + MAX_MONTHS) / 2);
 
-  // Use lazy initialisers so they only run once
   const [loanAmount, setLoanAmount] = useState(() => midpointLoan);
   const [months, setMonths] = useState(() => midpointMonths);
   const [loanAmountInput, setLoanAmountInput] = useState(
     () => formatCurrency(midpointLoan)
   );
-  const [monthsInput, setMonthsInput] = useState(
-    () => midpointMonths.toString()
-  );
+  const [monthsInput, setMonthsInput] = useState(() => midpointMonths.toString());
   const [loanAmountError, setLoanAmountError] = useState('');
   const [monthsError, setMonthsError] = useState('');
 
@@ -238,25 +278,12 @@ function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }
     return isNaN(num) ? null : num;
   };
 
-  const formatMonthsToYears = (months: number) => {
-  const years = Math.floor(months / 12);
-  const remainingMonths = months % 12;
-  const nbsp = '\u00A0';
-
-  if (years === 0) {
-    return `${remainingMonths}${nbsp}Month${remainingMonths !== 1 ? 's' : ''}`;
-  } else if (remainingMonths === 0) {
-    return `${years}${nbsp}Year${years !== 1 ? 's' : ''}`;
-  } else {
-    return `${years}${nbsp}Year${years !== 1 ? 's' : ''}${nbsp}${remainingMonths}${nbsp}Month${remainingMonths !== 1 ? 's' : ''}`;
-  }
-};
-
   // Notify parent of initial values on mount
   useEffect(() => {
     onLoanAmountChange(loanAmount);
     onMonthsChange(months);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Notify parent whenever validity changes
   useEffect(() => {
@@ -264,21 +291,21 @@ function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }
     onValidityChange(isValid);
   }, [loanAmountError, monthsError, onValidityChange]);
 
-  const handleLoanAmountChange = (value: number) => {
+  const handleLoanAmountChange = (value: number): void => {
     setLoanAmount(value);
     setLoanAmountInput(formatCurrency(value));
     setLoanAmountError('');
     onLoanAmountChange(value);
   };
 
-  const handleMonthsChange = (value: number) => {
+  const handleMonthsChange = (value: number): void => {
     setMonths(value);
     setMonthsInput(value.toString());
     setMonthsError('');
     onMonthsChange(value);
   };
 
-  const handleLoanAmountInputChange = (value: string) => {
+  const handleLoanAmountInputChange = (value: string): void => {
     setLoanAmountInput(value);
     const parsed = parseCurrency(value);
     if (parsed !== null) {
@@ -294,7 +321,7 @@ function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }
     }
   };
 
-  const handleMonthsInputChange = (value: string) => {
+  const handleMonthsInputChange = (value: string): void => {
     setMonthsInput(value);
     const parsed = parseInt(value, 10);
     if (!isNaN(parsed)) {
@@ -313,7 +340,8 @@ function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }
       <div className={styles.loanHeader}>
         <p className={styles.sectionTitle}>Calculate your loan</p>
         <p className={styles.loanDescription}>
-          This helps us assess your application accurately. You can review these details again before you submit.
+          This helps us assess your application accurately. You can review
+          these details again before you submit.
         </p>
       </div>
 
@@ -321,12 +349,18 @@ function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }
         value={loanAmount}
         min={MIN_LOAN}
         max={MAX_LOAN}
-        step={1000}
+        step={LOAN_STEP}
         onChange={handleLoanAmountChange}
         label="How much would you like to borrow?"
         minDisplayValue="£1,000"
         maxDisplayValue="£50,000"
-        secondaryLabel={'5.8% APR\nRepresentative'}
+        secondaryLabel={
+          <>
+            <span>5.8% APR</span>
+            <br />
+            <span>Representative</span>
+          </>
+        }
         inputValue={loanAmountInput}
         onInputChange={handleLoanAmountInputChange}
         error={loanAmountError}
@@ -347,59 +381,56 @@ function LoanProperties({ onValidityChange, onLoanAmountChange, onMonthsChange }
       />
     </section>
   );
-}
+};
 
-function InfoIcon() {
-  return (
-    <div className={styles.infoIconWrapper}>
-      <svg className={styles.infoIconSvg} fill="none" viewBox="0 0 18 18">
-        <g>
-          <circle cx="9" cy="9" r="9" fill="#305A85" />
-          <path d={svgPaths.p19a91380} fill="#ffffff" />
-          <path d={svgPaths.p3ddcf200} fill="#ffffff" />
-        </g>
-      </svg>
-    </div>
-  );
-}
+// ============================================================================
+// CTA COMPONENTS
+// ============================================================================
 
-interface CtaProps {
-  onStartApplication: () => void;
-  isFormValid: boolean;
-}
+const InfoIcon: React.FC = () => (
+  <div className={styles.infoIconWrapper}>
+    <svg className={styles.infoIconSvg} fill="none" viewBox="0 0 18 18">
+      <g>
+        <circle cx="9" cy="9" r="9" fill="#305A85" />
+        <path d={svgPaths.p19a91380} fill="#ffffff" />
+        <path d={svgPaths.p3ddcf200} fill="#ffffff" />
+      </g>
+    </svg>
+  </div>
+);
 
-function Cta({ onStartApplication, isFormValid }: CtaProps) {
-  return (
-    <div className={styles.ctaSection}>
-      <div className={styles.notificationBanner}>
-        <div className={styles.notificationBorder} />
-        <div className={styles.notificationContent}>
-          <InfoIcon />
-          <p className={styles.notificationText}>
-            Starting an application won't affect your credit score
-          </p>
-        </div>
+const Cta: React.FC<CtaProps> = ({ onStartApplication, isFormValid }) => (
+  <div className={styles.ctaSection}>
+    <div className={styles.notificationBanner}>
+      <div className={styles.notificationBorder} aria-hidden="true" />
+      <div className={styles.notificationContent}>
+        <InfoIcon />
+        <p className={styles.notificationText}>
+          Starting an application won't affect your credit score
+        </p>
       </div>
-
-      <button
-        onClick={isFormValid ? onStartApplication : undefined}
-        disabled={!isFormValid}
-        className={styles.primaryButton}
-        type="button"
-      >
-        <span>Start application</span>
-      </button>
     </div>
-  );
-}
 
-export interface EntryScreenProps {
-  onStartApplication: () => void;
-  onLoanAmountChange: (amount: number) => void;
-  onMonthsChange: (months: number) => void;
-}
+    <button
+      onClick={isFormValid ? onStartApplication : undefined}
+      disabled={!isFormValid}
+      className={styles.primaryButton}
+      type="button"
+    >
+      <span>Start application</span>
+    </button>
+  </div>
+);
 
-export default function EntryScreen({ onStartApplication, onLoanAmountChange, onMonthsChange }: EntryScreenProps) {
+// ============================================================================
+// ENTRY SCREEN
+// ============================================================================
+
+const EntryScreen: React.FC<EntryScreenProps> = ({
+  onStartApplication,
+  onLoanAmountChange,
+  onMonthsChange,
+}) => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   return (
@@ -416,7 +447,7 @@ export default function EntryScreen({ onStartApplication, onLoanAmountChange, on
         </div>
 
         <Benefits />
-        <LoanProperties 
+        <LoanProperties
           onValidityChange={setIsFormValid}
           onLoanAmountChange={onLoanAmountChange}
           onMonthsChange={onMonthsChange}
@@ -425,4 +456,6 @@ export default function EntryScreen({ onStartApplication, onLoanAmountChange, on
       </div>
     </div>
   );
-}
+};
+
+export default EntryScreen;

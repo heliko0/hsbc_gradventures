@@ -1,161 +1,187 @@
-// components/ui/AssessmentChoice.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import svgPaths from '../imports/svg-yerdz9yfhi';
 import styles from './2_AssessmentChoice.module.css';
 
-function Header() {
-  return (
-    <header className={styles.header}>
-      <p className={styles.headerTitle}>Choose how we assess you</p>
-      <p className={styles.headerSubtitle}>
-        Both methods are secure and compliant. Choose the one that best fits your situation.
-      </p>
-    </header>
-  );
-}
+// ============================================================================
+// TYPES
+// ============================================================================
 
-function SectionIntro() {
-  return (
-    <section className={styles.sectionIntro}>
-      <p className={styles.sectionIntroTitle}>Select your assessment path:</p>
-      <p className={styles.sectionIntroText}>
-        Not sure? If you have an existing credit card or loan, Traditional may be more accurate. If you're new to credit
-        or self-employed/gig, Alternative may give a fairer picture.
-      </p>
-    </section>
-  );
-}
+type AssessmentOptionType = 'traditional' | 'hybrid' | null;
 
-interface RadioButtonProps {
-  checked: boolean;
-  onClick: () => void;
-}
-
-function RadioButton({ checked, onClick }: RadioButtonProps) {
-  return (
-    <button
-      type="button"
-      className={styles.radioButtonRoot}
-      onClick={onClick}
-      aria-pressed={checked}
-    >
-      <svg className={styles.radioButtonSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 20 20">
-        <g>
-          <circle cx="10" cy="10" fill="white" r="9.5" stroke="black" />
-          {checked && <circle cx="10" cy="10" fill="#333333" r="6" />}
-        </g>
-      </svg>
-    </button>
-  );
-}
-
-function Bullet() {
-  return (
-    <span className={styles.bulletWrapper}>
-      <span className={styles.bulletSquare} />
-    </span>
-  );
-}
-
-interface AssessmentCardProps {
+type AssessmentCardProps = {
   title: string;
   description: string;
   benefits: string[];
-  checked: boolean;
+  isChecked: boolean;
   onToggle: () => void;
   onLearnMore: () => void;
-}
+};
 
-function AssessmentCard({
+type CtaProps = {
+  onContinue: () => void;
+  canContinue: boolean;
+};
+
+export type AssessmentChoiceProps = {
+  onContinue: () => void;
+};
+
+// ============================================================================
+// COMPONENTS
+// ============================================================================
+
+const Header: React.FC = () => (
+  <header className={styles.header}>
+    <p className={styles.headerTitle}>Choose how we assess you</p>
+    <p className={styles.headerSubtitle}>
+      Both methods are secure and compliant. Choose the one that best fits
+      your situation.
+    </p>
+  </header>
+);
+
+const SectionIntro: React.FC = () => (
+  <section className={styles.sectionIntro}>
+    <p className={styles.sectionIntroTitle}>Select your assessment path:</p>
+    <p className={styles.sectionIntroText}>
+      Not sure? If you have an existing credit card or loan, Traditional may be
+      more accurate. If you're new to credit or self-employed/gig, Alternative
+      may give a fairer picture.
+    </p>
+  </section>
+);
+
+// ============================================================================
+// RADIO BUTTON COMPONENT
+// ============================================================================
+
+type RadioButtonProps = {
+  isChecked: boolean;
+  onClick: () => void;
+};
+
+const RadioButton: React.FC<RadioButtonProps> = ({ isChecked, onClick }) => (
+  <button
+    type="button"
+    className={styles.radioButtonRoot}
+    onClick={onClick}
+    aria-pressed={isChecked}
+  >
+    <svg
+      className={styles.radioButtonSvg}
+      fill="none"
+      preserveAspectRatio="none"
+      viewBox="0 0 20 20"
+    >
+      <g>
+        <circle cx="10" cy="10" fill="white" r="9.5" stroke="black" />
+        {isChecked && <circle cx="10" cy="10" fill="#333333" r="6" />}
+      </g>
+    </svg>
+  </button>
+);
+
+// ============================================================================
+// BULLET COMPONENT
+// ============================================================================
+
+const Bullet: React.FC = () => (
+  <span className={styles.bulletWrapper}>
+    <span className={styles.bulletSquare} />
+  </span>
+);
+
+// ============================================================================
+// ASSESSMENT CARD COMPONENT
+// ============================================================================
+
+const AssessmentCard: React.FC<AssessmentCardProps> = ({
   title,
   description,
   benefits,
-  checked,
+  isChecked,
   onToggle,
   onLearnMore,
-}: AssessmentCardProps) {
-  return (
-    <article className={`${styles.cardRoot} ${checked ? styles.cardRootActive : ''}`}>
-      <div className={styles.cardBorder} />
-      <div className={styles.cardContent}>
-        <div className={styles.cardHeader}>
-          <p className={styles.cardTitle}>{title}</p>
-          <RadioButton checked={checked} onClick={onToggle} />
-        </div>
-        <p className={styles.cardDescription}>{description}</p>
-
-        <ul className={styles.cardBenefitsList}>
-          {benefits.map((benefit, index) => (
-            <li key={benefit} className={styles.cardBenefitRow}>
-              <Bullet />
-              <p className={styles.cardBenefitText}>{benefit}</p>
-            </li>
-          ))}
-        </ul>
-
-        <button
-          type="button"
-          className={styles.learnMoreButton}
-          onClick={onLearnMore}
-        >
-          Learn more
-        </button>
+}) => (
+  <article className={`${styles.cardRoot} ${isChecked ? styles.cardRootActive : ''}`}>
+    <div className={styles.cardBorder} />
+    <div className={styles.cardContent}>
+      <div className={styles.cardHeader}>
+        <p className={styles.cardTitle}>{title}</p>
+        <RadioButton isChecked={isChecked} onClick={onToggle} />
       </div>
-    </article>
-  );
-}
 
-function InfoIcon() {
-  return (
-    <div className={styles.infoIconWrapper}>
-      <svg className={styles.infoIconSvg} fill="none" viewBox="0 0 18 18">
-        <g>
-          <circle cx="9" cy="9" r="9" fill="#305A85" />
-          <path d={svgPaths.p19a91380} fill="#ffffff" />
-          <path d={svgPaths.p3ddcf200} fill="#ffffff" />
-        </g>
-      </svg>
-    </div>
-  );
-}
+      <p className={styles.cardDescription}>{description}</p>
 
-function Cta({ onContinue, canContinue }: { onContinue: () => void; canContinue: boolean }) {
-  return (
-    <section className={styles.ctaSection}>
-      <div className={styles.notificationBanner}>
-        <div className={styles.notificationBorder} />
-        <div className={styles.notificationContent}>
-          <InfoIcon />
-          <p className={styles.notificationText}>
-            Continuing won't affect your credit score
-          </p>
-        </div>
-      </div>
+      <ul className={styles.cardBenefitsList}>
+        {benefits.map((benefit) => (
+          <li key={benefit} className={styles.cardBenefitRow}>
+            <Bullet />
+            <p className={styles.cardBenefitText}>{benefit}</p>
+          </li>
+        ))}
+      </ul>
 
       <button
         type="button"
-        onClick={canContinue ? onContinue : undefined}
-        disabled={!canContinue}
-        className={`${styles.primaryButton} ${
-          !canContinue ? styles.primaryButtonDisabled : ''
-        }`}
+        className={styles.learnMoreButton}
+        onClick={onLearnMore}
       >
-        <span>Continue</span>
+        Learn more
       </button>
-    </section>
-  );
-}
+    </div>
+  </article>
+);
 
-interface AssessmentChoiceProps {
-  onContinue: () => void;
-}
+// ============================================================================
+// CTA COMPONENTS
+// ============================================================================
 
-export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) {
-  const [selectedOption, setSelectedOption] = React.useState<'traditional' | 'hybrid' | null>(null);
+const InfoIcon: React.FC = () => (
+  <div className={styles.infoIconWrapper}>
+    <svg className={styles.infoIconSvg} fill="none" viewBox="0 0 18 18">
+      <g>
+        <circle cx="9" cy="9" r="9" fill="#305A85" />
+        <path d={svgPaths.p19a91380} fill="#ffffff" />
+        <path d={svgPaths.p3ddcf200} fill="#ffffff" />
+      </g>
+    </svg>
+  </div>
+);
+
+const Cta: React.FC<CtaProps> = ({ onContinue, canContinue }) => (
+  <section className={styles.ctaSection}>
+    <div className={styles.notificationBanner}>
+      <div className={styles.notificationBorder} aria-hidden="true" />
+      <div className={styles.notificationContent}>
+        <InfoIcon />
+        <p className={styles.notificationText}>
+          Continuing won't affect your credit score
+        </p>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      onClick={canContinue ? onContinue : undefined}
+      disabled={!canContinue}
+      className={styles.primaryButton}
+    >
+      <span>Continue</span>
+    </button>
+  </section>
+);
+
+// ============================================================================
+// ASSESSMENT CHOICE SCREEN
+// ============================================================================
+
+const AssessmentChoice: React.FC<AssessmentChoiceProps> = ({ onContinue }) => {
+  const [selectedOption, setSelectedOption] = useState<AssessmentOptionType>(null);
 
   const canContinue = selectedOption !== null;
 
-  const handleLearnMore = () => {
+  const handleLearnMore = (): void => {
     console.log('Learn more clicked');
   };
 
@@ -166,49 +192,55 @@ export default function AssessmentChoice({ onContinue }: AssessmentChoiceProps) 
 
         <div className={styles.dividerContainer}>
           <div className={styles.dividerLineWrapper}>
-            <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
+            <svg
+              className={styles.dividerSvg}
+              fill="none"
+              viewBox="0 0 348 1"
+            >
               <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
             </svg>
           </div>
         </div>
 
         <main className={styles.mainLayout}>
-            <div className={styles.cardsAndIntro}>
-              <SectionIntro />
+          <div className={styles.cardsAndIntro}>
+            <SectionIntro />
 
-              <div className={styles.cardsList}>
-                <AssessmentCard
-                  title="Traditional (credit score only)"
-                  description="We'll check your credit report and do standard affordability checks."
-                  benefits={[
-                    'Best if you have pre-existing credit history',
-                    'The most familiar and established lending method',
-                    'Pull your score quickly and easily with credit bureaus ',
-                  ]}
-                  checked={selectedOption === 'traditional'}
-                  onToggle={() => setSelectedOption('traditional')}
-                  onLearnMore={handleLearnMore}
-                />
+            <div className={styles.cardsList}>
+              <AssessmentCard
+                title="Traditional (credit score only)"
+                description="We'll check your credit report and do standard affordability checks."
+                benefits={[
+                  'Best if you have pre-existing credit history',
+                  'The most familiar and established lending method',
+                  'Pull your score quickly and easily with credit bureaus',
+                ]}
+                isChecked={selectedOption === 'traditional'}
+                onToggle={() => setSelectedOption('traditional')}
+                onLearnMore={handleLearnMore}
+              />
 
-                <AssessmentCard
-                  title="Hybrid (credit + alternative data)"
-                  description="We consider more of your real-life finances (with your permission), like bank transactions, rent, and utilities."
-                  benefits={[
-                    "Best if you're new to credit or have a thin-file",
-                    'Recognises steady non-credit payments (e.g., rent, phone, utilities)',
-                    "Good for those with variable income, e.g. if you're a freelancer, gig-worker, or self-employed",
-                    "See the factors boosting or holding back your score - and how to fix them"
-                  ]}
-                  checked={selectedOption === 'hybrid'}
-                  onToggle={() => setSelectedOption('hybrid')}
-                  onLearnMore={handleLearnMore}
-                />
-              </div>
+              <AssessmentCard
+                title="Hybrid (credit + alternative data)"
+                description="We consider more of your real-life finances (with your permission), like bank transactions, rent, and utilities."
+                benefits={[
+                  "Best if you're new to credit or have a thin-file",
+                  'Recognises steady non-credit payments (e.g., rent, phone, utilities)',
+                  "Good for those with variable income, e.g. if you're a freelancer, gig-worker, or self-employed",
+                  "See the factors boosting or holding back your score - and how to fix them",
+                ]}
+                isChecked={selectedOption === 'hybrid'}
+                onToggle={() => setSelectedOption('hybrid')}
+                onLearnMore={handleLearnMore}
+              />
             </div>
+          </div>
 
-            <Cta onContinue={onContinue} canContinue={canContinue} />
-          </main>
+          <Cta onContinue={onContinue} canContinue={canContinue} />
+        </main>
       </div>
     </div>
   );
-}
+};
+
+export default AssessmentChoice;

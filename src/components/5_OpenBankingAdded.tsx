@@ -1,11 +1,11 @@
-// 5_OpenBankingAdded.tsx - Second Open Banking screen with account toggles
 import svgPaths from "../imports/svg-rnajv1bdey";
 import styles from "./5_OpenBankingAdded.module.css";
-import api from "../api/axios";
+
+// ...existing code...
 
 interface OpenBankingAddedProps {
-    onContinue: () => Promise<void>; // Change to Promise<void>
-    isLoading?: boolean; // Add loading prop
+    // onContinue now just navigates to DataProcessing (no score passed here)
+    onContinue: () => void;
 }
 
 function Header() {
@@ -172,24 +172,17 @@ function KeySections() {
 }
 
 function InformationIcon() {
-    return (
-        <div className={styles.notificationIcon}>
-            <svg
-                className={styles.notificationIconSvg}
-                fill="none"
-                viewBox="0 0 18 18"
-            >
-                <g>
-                    <g></g>
-                    <circle cx="9" cy="9" fill="#305A85" r="9" />
-                    <g>
-                        <path d={svgPaths.p19a91380} fill="white" />
-                        <path d={svgPaths.p3ddcf200} fill="white" />
-                    </g>
-                </g>
-            </svg>
-        </div>
-    );
+  return (
+    <div className={styles.notificationIcon}>
+      <svg className={styles.notificationIconSvg} fill="none" viewBox="0 0 18 18">
+        <g>
+          <circle cx="9" cy="9" r="9" fill="#305A85" />
+          <path d={svgPaths.p19a91380} fill="#ffffff" />
+          <path d={svgPaths.p3ddcf200} fill="#ffffff" />
+        </g>
+      </svg>
+    </div>
+  );
 }
 
 function NotificationContextual() {
@@ -206,71 +199,50 @@ function NotificationContextual() {
     );
 }
 
-function PrimaryButton({
-    onClick,
-    isLoading,
-}: {
-    onClick: () => void;
-    isLoading?: boolean;
-}) {
+function PrimaryButton({ onClick }: { onClick: () => void }) {
     return (
         <div
             className={styles.primaryButton}
-            onClick={isLoading ? undefined : onClick}
+            onClick={onClick}
             style={{
-                opacity: isLoading ? 0.6 : 1,
-                cursor: isLoading ? "not-allowed" : "pointer",
+                opacity: 1,
+                cursor: "pointer",
             }}
         >
             <div className={styles.primaryButtonInner}>
                 <div className={styles.primaryButtonContent}>
-                    <p className={styles.primaryButtonText}>
-                        {isLoading ? "Loading..." : "Continue"}
-                    </p>
+                    <p className={styles.primaryButtonText}>Continue</p>
                 </div>
             </div>
         </div>
     );
 }
 
-function Cta({
-    onContinue,
-    isLoading,
-}: {
-    onContinue: () => void;
-    isLoading?: boolean;
-}) {
+function Cta({ onContinue }: { onContinue: () => void }) {
     return (
         <div className={styles.ctaSection}>
             <NotificationContextual />
-            <PrimaryButton onClick={onContinue} isLoading={isLoading} />
+            <PrimaryButton onClick={onContinue} />
         </div>
     );
 }
 
-function Content({
-    onContinue,
-    isLoading,
-}: {
-    onContinue: () => void;
-    isLoading?: boolean;
-}) {
+function Content() {
     return (
         <div className={styles.content}>
             <KeySections />
-            <Cta onContinue={onContinue} isLoading={isLoading} />
         </div>
     );
 }
 
 export default function OpenBankingAdded({
     onContinue,
-    isLoading = false, // Default to false
 }: OpenBankingAddedProps) {
     return (
         <div className={styles.root}>
             <div className={styles.inner}>
                 <Header />
+
                 <div className={styles.dividerContainer}>
                     <div className={styles.dividerLineWrapper}>
                         <svg
@@ -283,7 +255,14 @@ export default function OpenBankingAdded({
                         </svg>
                     </div>
                 </div>
-                <Content onContinue={onContinue} isLoading={isLoading} />
+
+                {/* Main content */}
+                <Content />
+
+                {/* CTA area at bottom */}
+                <div style={{ marginTop: 24 }}>
+                    <Cta onContinue={onContinue} />
+                </div>
             </div>
         </div>
     );

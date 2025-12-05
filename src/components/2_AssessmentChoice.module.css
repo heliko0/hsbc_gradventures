@@ -1,3 +1,7 @@
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+
 .root {
   background: #ffffff;
   min-height: 100vh;
@@ -15,7 +19,10 @@
   margin: 0 auto;
 }
 
-/* Header */
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
 .header {
   display: flex;
   flex-direction: column;
@@ -33,10 +40,13 @@
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  letter-spacing: -0.2px; 
+  letter-spacing: -0.2px;
 }
 
-/* Divider */
+/* ============================================================================
+   DIVIDER
+   ============================================================================ */
+
 .dividerContainer {
   position: relative;
   height: 0;
@@ -55,12 +65,15 @@
   width: 100%;
 }
 
-/* Intro */
+/* ============================================================================
+   SECTION INTRO
+   ============================================================================ */
+
 .sectionIntro {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  color: #000000;
+  color: #333333;
 }
 
 .sectionIntroTitle {
@@ -75,7 +88,10 @@
   font-size: 12px;
 }
 
-/* Layout */
+/* ============================================================================
+   MAIN LAYOUT
+   ============================================================================ */
+
 .mainLayout {
   display: flex;
   flex-direction: column;
@@ -89,13 +105,20 @@
   gap: 24px;
 }
 
+/* ============================================================================
+   CARDS LIST
+   ============================================================================ */
+
 .cardsList {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* Card */
+/* ============================================================================
+   ASSESSMENT CARD
+   ============================================================================ */
+
 .cardRoot {
   position: relative;
   background: #ffffff;
@@ -142,7 +165,10 @@
   color: #333333;
 }
 
-/* Radio Button */
+/* ============================================================================
+   RADIO BUTTON
+   ============================================================================ */
+
 .radioButtonRoot {
   border: none;
   padding: 0;
@@ -160,7 +186,10 @@
   height: 100%;
 }
 
-/* Bullet list */
+/* ============================================================================
+   BENEFIT LIST
+   ============================================================================ */
+
 .cardBenefitsList {
   list-style: none;
   padding: 0;
@@ -182,7 +211,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 4px;   /* 👈 moves icon upward */
+  margin-top: 4px;
+  flex-shrink: 0;
 }
 
 .bulletSquare {
@@ -200,7 +230,10 @@
   color: #333333;
 }
 
-/* Learn more */
+/* ============================================================================
+   LEARN MORE BUTTON
+   ============================================================================ */
+
 .learnMoreButton {
   padding: 0;
   margin: 0;
@@ -210,12 +243,15 @@
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 12px;
-  color: #000000;
+  color: #333333;
   text-decoration: underline;
   align-self: flex-start;
 }
 
-/* CTA */
+/* ============================================================================
+   CTA SECTION
+   ============================================================================ */
+
 .ctaSection {
   display: flex;
   flex-direction: column;
@@ -223,10 +259,14 @@
   margin-top: 32px;
 }
 
+/* ============================================================================
+   NOTIFICATION BANNER
+   ============================================================================ */
+
 .notificationBanner {
   position: relative;
-  background: #ebeff4;
   width: 100%;
+  background: #ebeff4;
 }
 
 .notificationBorder {
@@ -247,6 +287,7 @@
 .infoIconWrapper {
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
 }
 
 .infoIconSvg {
@@ -262,7 +303,10 @@
   color: #333333;
 }
 
-/* Button */
+/* ============================================================================
+   PRIMARY BUTTON
+   ============================================================================ */
+
 .primaryButton {
   width: 100%;
   border: none;
@@ -278,18 +322,17 @@
   transition: background 0.15s ease-in-out;
 }
 
-.primaryButton:hover:not(.primaryButtonDisabled) {
+.primaryButton:hover:not(:disabled) {
   background: #c00010;
+}
+
+.primaryButton:disabled {
+  background-color: #d7d8d6;
+  color: #b3b3b3;
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .primaryButton span {
   display: block;
-}
-
-/* 🔹 Disabled state — matches your screenshot */
-.primaryButton:disabled {
-  background-color: #D7D8D6;   /* light grey */
-  color: #b3b3b3;              /* soft grey text */
-  cursor: not-allowed;
-  opacity: 1;                  /* prevents browsers from dimming it further */
 }
