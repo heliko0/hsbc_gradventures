@@ -1,813 +1,666 @@
-/* Root and container */
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+
 .root {
-  background: white;
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
+    background: #ffffff;
+    min-height: 100vh;
+    width: 100%;
 }
 
 .inner {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  align-items: flex-start;
-  padding: 48px 32px 32px 32px;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: flex-start;
+    padding: 48px 32px 32px;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
 }
 
-/* Header */
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
 .header {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: #333333;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #333333;
 }
 
 .headerTitle {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 500;
-  font-size: 23px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 23px;
+    margin: 0;
 }
 
 .headerSubtitle {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  letter-spacing: -0.2px; 
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: -0.2px;
+    margin: 0;
 }
 
-/* Divider */
+/* ============================================================================
+   DIVIDER
+   ============================================================================ */
+
 .dividerContainer {
-  position: relative;
-  height: 0;
-  width: 100%;
+    position: relative;
+    height: 0;
+    width: 100%;
 }
 
 .dividerLineWrapper {
-  position: absolute;
-  top: -1px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+    position: absolute;
+    top: -1px;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 .dividerSvg {
-  display: block;
-  width: 100%;
-  height: 1px;
+    display: block;
+    width: 100%;
 }
 
-.sectionTitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 19px;
-  position: relative;
-  flex-shrink: 0;
-  color: black;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
-}
+/* ============================================================================
+   LOAN PROPERTIES SECTION
+   ============================================================================ */
 
-
-
-/* Loan properties */
 .loanPropertiesSection {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
 }
 
 .loanHeader {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: #333333;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #333333;
+}
+
+.sectionTitle {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    margin: 0;
+    color: #333333;
 }
 
 .loanDescription {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 12px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    margin: 0;
+    color: #333333;
 }
 
-/* Slider */
+/* ============================================================================
+   SLIDER
+   ============================================================================ */
+
 .sliderSection {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 }
 
 .sliderLabel {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  color: #333333;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    color: #333333;
+    margin: 0;
 }
 
 .sliderInputRow {
-  display: flex;
-  gap: 16px;
-  width: 100%;
+    display: flex;
+    gap: 16px;
+    width: 100%;
 }
 
 .sliderTextInputWrapper {
-  position: relative;
-  flex: 1;
-  background: #ffffff;
-  display: flex;
-  align-items: stretch;
+    position: relative;
+    flex: 1;
+    background: #ffffff;
 }
 
 .sliderTextInputBorder {
-  position: absolute;
-  inset: 0;
-  border: 1px solid #767676;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border: 1px solid #767676;
+    pointer-events: none;
 }
 
 .sliderTextInputBorderError {
-  border-color: #db0011;
+    border-color: #db0011;
 }
 
 .sliderTextInput {
-  width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  padding: 11px 16px;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  color: #333333;
-  box-sizing: border-box;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 11px 16px;
+    box-sizing: border-box;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333333;
 }
 
 .sliderSecondaryLabelWrapper {
-  width: 140px;
-  box-sizing: border-box;
-  background: #ededed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 24px;
+    width: 140px;
+    background: #ededed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 24px;
+    box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .sliderSecondaryLabel {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  line-height: 14px;
-  color: #333333;
-  text-align: center;
-  white-space: pre-line;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 14px;
+    color: #333333;
+    text-align: center;
+    white-space: pre-line;
+    margin: 0;
 }
 
 .errorText {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  color: #db0011;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #db0011;
+    margin: 0;
 }
 
-/* Slider track */
+/* ============================================================================
+   SLIDER TRACK
+   ============================================================================ */
+
 .sliderContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
 }
 
 .sliderTrackWrapper {
-  position: relative;
-  height: 32px;
-  width: 100%;
-  cursor: pointer;
+    position: relative;
+    height: 32px;
+    width: 100%;
+    cursor: pointer;
 }
 
 .sliderTrack {
-  position: absolute;
-  top: 12px;
-  left: 0;
-  right: 0;
-  display: flex;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 8px;
 }
 
 .sliderTrackFilled {
-  height: 8px;
-  min-height: 1px;
-  background: #db0011;
-  flex-shrink: 0;
-  width: calc(var(--sliderPercentage, 0) * 1%);
+    background: #db0011;
+    flex-shrink: 0;
+    width: calc(var(--sliderPercentage, 0) * 1%);
 }
 
 .sliderTrackRemaining {
-  height: 8px;
-  min-height: 1px;
-  background: #ededed;
-  flex-shrink: 0;
-  width: calc(100% - (var(--sliderPercentage, 0) * 1%));
+    background: #ededed;
+    flex-shrink: 0;
+    width: calc(100% - (var(--sliderPercentage, 0) * 1%));
 }
 
 .sliderHandle {
-  position: absolute;
-  top: 0;
-  width: 32px;
-  height: 32px;
-  cursor: grab;
-  left: calc(var(--sliderPercentage, 0) * 1% - 16px);
+    position: absolute;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    cursor: grab;
+    left: calc(var(--sliderPercentage, 0) * 1% - 16px);
 }
 
 .sliderHandleInner {
-  position: absolute;
-  inset: -1.56%;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid #d7d8d6;
+    position: absolute;
+    inset: -1.56%;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 1px solid #d7d8d6;
 }
 
-/* Slider min/max */
+/* ============================================================================
+   SLIDER MIN/MAX LABELS
+   ============================================================================ */
+
 .sliderMinMaxRow {
-  display: flex;
-  justify-content: space-between;
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  color: #333333;
+    display: flex;
+    justify-content: space-between;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333333;
+    width: 100%;
 }
 
 .sliderMaxValue {
-  text-align: right;
+    text-align: right;
 }
 
+/* ============================================================================
+   AMOUNT SECTION
+   ============================================================================ */
 
-/* Amount Section */
 .amountSection {
-  background: white;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    background: #ffffff;
+    position: relative;
+    width: 100%;
 }
 
 .amountBorder {
-  position: absolute;
-  border: 1px solid #d7d8d6;
-  border-style: solid;
-  inset: 0;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border: 1px solid #d7d8d6;
+    pointer-events: none;
 }
 
 .amountInner {
-  width: 100%;
-  height: 100%;
+    width: 100%;
 }
 
 .amountContent {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  align-items: flex-start;
-  padding: 24px 20px;
-  position: relative;
-  width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 24px 20px;
+    width: 100%;
 }
 
 .amountInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
 }
 
 .amountTitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  position: relative;
-  flex-shrink: 0;
-  color: black;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333333;
+    margin: 0;
 }
 
-/* Amount Breakdown */
+/* ============================================================================
+   AMOUNT BREAKDOWN
+   ============================================================================ */
+
 .amountBreakdownContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
 }
 
 .breakdownRow {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  align-items: flex-start;
-  padding: 12px 0;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #d7d8d6;
 }
 
 .breakdownRowLast {
-  background: white;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  align-items: flex-start;
-  padding: 12px 0;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    position: relative;
+    width: 100%;
 }
 
 .breakdownBorder {
-  position: absolute;
-  border: 0 solid #d7d8d6;
-  border-bottom-width: 1px;
-  border-style: solid;
-  inset: 0;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border-bottom: 1px solid #d7d8d6;
+    pointer-events: none;
 }
 
 .breakdownContentContainer {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
 }
 
 .breakdownText {
-  flex-basis: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
-  align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  overflow: clip;
-  padding: 2px 0 0 0;
-  position: relative;
-  flex-shrink: 0;
+    flex: 1;
 }
 
 .breakdownLabel {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #333333;
+    margin: 0;
 }
 
 .breakdownLabelTotal {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  color: #db0011;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #db0011;
+    margin: 0;
 }
 
 .breakdownAmount {
-  display: flex;
-  gap: 10px;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .breakdownValue {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  text-align: right;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #333333;
+    text-align: right;
+    margin: 0;
 }
 
 .breakdownValueTotal {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  color: #db0011;
-  text-align: right;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #db0011;
+    text-align: right;
+    margin: 0;
 }
 
-/* Lower Interest Banner */
+/* ============================================================================
+   LOWER INTEREST BANNER
+   ============================================================================ */
+
 .lowerInterestBanner {
-  background: #ededed;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    background: #ededed;
+    position: relative;
+    width: 100%;
+    margin-top: 12px;
 }
 
 .lowerInterestContent {
-  box-sizing: border-box;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 12px 16px;
-  position: relative;
-  width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 16px;
+    width: 100%;
 }
 
 .successIconWrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .successIcon {
-  position: relative;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
 }
 
 .successIconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .lowerInterestTextWrapper {
-  flex-basis: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
-  align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
+    flex: 1;
 }
 
 .lowerInterestText {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333333;
+    margin: 0;
 }
 
-/* Key Information Section */
+/* ============================================================================
+   KEY INFORMATION SECTION
+   ============================================================================ */
+
 .keyInfoSection {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
 }
 
 .keyInfoTitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 19px;
-  position: relative;
-  flex-shrink: 0;
-  color: black;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 400;
+    font-size: 19px;
+    color: #333333;
+    margin: 0;
 }
 
 .keyInfoSubtitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  color: black;
-  width: min-content;
-  min-width: 100%;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333333;
+    margin: 0;
 }
 
 .keyInfoList {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
 }
 
 .keyInfoItem {
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-  border-bottom: 1px solid #d7d8d6;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #d7d8d6;
 }
 
 .keyInfoItemBorder {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
 }
 
 .keyInfoItemContent {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
-  align-items: flex-start;
-  padding: 16px 12px;
-  position: relative;
-  width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 12px;
+    width: 100%;
 }
 
 .keyInfoIconWrapper {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-  width: 24px;
-}
-
-.keyInfoIcon {
-  position: relative;
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-}
-
-.keyInfoIconLarge {
-  position: relative;
-  flex-shrink: 0;
-  width: 24.005px;
-  height: 24.013px;
-}
-
-.keyInfoIconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.keyInfoText {
-  flex-basis: 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
-  align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  padding: 2px 0 0 0;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  font-size: 12px;
-  font-style: normal;
-}
-
-.keyInfoItemTitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
-}
-
-.keyInfoItemTitleNoWrap {
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
-}
-
-.keyInfoItemDescription {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
-}
-
-.keyInfoItemDescriptionMulti {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
-}
-
-.keyInfoItemDescriptionMulti p {
-  margin: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
 }
 
 .infoIcon {
-  position: relative;
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
 }
 
 .infoIconLarge {
-  position: relative;
-  flex-shrink: 0;
-  width: 24.005px;
-  height: 24.013px;
+    position: relative;
+    width: 24.005px;
+    height: 24.013px;
+    flex-shrink: 0;
 }
 
 .infoIconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
-/* CTA Section */
-.ctaSection {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-start;
-  justify-content: flex-end;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+.keyInfoText {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
+
+.keyInfoItemTitle {
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    color: #333333;
+    margin: 0;
+}
+
+.keyInfoItemDescription {
+    display: flex;
+    flex-direction: column;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333333;
+}
+
+.keyInfoItemDescription p,
+.keyInfoItemDescriptionMulti p {
+    margin: 0 0 12px 0;
+}
+
+.keyInfoItemDescription p:last-child,
+.keyInfoItemDescriptionMulti p:last-child {
+    margin-bottom: 0;
+}
+
+/* ============================================================================
+   CTA SECTION
+   ============================================================================ */
+
+.ctaSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+/* ============================================================================
+   NOTIFICATION BANNER
+   ============================================================================ */
 
 .notificationBanner {
-  background: #ebeff4;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+    background: #ebeff4;
+    position: relative;
+    width: 100%;
 }
 
 .notificationBorder {
-  position: absolute;
-  border: 1px solid #305a85;
-  border-style: solid;
-  inset: 0;
-  pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border: 1px solid #305a85;
+    pointer-events: none;
 }
 
 .notificationContent {
-  box-sizing: border-box;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 11px 16px;
-  position: relative;
-  width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 11px 16px;
+    width: 100%;
 }
 
 .notificationIconContainer {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  overflow: clip;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  position: relative;
+    display: flex;
+    align-items: flex-start;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
 }
 
 .notificationIcon {
-  position: relative;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
+    position: relative;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
 }
 
 .notificationIconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 .notificationMessageContainer {
-  flex-basis: 0;
-  display: flex;
-  gap: 10px;
-  flex-grow: 1;
-  align-items: flex-start;
-  overflow: clip;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
+    flex: 1;
 }
 
 .notificationText {
-  flex-basis: 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  flex-grow: 1;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  font-style: normal;
-  line-height: normal;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #333333;
+    margin: 0;
 }
 
-/* Primary Button */
+/* ============================================================================
+   PRIMARY BUTTON
+   ============================================================================ */
+
 .primaryButton {
-  background: #db0011;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  padding: 11px 20px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  text-align: center;
-  color: white;
-  font-style: normal;
-  line-height: normal;
-}
-
-.primaryButton:hover {
-  background: #c00010;
-}
-
-.primaryButton:disabled {
-  background-color: #D7D8D6;
-  color: #b3b3b3;
-  cursor: not-allowed;
-  opacity: 1;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 11px 20px;
+    background: #db0011;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: "Inter", system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    transition: background 0.15s ease-in-out;
 }
 
 .primaryButton:hover:not(:disabled) {
-  background-color: #c00010;
+    background: #c00010;
+}
+
+.primaryButton:disabled {
+    background: #d7d8d6;
+    color: #b3b3b3;
+    cursor: not-allowed;
 }

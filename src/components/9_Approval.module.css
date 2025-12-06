@@ -1,9 +1,11 @@
-/* Root and container */
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+
 .root {
-  background: white;
-  position: relative;
-  width: 100%;
+  background: #ffffff;
   min-height: 100vh;
+  width: 100%;
 }
 
 .inner {
@@ -12,14 +14,17 @@
   flex-direction: column;
   gap: 32px;
   align-items: flex-start;
-  padding: 48px 32px 32px 32px;
+  padding: 48px 32px 32px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
   min-height: 100vh;
 }
 
-/* Header */
+/* ============================================================================
+   HEADER
+   ============================================================================ */
+
 .header {
   display: flex;
   flex-direction: column;
@@ -31,16 +36,21 @@
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
   font-size: 23px;
+  margin: 0;
 }
 
 .headerSubtitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  letter-spacing: -0.2px; 
+  letter-spacing: -0.2px;
+  margin: 0;
 }
 
-/* Divider */
+/* ============================================================================
+   DIVIDER
+   ============================================================================ */
+
 .dividerContainer {
   position: relative;
   height: 0;
@@ -58,45 +68,40 @@
 .dividerSvg {
   display: block;
   width: 100%;
-  height: 1px;
 }
 
-/* Frame */
+/* ============================================================================
+   FRAME (MAIN CONTENT WRAPPER)
+   ============================================================================ */
+
 .frame {
-  flex-basis: 0;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  flex-grow: 1;
-  align-items: stretch;
-  justify-content: flex-start;
-  gap: 32px;          /* base vertical rhythm between blocks */
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
+  gap: 32px;
   width: 100%;
+  justify-content: space-between;
 }
 
+/* ============================================================================
+   CONTENT SECTION
+   ============================================================================ */
 
-/* Content section */
 .contentSection {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
   width: 100%;
 }
 
-/* Your offer */
+/* ============================================================================
+   YOUR OFFER SECTION
+   ============================================================================ */
+
 .yourOfferSection {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
   width: 100%;
 }
 
@@ -104,96 +109,70 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: flex-start;
-  line-height: normal;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+  color: #333333;
 }
 
 .offerTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 400;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
   font-size: 19px;
-  width: 100%;
+  margin: 0;
 }
 
 .offerDescription {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
-  position: relative;
-  flex-shrink: 0;
   font-size: 12px;
-  color: black;
-  width: 100%;
+  color: #333333;
+  margin: 0;
 }
+
+/* ============================================================================
+   PRIMARY BUTTON
+   ============================================================================ */
 
 .primaryButton {
-  background: #db0011;
-  box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 9px 20px 11px;
-  position: relative;
-  flex-shrink: 0;
   width: 100%;
-  cursor: pointer;
   border: none;
+  outline: none;
+  padding: 11px 20px;
+  background: #db0011;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  transition: background 0.15s ease-in-out;
 }
 
-/* Hover only when enabled */
-.primaryButton:not(:disabled):hover {
+.primaryButton:hover:not(:disabled) {
   background: #c00010;
 }
 
-/* 🔹 Disabled state — matches your spec */
 .primaryButton:disabled {
-  background-color: #D7D8D6;   /* light grey */
-  color: #b3b3b3;              /* soft grey text (for direct text) */
-  cursor: not-allowed;
-  opacity: 1;                  /* prevents browsers from dimming it further */
-}
-
-/* Ensure inner label also goes grey when disabled */
-.primaryButton:disabled .primaryButtonText {
+  background-color: #d7d8d6;
   color: #b3b3b3;
-}
-
-.primaryButtonContent {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  justify-content: center;
-  position: relative;
-  flex-shrink: 0;
+  cursor: not-allowed;
+  opacity: 1;
 }
 
 .primaryButtonText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
-  line-height: normal;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
   font-size: 16px;
-  text-align: center;
-  white-space: nowrap;
-  color: white;
+  color: inherit;
+  margin: 0;
 }
 
-/* Products for you */
+/* ============================================================================
+   PRODUCTS FOR YOU SECTION
+   ============================================================================ */
+
 .productsSection {
   display: flex;
   flex-direction: column;
   gap: 24px;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
   width: 100%;
 }
 
@@ -201,42 +180,40 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  align-items: flex-start;
-  line-height: normal;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
 }
 
 .productsTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 400;
-  position: relative;
-  flex-shrink: 0;
   font-size: 19px;
-  width: 100%;
+  margin: 0;
 }
 
 .productsDescription {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
-  position: relative;
-  flex-shrink: 0;
   font-size: 12px;
-  width: 100%;
+  color: #333333;
+  margin: 0;
 }
 
-/* Carousel */
+/* ============================================================================
+   CAROUSEL
+   ============================================================================ */
+
 .carouselWrapper {
   overflow-x: auto;
-  width: 100%;
   overflow-y: hidden;
+  width: 100%;
   scrollbar-width: none;
   -ms-overflow-style: none;
   -webkit-overflow-scrolling: touch;
   cursor: grab;
+}
+
+.carouselWrapper::-webkit-scrollbar {
+  display: none;
 }
 
 .carouselDragging {
@@ -246,45 +223,39 @@
 .carouselContainer {
   display: flex;
   gap: 16px;
-  align-items: center;
-  position: relative;
-  flex-shrink: 0;
+  width: fit-content;
 }
 
 .carouselCardWrapper {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  align-self: stretch;
+  flex-shrink: 0;
 }
 
-/* Card */
+/* ============================================================================
+   PRODUCT CARD
+   ============================================================================ */
+
 .card {
-  background: white;
-  box-sizing: border-box;
+  position: relative;
+  width: 295px;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  align-items: flex-start;
-  padding: 1px;
-  position: relative;
-  flex-shrink: 0;
-  width: 295px;
 }
 
 .cardBorder {
   position: absolute;
-  border: 1px solid #d7d8d6;
-  border-style: solid;
   inset: 0;
+  border: 1px solid #d7d8d6;
   pointer-events: none;
 }
 
 .cardImageContainer {
+  width: 100%;
   height: 125px;
   position: relative;
   flex-shrink: 0;
-  width: 100%;
+  overflow: hidden;
 }
 
 .cardImageWrapper {
@@ -296,29 +267,20 @@
 
 .cardImage {
   position: absolute;
-  height: 127.05%;
-  left: 0;
-  max-width: none;
-  top: -27.05%;
   width: 100%;
-}
-
-.cardImageCover {
-  position: absolute;
-  inset: 0;
-  max-width: none;
+  height: 127.05%;
+  top: -27.05%;
+  left: 0;
   object-fit: cover;
   object-position: 50% 50%;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
 }
 
 .cardContentOuter {
-  height: 143px;
   position: relative;
   flex-shrink: 0;
   width: 100%;
+  flex: 1;
+  display: flex;
 }
 
 .cardContentInner {
@@ -326,138 +288,77 @@
   height: 100%;
 }
 
-.cardContent {
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 143px;
-  align-items: flex-start;
-  padding-bottom: 20px;
-  padding-top: 16px;
-  padding-left: 16px;
-  padding-right: 16px;
-  position: relative;
-  width: 100%;
-}
-
 .cardContentFlexible {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding-bottom: 20px;
-  padding-top: 16px;
-  padding-left: 16px;
-  padding-right: 16px;
-  position: relative;
+  gap: 8px;
+  padding: 16px;
   width: 100%;
   height: 100%;
 }
 
 .cardTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 400;
-  line-height: normal;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
   font-size: 19px;
-  width: 100%;
+  color: #333333;
+  margin: 0;
 }
 
 .cardDescriptionContainer {
-  flex-basis: 0;
-  box-sizing: border-box;
   display: flex;
+  flex: 1;
+  flex-direction: column;
   gap: 10px;
-  flex-grow: 1;
-  align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  padding-bottom: 0;
-  padding-top: 8px;
-  padding-left: 0;
-  padding-right: 0;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+  margin-top: 8px;
 }
 
 .cardDescription {
-  flex-basis: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
-  flex-grow: 1;
-  line-height: normal;
-  min-height: 1px;
-  min-width: 1px;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
   font-size: 12px;
+  color: #333333;
+  margin: 0;
 }
 
 .cardLinkContainer {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  align-items: flex-start;
-  padding-bottom: 0;
-  padding-top: 12px;
-  padding-left: 0;
-  padding-right: 0;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
+  margin-top: 12px;
 }
 
 .cardLinkWrapper {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
 }
 
 .cardLink {
   display: flex;
   gap: 6px;
   align-items: center;
-  position: relative;
-  flex-shrink: 0;
   cursor: pointer;
 }
 
 .cardLinkText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
-  line-height: normal;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
   font-size: 16px;
+  color: #333333;
+  margin: 0;
   white-space: nowrap;
 }
 
 .cardLinkIconContainer {
   display: flex;
-  gap: 10px;
   align-items: center;
   justify-content: center;
-  position: relative;
-  flex-shrink: 0;
 }
 
 .cardLinkIcon {
-  height: 12px;
-  position: relative;
-  flex-shrink: 0;
   width: 6px;
+  height: 12px;
+  flex-shrink: 0;
 }
 
 .cardLinkIconSvg {
@@ -466,51 +367,40 @@
   height: 100%;
 }
 
-/* CTA */
+/* ============================================================================
+   CTA SECTION
+   ============================================================================ */
+
 .ctaSection {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: flex-start;
-  justify-content: flex-start;
-  position: relative;
-  flex-shrink: 0;
   width: 100%;
-  margin-top: auto;   /* push CTA towards the bottom when there's extra space */
-  padding-top: 32px;  /* ensure a minimum 32px gap above CTA */
 }
 
+/* ============================================================================
+   NOTIFICATION BANNER
+   ============================================================================ */
 
 .notificationBanner {
-  background: #fff8ea;
   position: relative;
-  flex-shrink: 0;
   width: 100%;
+  background: #fff8ea;
 }
 
 .notificationBorder {
   position: absolute;
-  border: 1px solid #ffb006;
-  border-style: solid;
   inset: 0;
+  border: 1px solid #ffb006;
   pointer-events: none;
 }
 
-.notificationInner {
-  width: 100%;
-  height: 100%;
-}
-
 .notificationContent {
-  box-sizing: border-box;
   display: flex;
   gap: 12px;
   align-items: flex-start;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 11px;
-  padding-bottom: 11px;
-  position: relative;
+  padding: 11px 16px;
+  box-sizing: border-box;
   width: 100%;
 }
 
@@ -518,15 +408,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
   flex-shrink: 0;
 }
 
 .notificationIcon {
   position: relative;
-  flex-shrink: 0;
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
 }
 
 .notificationIconSvg {
@@ -536,29 +425,16 @@
 }
 
 .notificationMessageContainer {
-  flex-basis: 0;
+  flex: 1;
   display: flex;
-  gap: 10px;
-  flex-grow: 1;
   align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  overflow: clip;
-  position: relative;
-  flex-shrink: 0;
 }
 
 .notificationText {
-  flex-basis: 0;
-  font-family: 'Inter', sans-serif;
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
-  flex-grow: 1;
-  line-height: normal;
-  min-height: 1px;
-  min-width: 1px;
-  font-style: normal;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
   font-size: 12px;
+  color: #333333;
+  margin: 0;
 }

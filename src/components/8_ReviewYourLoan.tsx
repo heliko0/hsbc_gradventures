@@ -3,19 +3,11 @@ import svgPaths from "../imports/svg-47e4mxxt2t";
 import svgPathsSuccess from "../imports/svg-tg2rz0vich";
 import styles from "./8_ReviewYourLoan.module.css";
 
-function Header() {
-    return (
-        <div className={styles.header}>
-            <p className={styles.headerTitle}>Review your loan</p>
-            <p className={styles.headerSubtitle}>
-                Review your loan details and see the full cost and repayment
-                breakdown.
-            </p>
-        </div>
-    );
-}
+// ============================================================================
+// TYPES
+// ============================================================================
 
-interface SliderProps {
+type SliderProps = {
     value: number;
     min: number;
     max: number;
@@ -28,9 +20,117 @@ interface SliderProps {
     inputValue: string;
     onInputChange: (value: string) => void;
     error?: string;
-}
+};
 
-function Slider({
+type LoanPropertiesProps = {
+    loanAmount: number;
+    months: number;
+    onLoanAmountChange: (value: number) => void;
+    onMonthsChange: (value: number) => void;
+    onValidityChange: (valid: boolean) => void;
+};
+
+type LowerInterestBannerProps = {
+    interestSavings: number;
+};
+
+type AmountBreakdownProps = {
+    total: number;
+    loanAmount: number;
+    interest: number;
+    months: number;
+};
+
+type RepaymentBreakdownProps = {
+    repaymentPeriod: string;
+    monthlyRepayment: number;
+};
+
+type AmountSectionProps = {
+    total: number;
+    loanAmount: number;
+    interest: number;
+    months: number;
+    repaymentPeriod: string;
+    monthlyRepayment: number;
+};
+
+type CtaProps = {
+    onSubmit: () => void;
+    isValid: boolean;
+};
+
+export type ReviewYourLoanProps = {
+    onSubmit: () => void;
+    initialLoanAmount?: number;
+    initialMonths?: number;
+};
+
+// ============================================================================
+// CONSTANTS
+// ============================================================================
+
+const MIN_LOAN = 1000;
+const MAX_LOAN = 50000;
+const LOAN_STEP = 1000;
+const MIN_MONTHS = 6;
+const MAX_MONTHS = 96;
+const APR = 0.058;
+
+// ============================================================================
+// COMPONENTS
+// ============================================================================
+
+const Header: React.FC = () => (
+    <header className={styles.header}>
+        <p className={styles.headerTitle}>Review your loan</p>
+        <p className={styles.headerSubtitle}>
+            Review your loan details and see the full cost and repayment
+            breakdown.
+        </p>
+    </header>
+);
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+const formatCurrency = (value: number): string => {
+    const formatted = value.toFixed(2);
+    const parts = formatted.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return `£${parts.join(".")}`;
+};
+
+const parseCurrency = (value: string): number | null => {
+    const cleaned = value.replace(/[£,\s]/g, "");
+    const num = parseFloat(cleaned);
+    return isNaN(num) ? null : num;
+};
+
+const formatMonthsToYears = (months: number): string => {
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    const nbsp = "\u00A0";
+
+    if (years === 0) {
+        return `${remainingMonths}${nbsp}Month${
+            remainingMonths !== 1 ? "s" : ""
+        }`;
+    }
+    if (remainingMonths === 0) {
+        return `${years}${nbsp}Year${years !== 1 ? "s" : ""}`;
+    }
+    return `${years}${nbsp}Year${
+        years !== 1 ? "s" : ""
+    }${nbsp}${remainingMonths}${nbsp}Month${remainingMonths !== 1 ? "s" : ""}`;
+};
+
+// ============================================================================
+// SLIDER COMPONENT
+// ============================================================================
+
+const Slider: React.FC<SliderProps> = ({
     value,
     min,
     max,
@@ -43,66 +143,62 @@ function Slider({
     inputValue,
     onInputChange,
     error,
-}: SliderProps) {
-    const sliderRef = useRef<HTMLDivElement | null>(null);
+}) => {
+    const sliderRef = useRef<HTMLDivElement>(null);
     const [isDragging, setIsDragging] = useState(false);
 
     const percentage = ((value - min) / (max - min)) * 100;
 
-    const updateSliderValue = (clientX: number) => {
+    const updateSliderValue = (clientX: number): void => {
         if (!sliderRef.current) return;
         const rect = sliderRef.current.getBoundingClientRect();
         const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
         const perc = x / rect.width;
         const rawValue = min + perc * (max - min);
         const steppedValue = Math.round(rawValue / step) * step;
-        const newValue = Math.min(max, Math.max(min, steppedValue));
+        const newValue = Math.max(min, Math.min(max, steppedValue));
         onChange(newValue);
     };
 
-    const handleMouseDown = (e: React.MouseEvent) => {
+    const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
         setIsDragging(true);
         updateSliderValue(e.clientX);
     };
 
-    const handleMouseMove = (e: MouseEvent) => {
-        if (isDragging) {
-            updateSliderValue(e.clientX);
-        }
-    };
-
-    const handleMouseUp = () => {
-        setIsDragging(false);
-    };
-
-    const handleTouchStart = (e: React.TouchEvent) => {
+    const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
         setIsDragging(true);
-        updateSliderValue(e.touches[0].clientX);
-    };
-
-    const handleTouchMove = (e: TouchEvent) => {
-        if (isDragging && e.touches.length > 0) {
+        if (e.touches.length > 0) {
             updateSliderValue(e.touches[0].clientX);
         }
-    };
-
-    const handleTouchEnd = () => {
-        setIsDragging(false);
     };
 
     useEffect(() => {
         if (!isDragging) return;
 
+        const handleMouseMove = (e: MouseEvent): void => {
+            updateSliderValue(e.clientX);
+        };
+
+        const handleTouchMove = (e: TouchEvent): void => {
+            if (e.touches.length > 0) {
+                updateSliderValue(e.touches[0].clientX);
+            }
+        };
+
+        const handleEnd = (): void => {
+            setIsDragging(false);
+        };
+
         document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
+        document.addEventListener("mouseup", handleEnd);
         document.addEventListener("touchmove", handleTouchMove);
-        document.addEventListener("touchend", handleTouchEnd);
+        document.addEventListener("touchend", handleEnd);
 
         return () => {
             document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
+            document.removeEventListener("mouseup", handleEnd);
             document.removeEventListener("touchmove", handleTouchMove);
-            document.removeEventListener("touchend", handleTouchEnd);
+            document.removeEventListener("touchend", handleEnd);
         };
     }, [isDragging]);
 
@@ -116,6 +212,7 @@ function Slider({
                         className={`${styles.sliderTextInputBorder} ${
                             error ? styles.sliderTextInputBorderError : ""
                         }`}
+                        aria-hidden="true"
                     />
                     <input
                         type="text"
@@ -162,32 +259,19 @@ function Slider({
             </div>
         </div>
     );
-}
+};
 
-interface LoanPropertiesProps {
-    loanAmount: number;
-    months: number;
-    onLoanAmountChange: (value: number) => void;
-    onMonthsChange: (value: number) => void;
-    onValidityChange: (valid: boolean) => void;
-}
+// ============================================================================
+// LOAN PROPERTIES COMPONENT
+// ============================================================================
 
-function LoanProperties({
+const LoanProperties: React.FC<LoanPropertiesProps> = ({
     loanAmount,
     months,
     onLoanAmountChange,
     onMonthsChange,
     onValidityChange,
-}: LoanPropertiesProps) {
-    const MIN_LOAN = 1000;
-    const MAX_LOAN = 50000;
-    const LOAN_STEP = 1000;
-
-    const MIN_MONTHS = 6;
-    const MAX_MONTHS = 96;
-
-    const formatCurrency = (value: number) => `£${value.toLocaleString()}`;
-
+}) => {
     const [loanAmountInput, setLoanAmountInput] = useState(
         formatCurrency(loanAmount)
     );
@@ -195,51 +279,24 @@ function LoanProperties({
     const [loanAmountError, setLoanAmountError] = useState("");
     const [monthsError, setMonthsError] = useState("");
 
-    const parseCurrency = (value: string): number | null => {
-        const cleaned = value.replace(/[£,\s]/g, "");
-        const num = parseFloat(cleaned);
-        return isNaN(num) ? null : num;
-    };
-
-    const formatMonthsToYears = (months: number) => {
-        const years = Math.floor(months / 12);
-        const remainingMonths = months % 12;
-        const nbsp = "\u00A0";
-
-        if (years === 0) {
-            return `${remainingMonths}${nbsp}Month${
-                remainingMonths !== 1 ? "s" : ""
-            }`;
-        } else if (remainingMonths === 0) {
-            return `${years}${nbsp}Year${years !== 1 ? "s" : ""}`;
-        } else {
-            return `${years}${nbsp}Year${
-                years !== 1 ? "s" : ""
-            }${nbsp}${remainingMonths}${nbsp}Month${
-                remainingMonths !== 1 ? "s" : ""
-            }`;
-        }
-    };
-
-    // Notify parent whenever validity changes
     useEffect(() => {
         const isValid = !loanAmountError && !monthsError;
         onValidityChange(isValid);
     }, [loanAmountError, monthsError, onValidityChange]);
 
-    const handleLoanAmountChange = (value: number) => {
+    const handleLoanAmountChange = (value: number): void => {
         onLoanAmountChange(value);
         setLoanAmountInput(formatCurrency(value));
         setLoanAmountError("");
     };
 
-    const handleMonthsChange = (value: number) => {
+    const handleMonthsChange = (value: number): void => {
         onMonthsChange(value);
         setMonthsInput(value.toString());
         setMonthsError("");
     };
 
-    const handleLoanAmountInputChange = (value: string) => {
+    const handleLoanAmountInputChange = (value: string): void => {
         setLoanAmountInput(value);
         const parsed = parseCurrency(value);
         if (parsed !== null) {
@@ -256,7 +313,7 @@ function LoanProperties({
         }
     };
 
-    const handleMonthsInputChange = (value: string) => {
+    const handleMonthsInputChange = (value: string): void => {
         setMonthsInput(value);
         const parsed = parseInt(value, 10);
         if (!isNaN(parsed)) {
@@ -280,7 +337,7 @@ function LoanProperties({
     }, [months]);
 
     return (
-        <div className={styles.loanPropertiesSection}>
+        <section className={styles.loanPropertiesSection}>
             <div className={styles.loanHeader}>
                 <p className={styles.sectionTitle}>Choose your loan</p>
                 <p className={styles.loanDescription}>
@@ -292,7 +349,7 @@ function LoanProperties({
                 value={loanAmount}
                 min={MIN_LOAN}
                 max={MAX_LOAN}
-                step={1000}
+                step={LOAN_STEP}
                 onChange={handleLoanAmountChange}
                 label="How much would you like to borrow?"
                 minDisplayValue="£1,000"
@@ -316,568 +373,419 @@ function LoanProperties({
                 onInputChange={handleMonthsInputChange}
                 error={monthsError}
             />
-        </div>
+        </section>
     );
-}
-
-function SuccessIcon() {
-    return (
-        <div className={styles.successIconWrapper}>
-            <div className={styles.successIcon}>
-                <svg
-                    className={styles.successIconSvg}
-                    fill="none"
-                    preserveAspectRatio="none"
-                    viewBox="0 0 18 18"
-                >
-                    <g>
-                        <g></g>
-                        <circle cx="9" cy="9" fill="#00847F" r="9" />
-                        <path d={svgPathsSuccess.p2801d500} fill="white" />
-                    </g>
-                </svg>
-            </div>
-        </div>
-    );
-}
-
-type LowerInterestBannerProps = {
-    interestSavings: number;
 };
 
-function LowerInterestBanner({
-    interestSavings,
-}: LowerInterestBannerProps): React.ReactElement {
-    const formatCurrency = (value: number): string => {
-        const formatted = value.toFixed(2);
-        const parts = formatted.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return `£${parts.join(".")}`;
-    };
+// ============================================================================
+// ICON COMPONENTS
+// ============================================================================
 
-    return (
-        <div className={styles.lowerInterestBanner}>
-            <div className={styles.lowerInterestContent}>
-                <SuccessIcon />
-                <div className={styles.lowerInterestTextWrapper}>
-                    <p className={styles.lowerInterestText}>
-                        Your interest is 0.4% lower thanks to your Hybrid
-                        Stability Score! You save{" "}
-                        {formatCurrency(interestSavings)}.
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-type AmountBreakdownProps = {
-    total: number;
-    loanAmount: number;
-    interest: number;
-    months: number;
-};
-
-function AmountBreakdown({
-    total,
-    loanAmount,
-    interest,
-    months,
-}: AmountBreakdownProps): React.ReactElement {
-    const formatCurrency = (value: number): string => {
-        const formatted = value.toFixed(2);
-        const parts = formatted.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return `£${parts.join(".")}`;
-    };
-
-    // Calculate savings: 0.4% rate reduction on the loan amount over the term
-    const RATE_REDUCTION = 0.004; // 0.4%
-    const interestSavings = loanAmount * RATE_REDUCTION * (months / 12);
-
-    return (
-        <div className={styles.amountBreakdownContainer}>
-            <div className={styles.breakdownRow}>
-                <div className={styles.breakdownBorder} />
-                <div className={styles.breakdownContentContainer}>
-                    <div className={styles.breakdownText}>
-                        <p className={styles.breakdownLabelTotal}>Total</p>
-                    </div>
-                    <div className={styles.breakdownAmount}>
-                        <p className={styles.breakdownValueTotal}>
-                            {formatCurrency(total)}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.breakdownRow}>
-                <div className={styles.breakdownBorder} />
-                <div className={styles.breakdownContentContainer}>
-                    <div className={styles.breakdownText}>
-                        <p className={styles.breakdownLabel}>Loan amount</p>
-                    </div>
-                    <div className={styles.breakdownAmount}>
-                        <p className={styles.breakdownValue}>
-                            {formatCurrency(loanAmount)}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.breakdownRowLast}>
-                <div className={styles.breakdownContentContainer}>
-                    <div className={styles.breakdownText}>
-                        <p className={styles.breakdownLabel}>
-                            Interest (5.8% APR)
-                        </p>
-                    </div>
-                    <div className={styles.breakdownAmount}>
-                        <p className={styles.breakdownValue}>
-                            {formatCurrency(interest)}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <LowerInterestBanner interestSavings={interestSavings} />
-        </div>
-    );
-}
-
-interface RepaymentBreakdownProps {
-    repaymentPeriod: string;
-    monthlyRepayment: number;
-}
-
-function RepaymentBreakdown({
-    repaymentPeriod,
-    monthlyRepayment,
-}: RepaymentBreakdownProps) {
-    const formatCurrency = (value: number) => {
-        const formatted = value.toFixed(2);
-        const parts = formatted.split(".");
-        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        return `£${parts.join(".")}`;
-    };
-
-    return (
-        <div className={styles.amountBreakdownContainer}>
-            <div className={styles.breakdownRow}>
-                <div className={styles.breakdownBorder} />
-                <div className={styles.breakdownContentContainer}>
-                    <div className={styles.breakdownText}>
-                        <p className={styles.breakdownLabel}>
-                            Repayment period
-                        </p>
-                    </div>
-                    <div className={styles.breakdownAmount}>
-                        <p className={styles.breakdownValue}>
-                            {repaymentPeriod}
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className={styles.breakdownRowLast}>
-                <div className={styles.breakdownContentContainer}>
-                    <div className={styles.breakdownText}>
-                        <p className={styles.breakdownLabel}>
-                            Monthly repayment
-                        </p>
-                    </div>
-                    <div className={styles.breakdownAmount}>
-                        <p className={styles.breakdownValue}>
-                            {formatCurrency(monthlyRepayment)}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-interface AmountSectionProps {
-    total: number;
-    loanAmount: number;
-    interest: number;
-    months: number;
-    repaymentPeriod: string;
-    monthlyRepayment: number;
-}
-
-function AmountSection({
-    total,
-    loanAmount,
-    interest,
-    months,
-    repaymentPeriod,
-    monthlyRepayment,
-}: AmountSectionProps) {
-    return (
-        <div className={styles.amountSection}>
-            <div className={styles.amountBorder} />
-            <div className={styles.amountInner}>
-                <div className={styles.amountContent}>
-                    <div className={styles.amountInfo}>
-                        <p className={styles.amountTitle}>Amount</p>
-                        <AmountBreakdown
-                            total={total}
-                            loanAmount={loanAmount}
-                            interest={interest}
-                            months={months}
-                        />
-                    </div>
-
-                    <div className={styles.amountInfo}>
-                        <p className={styles.amountTitle}>Repayment</p>
-                        <RepaymentBreakdown
-                            repaymentPeriod={repaymentPeriod}
-                            monthlyRepayment={monthlyRepayment}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function InfoIcon1() {
-    return (
-        <div className={styles.infoIcon}>
+const SuccessIcon: React.FC = () => (
+    <div className={styles.successIconWrapper}>
+        <div className={styles.successIcon}>
             <svg
-                className={styles.infoIconSvg}
-                fill="none"
-                preserveAspectRatio="none"
-                viewBox="0 0 24 24"
-            >
-                <g>
-                    <g></g>
-                    <path
-                        clipRule="evenodd"
-                        d={svgPaths.p385b6600}
-                        fill="#333333"
-                        fillRule="evenodd"
-                    />
-                </g>
-            </svg>
-        </div>
-    );
-}
-
-function InfoIcon2() {
-    return (
-        <div className={styles.infoIcon}>
-            <svg
-                className={styles.infoIconSvg}
-                fill="none"
-                preserveAspectRatio="none"
-                viewBox="0 0 24 24"
-            >
-                <g>
-                    <g></g>
-                    <path
-                        clipRule="evenodd"
-                        d={svgPaths.p388f8700}
-                        fill="#333333"
-                        fillRule="evenodd"
-                    />
-                </g>
-            </svg>
-        </div>
-    );
-}
-
-function InfoIcon3() {
-    return (
-        <div className={styles.infoIcon}>
-            <svg
-                className={styles.infoIconSvg}
-                fill="none"
-                preserveAspectRatio="none"
-                viewBox="0 0 24 24"
-            >
-                <g>
-                    <g></g>
-                    <path
-                        clipRule="evenodd"
-                        d={svgPaths.p203fb680}
-                        fill="#333333"
-                        fillRule="evenodd"
-                    />
-                </g>
-            </svg>
-        </div>
-    );
-}
-
-function InfoIcon4() {
-    return (
-        <div className={styles.infoIconLarge}>
-            <svg
-                className={styles.infoIconSvg}
-                fill="none"
-                preserveAspectRatio="none"
-                viewBox="0 0 24 25"
-            >
-                <g>
-                    <g></g>
-                    <path d={svgPaths.p305be180} fill="#333333" />
-                </g>
-            </svg>
-        </div>
-    );
-}
-
-function InfoIcon5() {
-    return (
-        <div className={styles.infoIcon}>
-            <svg
-                className={styles.infoIconSvg}
-                fill="none"
-                preserveAspectRatio="none"
-                viewBox="0 0 24 24"
-            >
-                <g>
-                    <g></g>
-                    <path d={svgPaths.p164a9c00} fill="#333333" />
-                </g>
-            </svg>
-        </div>
-    );
-}
-
-function KeyInformation() {
-    return (
-        <div className={styles.keyInfoSection}>
-            <p className={styles.keyInfoTitle}>Key information</p>
-            <p className={styles.keyInfoSubtitle}>
-                Before you submit your application, it's important you
-                understand how it works.
-            </p>
-
-            <div className={styles.keyInfoList}>
-                <div className={styles.keyInfoItem}>
-                    <div className={styles.keyInfoItemBorder} />
-                    <div className={styles.keyInfoItemContent}>
-                        <div className={styles.keyInfoIconWrapper}>
-                            <InfoIcon1 />
-                        </div>
-                        <div className={styles.keyInfoText}>
-                            <p className={styles.keyInfoItemTitle}>
-                                Your data, your control
-                            </p>
-                            <div className={styles.keyInfoItemDescription}>
-                                <p>
-                                    We only use data you choose to share. You
-                                    can change or remove access anytime. Checks
-                                    are secure and read‑only.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.keyInfoItem}>
-                    <div className={styles.keyInfoItemBorder} />
-                    <div className={styles.keyInfoItemContent}>
-                        <div className={styles.keyInfoIconWrapper}>
-                            <InfoIcon2 />
-                        </div>
-                        <div className={styles.keyInfoText}>
-                            <p className={styles.keyInfoItemTitle}>
-                                Applying for a loan will add to your credit file
-                            </p>
-                            <div className={styles.keyInfoItemDescription}>
-                                <p>
-                                    We've analysed your loan worthiness without
-                                    using credit, however applying for a loan
-                                    leaves a hard check on your credit file.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.keyInfoItem}>
-                    <div className={styles.keyInfoItemBorder} />
-                    <div className={styles.keyInfoItemContent}>
-                        <div className={styles.keyInfoIconWrapper}>
-                            <InfoIcon3 />
-                        </div>
-                        <div className={styles.keyInfoText}>
-                            <p className={styles.keyInfoItemTitle}>
-                                How repayments affect your credit
-                            </p>
-                            <div className={styles.keyInfoItemDescription}>
-                                <p>
-                                    Paying on time can help your record grow. If
-                                    a payment is missed, it may hurt your
-                                    credit. Set up direct debit and reminders to
-                                    stay on track.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.keyInfoItem}>
-                    <div className={styles.keyInfoItemBorder} />
-                    <div className={styles.keyInfoItemContent}>
-                        <div className={styles.keyInfoIconWrapper}>
-                            <InfoIcon4 />
-                        </div>
-                        <div className={styles.keyInfoText}>
-                            <p className={styles.keyInfoItemTitle}>
-                                Speak to us if you miss a repayment or if money
-                                gets too tight
-                            </p>
-                            <div className={styles.keyInfoItemDescriptionMulti}>
-                                <p>
-                                    If you've missed a loan repayment, we won't
-                                    try taking it again. Make a repayment on the
-                                    app to get back on track.{" "}
-                                </p>
-                                <p>&nbsp;</p>
-                                <p>
-                                    We have to report any repayments you miss to
-                                    credit bureaus, which can make it harder to
-                                    borrow later and harm your file.
-                                </p>
-                                <p>&nbsp;</p>
-                                <p>
-                                    If you can't pay, talk to us as soon as you
-                                    can, there are ways we can help.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className={styles.keyInfoItem}>
-                    <div className={styles.keyInfoItemBorder} />
-                    <div className={styles.keyInfoItemContent}>
-                        <div className={styles.keyInfoIconWrapper}>
-                            <InfoIcon5 />
-                        </div>
-                        <div className={styles.keyInfoText}>
-                            <p className={styles.keyInfoItemTitleNoWrap}>
-                                We're here to help
-                            </p>
-                            <div className={styles.keyInfoItemDescription}>
-                                <p>
-                                    Drop us a message in chat, on the phone or
-                                    in branch if you have any questions
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-function NotificationIcon() {
-    return (
-        <div className={styles.notificationIcon}>
-            <svg
-                className={styles.notificationIconSvg}
+                className={styles.successIconSvg}
                 fill="none"
                 preserveAspectRatio="none"
                 viewBox="0 0 18 18"
             >
                 <g>
-                    <g></g>
-                    <circle cx="9" cy="9" fill="#305A85" r="9" />
-                    <g>
-                        <path d={svgPaths.p19a91380} fill="white" />
-                        <path d={svgPaths.p3ddcf200} fill="white" />
-                    </g>
+                    <circle cx="9" cy="9" fill="#00847F" r="9" />
+                    <path d={svgPathsSuccess.p2801d500} fill="white" />
                 </g>
             </svg>
         </div>
-    );
-}
+    </div>
+);
 
-function Cta({
-    onSubmit,
-    isValid,
-}: {
-    onSubmit: () => void;
-    isValid: boolean;
-}) {
+const NotificationIcon: React.FC = () => (
+    <div className={styles.notificationIcon}>
+        <svg
+            className={styles.notificationIconSvg}
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 18 18"
+        >
+            <g>
+                <circle cx="9" cy="9" fill="#305A85" r="9" />
+                <path d={svgPaths.p19a91380} fill="white" />
+                <path d={svgPaths.p3ddcf200} fill="white" />
+            </g>
+        </svg>
+    </div>
+);
+
+// ============================================================================
+// BREAKDOWN COMPONENTS
+// ============================================================================
+
+type BreakdownRowProps = {
+    label: string;
+    value: string;
+    isTotal?: boolean;
+};
+
+const BreakdownRow: React.FC<BreakdownRowProps> = ({
+    label,
+    value,
+    isTotal = false,
+}) => {
+    const rowClass = isTotal ? styles.breakdownRowLast : styles.breakdownRow;
+    const labelClass = isTotal
+        ? styles.breakdownLabelTotal
+        : styles.breakdownLabel;
+    const valueClass = isTotal
+        ? styles.breakdownValueTotal
+        : styles.breakdownValue;
+
     return (
-        <div className={styles.ctaSection}>
-            <div className={styles.notificationBanner}>
-                <div className={styles.notificationBorder} />
-                <div className={styles.notificationContent}>
-                    <div className={styles.notificationIconContainer}>
-                        <NotificationIcon />
-                    </div>
-                    <div className={styles.notificationMessageContainer}>
-                        <p className={styles.notificationText}>
-                            Submitting an application will leave a hard check on
-                            your credit file.
-                        </p>
-                    </div>
+        <div className={rowClass}>
+            {!isTotal && (
+                <div className={styles.breakdownBorder} aria-hidden="true" />
+            )}
+            <div className={styles.breakdownContentContainer}>
+                <div className={styles.breakdownText}>
+                    <p className={labelClass}>{label}</p>
+                </div>
+                <div className={styles.breakdownAmount}>
+                    <p className={valueClass}>{value}</p>
                 </div>
             </div>
-
-            <button
-                onClick={isValid ? onSubmit : undefined}
-                disabled={!isValid}
-                className={styles.primaryButton}
-                type="button"
-            >
-                <span>Submit application</span>
-            </button>
         </div>
     );
-}
+};
 
-export interface ReviewYourLoanProps {
-    onSubmit: () => void;
-    initialLoanAmount?: number;
-    initialMonths?: number;
-}
+const AmountBreakdown: React.FC<AmountBreakdownProps> = ({
+    total,
+    loanAmount,
+    interest,
+    months,
+}) => {
+    const RATE_REDUCTION = 0.004; // 0.4%
+    const interestSavings = loanAmount * RATE_REDUCTION * (months / 12);
 
-export default function ReviewYourLoan({
+    return (
+        <div className={styles.amountBreakdownContainer}>
+            <BreakdownRow label="Total" value={formatCurrency(total)} isTotal />
+            <BreakdownRow
+                label="Loan amount"
+                value={formatCurrency(loanAmount)}
+            />
+            <BreakdownRow
+                label="Interest (5.8% APR)"
+                value={formatCurrency(interest)}
+            />
+            <LowerInterestBanner interestSavings={interestSavings} />
+        </div>
+    );
+};
+
+const RepaymentBreakdown: React.FC<RepaymentBreakdownProps> = ({
+    repaymentPeriod,
+    monthlyRepayment,
+}) => (
+    <div className={styles.amountBreakdownContainer}>
+        <BreakdownRow label="Repayment period" value={repaymentPeriod} />
+        <BreakdownRow
+            label="Monthly repayment"
+            value={formatCurrency(monthlyRepayment)}
+            isTotal
+        />
+    </div>
+);
+
+const LowerInterestBanner: React.FC<LowerInterestBannerProps> = ({
+    interestSavings,
+}) => (
+    <div className={styles.lowerInterestBanner}>
+        <div className={styles.lowerInterestContent}>
+            <SuccessIcon />
+            <div className={styles.lowerInterestTextWrapper}>
+                <p className={styles.lowerInterestText}>
+                    Your interest is 0.4% lower thanks to your Hybrid Stability
+                    Score! You save {formatCurrency(interestSavings)}.
+                </p>
+            </div>
+        </div>
+    </div>
+);
+
+const AmountSection: React.FC<AmountSectionProps> = ({
+    total,
+    loanAmount,
+    interest,
+    months,
+    repaymentPeriod,
+    monthlyRepayment,
+}) => (
+    <div className={styles.amountSection}>
+        <div className={styles.amountBorder} aria-hidden="true" />
+        <div className={styles.amountInner}>
+            <div className={styles.amountContent}>
+                <div className={styles.amountInfo}>
+                    <p className={styles.amountTitle}>Amount</p>
+                    <AmountBreakdown
+                        total={total}
+                        loanAmount={loanAmount}
+                        interest={interest}
+                        months={months}
+                    />
+                </div>
+
+                <div className={styles.amountInfo}>
+                    <p className={styles.amountTitle}>Repayment</p>
+                    <RepaymentBreakdown
+                        repaymentPeriod={repaymentPeriod}
+                        monthlyRepayment={monthlyRepayment}
+                    />
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+// ============================================================================
+// KEY INFORMATION COMPONENTS
+// ============================================================================
+
+type KeyInfoItemProps = {
+    icon: React.ReactNode;
+    title: string;
+    description: React.ReactNode;
+};
+
+const KeyInfoItem: React.FC<KeyInfoItemProps> = ({
+    icon,
+    title,
+    description,
+}) => (
+    <div className={styles.keyInfoItem}>
+        <div className={styles.keyInfoItemBorder} aria-hidden="true" />
+        <div className={styles.keyInfoItemContent}>
+            <div className={styles.keyInfoIconWrapper}>{icon}</div>
+            <div className={styles.keyInfoText}>
+                <p className={styles.keyInfoItemTitle}>{title}</p>
+                <div className={styles.keyInfoItemDescription}>
+                    {description}
+                </div>
+            </div>
+        </div>
+    </div>
+);
+
+const InfoIcon1: React.FC = () => (
+    <div className={styles.infoIcon}>
+        <svg
+            className={styles.infoIconSvg}
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 24 24"
+        >
+            <path
+                clipRule="evenodd"
+                d={svgPaths.p385b6600}
+                fill="#333333"
+                fillRule="evenodd"
+            />
+        </svg>
+    </div>
+);
+
+const InfoIcon2: React.FC = () => (
+    <div className={styles.infoIcon}>
+        <svg
+            className={styles.infoIconSvg}
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 24 24"
+        >
+            <path
+                clipRule="evenodd"
+                d={svgPaths.p388f8700}
+                fill="#333333"
+                fillRule="evenodd"
+            />
+        </svg>
+    </div>
+);
+
+const InfoIcon3: React.FC = () => (
+    <div className={styles.infoIcon}>
+        <svg
+            className={styles.infoIconSvg}
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 24 24"
+        >
+            <path
+                clipRule="evenodd"
+                d={svgPaths.p203fb680}
+                fill="#333333"
+                fillRule="evenodd"
+            />
+        </svg>
+    </div>
+);
+
+const InfoIcon4: React.FC = () => (
+    <div className={styles.infoIconLarge}>
+        <svg
+            className={styles.infoIconSvg}
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 24 25"
+        >
+            <path d={svgPaths.p305be180} fill="#333333" />
+        </svg>
+    </div>
+);
+
+const InfoIcon5: React.FC = () => (
+    <div className={styles.infoIcon}>
+        <svg
+            className={styles.infoIconSvg}
+            fill="none"
+            preserveAspectRatio="none"
+            viewBox="0 0 24 24"
+        >
+            <path d={svgPaths.p164a9c00} fill="#333333" />
+        </svg>
+    </div>
+);
+
+const KeyInformation: React.FC = () => (
+    <section className={styles.keyInfoSection}>
+        <p className={styles.keyInfoTitle}>Key information</p>
+        <p className={styles.keyInfoSubtitle}>
+            Before you submit your application, it's important you understand
+            how it works.
+        </p>
+
+        <div className={styles.keyInfoList}>
+            <KeyInfoItem
+                icon={<InfoIcon1 />}
+                title="Your data, your control"
+                description={
+                    <p>
+                        We only use data you choose to share. You can change or
+                        remove access anytime. Checks are secure and read‑only.
+                    </p>
+                }
+            />
+
+            <KeyInfoItem
+                icon={<InfoIcon2 />}
+                title="Applying for a loan will add to your credit file"
+                description={
+                    <p>
+                        We've analysed your loan worthiness without using
+                        credit, however applying for a loan leaves a hard check
+                        on your credit file.
+                    </p>
+                }
+            />
+
+            <KeyInfoItem
+                icon={<InfoIcon3 />}
+                title="How repayments affect your credit"
+                description={
+                    <p>
+                        Paying on time can help your record grow. If a payment
+                        is missed, it may hurt your credit. Set up direct debit
+                        and reminders to stay on track.
+                    </p>
+                }
+            />
+
+            <KeyInfoItem
+                icon={<InfoIcon4 />}
+                title="Speak to us if you miss a repayment or if money gets too tight"
+                description={
+                    <>
+                        <p>
+                            If you've missed a loan repayment, we won't try
+                            taking it again. Make a repayment on the app to get
+                            back on track.
+                        </p>
+                        <p>
+                            We have to report any repayments you miss to credit
+                            bureaus, which can make it harder to borrow later
+                            and harm your file.
+                        </p>
+                        <p>
+                            If you can't pay, talk to us as soon as you can,
+                            there are ways we can help.
+                        </p>
+                    </>
+                }
+            />
+            
+            <KeyInfoItem
+                icon={<InfoIcon5 />}
+                title="We're here to help"
+                description={
+                    <p>
+                        Drop us a message in chat, on the phone or in branch if
+                        you have any questions
+                    </p>
+                }
+            />
+        </div>
+    </section>
+);
+
+// ============================================================================
+// CTA COMPONENT
+// ============================================================================
+
+const Cta: React.FC<CtaProps> = ({ onSubmit, isValid }) => (
+    <section className={styles.ctaSection}>
+        <div className={styles.notificationBanner}>
+            <div className={styles.notificationBorder} aria-hidden="true" />
+            <div className={styles.notificationContent}>
+                <div className={styles.notificationIconContainer}>
+                    <NotificationIcon />
+                </div>
+                <div className={styles.notificationMessageContainer}>
+                    <p className={styles.notificationText}>
+                        Submitting an application will leave a hard check on
+                        your credit file.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <button
+            type="button"
+            onClick={isValid ? onSubmit : undefined}
+            disabled={!isValid}
+            className={styles.primaryButton}
+        >
+            Submit application
+        </button>
+    </section>
+);
+
+// ============================================================================
+// REVIEW YOUR LOAN SCREEN
+// ============================================================================
+
+const ReviewYourLoan: React.FC<ReviewYourLoanProps> = ({
     onSubmit,
     initialLoanAmount = 10000,
     initialMonths = 62,
-}: ReviewYourLoanProps) {
+}) => {
     const [loanAmount, setLoanAmount] = useState(initialLoanAmount);
     const [months, setMonths] = useState(initialMonths);
     const [isValid, setIsValid] = useState(true);
 
-    // Calculate loan details
-    const APR = 0.058;
-
-    // Simple interest calculation for display purposes
     const monthlyRate = APR / 12;
     const monthlyRepayment =
         (loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, months))) /
         (Math.pow(1 + monthlyRate, months) - 1);
     const totalRepayment = monthlyRepayment * months;
     const totalInterest = totalRepayment - loanAmount;
-
-    const formatMonthsToYears = (months: number) => {
-        const years = Math.floor(months / 12);
-        const remainingMonths = months % 12;
-
-        if (years === 0) {
-            return `${remainingMonths} month${
-                remainingMonths !== 1 ? "s" : ""
-            }`;
-        } else if (remainingMonths === 0) {
-            return `${years} year${years !== 1 ? "s" : ""}`;
-        } else {
-            return `${years} year${
-                years !== 1 ? "s" : ""
-            } ${remainingMonths} month${remainingMonths !== 1 ? "s" : ""}`;
-        }
-    };
 
     return (
         <div className={styles.root}>
@@ -889,7 +797,6 @@ export default function ReviewYourLoan({
                         <svg
                             className={styles.dividerSvg}
                             fill="none"
-                            preserveAspectRatio="none"
                             viewBox="0 0 348 1"
                         >
                             <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
@@ -919,7 +826,6 @@ export default function ReviewYourLoan({
                         <svg
                             className={styles.dividerSvg}
                             fill="none"
-                            preserveAspectRatio="none"
                             viewBox="0 0 348 1"
                         >
                             <line stroke="#9B9B9B" x2="348" y1="0.5" y2="0.5" />
@@ -929,11 +835,10 @@ export default function ReviewYourLoan({
 
                 <KeyInformation />
 
-                <Cta
-                    onSubmit={isValid ? onSubmit : () => {}}
-                    isValid={isValid}
-                />
+                <Cta onSubmit={onSubmit} isValid={isValid} />
             </div>
         </div>
     );
-}
+};
+
+export default ReviewYourLoan;

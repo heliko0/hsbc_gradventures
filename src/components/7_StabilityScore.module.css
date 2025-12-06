@@ -1,9 +1,11 @@
-/* Root and container */
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+
 .root {
-  background: white;
-  position: relative;
-  width: 100%;
+  background: #ffffff;
   min-height: 100vh;
+  width: 100%;
 }
 
 .inner {
@@ -12,37 +14,42 @@
   flex-direction: column;
   gap: 32px;
   align-items: flex-start;
-  padding: 48px 32px 32px 32px;
+  padding: 48px 32px 32px;
   width: 100%;
   max-width: 500px;
   margin: 0 auto;
 }
 
+/* ============================================================================
+   HEADER
+   ============================================================================ */
 
-
-/* Header */
 .header {
   display: flex;
   flex-direction: column;
   gap: 8px;
   color: #333333;
-  width: 100%;
 }
 
 .headerTitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
   font-size: 23px;
+  margin: 0;
 }
 
 .headerSubtitle {
   font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  letter-spacing: -0.2px; 
+  letter-spacing: -0.2px;
+  margin: 0;
 }
 
-/* Divider */
+/* ============================================================================
+   DIVIDER
+   ============================================================================ */
+
 .dividerContainer {
   position: relative;
   height: 0;
@@ -58,41 +65,48 @@
 }
 
 .dividerSvg {
+  display: block;
   width: 100%;
-  height: 1px;
 }
 
-/* Main content */
+/* ============================================================================
+   MAIN CONTENT
+   ============================================================================ */
+
 .mainContent {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  align-items: flex-start;
   width: 100%;
-  flex-shrink: 0;
-  position: relative;
 }
 
-/* Score section */
+/* ============================================================================
+   SCORE SECTION
+   ============================================================================ */
+
 .scoreSection {
   display: flex;
   flex-direction: column;
   gap: 24px;
   align-items: center;
   width: 100%;
-  flex-shrink: 0;
-  position: relative;
 }
 
-/* Gauge */
+/* ============================================================================
+   GAUGE CONTAINER
+   ============================================================================ */
+
 .gaugeContainer {
   height: 237px;
   position: relative;
-  flex-shrink: 0;
   width: 348px;
   max-width: 100%;
   margin: 0 auto;
 }
+
+/* ============================================================================
+   FRAME (SCORE DISPLAY)
+   ============================================================================ */
 
 .frameContainer {
   position: absolute;
@@ -111,58 +125,57 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
-  overflow: clip;
   padding: 10px;
-  position: relative;
-  border-radius: inherit;
   width: 182px;
   height: 182px;
+  border-radius: inherit;
 }
 
 .frameBorder {
   position: absolute;
-  border: 1px solid #d7d8d6;
   inset: -1px;
-  pointer-events: none;
+  border: 1px solid #d7d8d6;
   border-radius: 501px;
+  pointer-events: none;
 }
 
-/* Score display inside gauge */
 .scoreContainer {
-  height: 100px;
   position: relative;
-  flex-shrink: 0;
   width: 120px;
+  height: 100px;
   color: #333333;
-  font-style: normal;
-  line-height: normal;
 }
 
 .scoreLabel {
   position: absolute;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 19px;
-  left: 50%;
-  text-align: center;
   top: 0;
+  left: 50%;
   transform: translateX(-50%);
   width: 120px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  text-align: center;
+  margin: 0;
 }
 
 .scoreValue {
   position: absolute;
-  font-family: 'Inter', sans-serif;
+  top: 23px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 700;
   font-size: 48px;
   text-align: center;
-  left: 50%;
-  top: 23px;
-  transform: translateX(-50%);
-  width: 120px;
+  margin: 0;
 }
 
-/* Arc containers */
+/* ============================================================================
+   ARC CONTAINERS
+   ============================================================================ */
+
 .arcContainer {
   position: absolute;
   display: flex;
@@ -188,26 +201,28 @@
 
 .arcImageWrapper {
   position: absolute;
+  top: 0;
   bottom: 25%;
   left: 0;
   right: 0;
-  top: 0;
 }
 
 .arcImage {
   display: block;
-  max-width: none;
   width: 100%;
   height: 100%;
 }
 
-/* Colored segments */
+/* ============================================================================
+   ARC SEGMENTS
+   ============================================================================ */
+
 .greenSegment {
   position: absolute;
+  top: 22.41%;
+  right: 0;
   bottom: 25%;
   left: 88.95%;
-  right: 0;
-  top: 22.41%;
 }
 
 .yellowSegment {
@@ -217,18 +232,18 @@
 
 .orangeSegment {
   position: absolute;
+  top: 0;
+  right: 27.93%;
   bottom: 91.91%;
   left: 37.32%;
-  right: 27.93%;
-  top: 0;
 }
 
 .redSegment {
   position: absolute;
+  top: 2.04%;
+  right: 63.2%;
   bottom: 37.1%;
   left: 0;
-  right: 63.2%;
-  top: 2.04%;
 }
 
 .segmentSvg {
@@ -237,15 +252,17 @@
   height: 100%;
 }
 
-/* Circle indicator */
+/* ============================================================================
+   CIRCLE INDICATOR
+   ============================================================================ */
+
 .circleIndicatorContainer {
   position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
-  transform: translate(-50%, -50%);  /* 👈 center on computed coords */
+  transform: translate(-50%, -50%);
 }
-
 
 .circleIndicatorInner {
   position: relative;
@@ -264,299 +281,41 @@
   height: 100%;
 }
 
-/* Score text */
+/* ============================================================================
+   SCORE TEXT
+   ============================================================================ */
+
 .scoreText {
   display: flex;
   flex-direction: column;
   gap: 13px;
   align-items: center;
   width: 250px;
-  flex-shrink: 0;
-  position: relative;
-  color: #333333;
   text-align: center;
-  font-style: normal;
-  line-height: normal;
+  color: #333333;
 }
 
 .scoreTextTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
   font-size: 23px;
-  position: relative;
-  flex-shrink: 0;
-  width: 223px;
+  margin: 0;
 }
 
 .scoreTextDescription {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  position: relative;
-  flex-shrink: 0;
-  width: min-content;
-  min-width: 100%;
+  margin: 0;
 }
 
-/* Analysis info */
-.analysisInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-  flex-shrink: 0;
-  position: relative;
-}
+/* ============================================================================
+   GREY INFO PANEL
+   ============================================================================ */
 
-.section {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  align-items: flex-start;
-  width: 348px;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.sectionTitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 19px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
-}
-
-.detailsList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  align-items: flex-start;
-  width: 100%;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.listItem {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  width: 100%;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.successIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-}
-
-.icon {
-  position: relative;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-}
-
-.iconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.listContent {
-  flex-basis: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
-  align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.listText {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
-}
-
-.improvementContent {
-  flex-basis: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  flex-grow: 1;
-  align-items: flex-start;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  font-style: normal;
-  line-height: normal;
-}
-
-.improvementTitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 16px;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-}
-
-.improvementSubtitle {
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-}
-
-/* CTA Section */
-.ctaSection {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  align-items: flex-start;
-  justify-content: flex-end;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-}
-
-.notificationBanner {
-  background: #ebeff4;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-}
-
-.notificationBorder {
-  position: absolute;
-  border: 1px solid #305a85;
-  border-style: solid;
-  inset: 0;
-  pointer-events: none;
-}
-
-.notificationContent {
-  box-sizing: border-box;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 11px 16px;
-  position: relative;
-  width: 100%;
-}
-
-.notificationIconContainer {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  overflow: clip;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  position: relative;
-}
-
-.notificationIcon {
-  position: relative;
-  flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-}
-
-.notificationIconSvg {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.notificationMessageContainer {
-  flex-basis: 0;
-  display: flex;
-  gap: 10px;
-  flex-grow: 1;
-  align-items: flex-start;
-  overflow: clip;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.notificationText {
-  flex-basis: 0;
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
-  font-size: 12px;
-  flex-grow: 1;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
-  font-style: normal;
-  line-height: normal;
-}
-
-/* Primary Button */
-.primaryButton {
-  background: #db0011;
-  position: relative;
-  flex-shrink: 0;
-  width: 100%;
-  border: none;
-  cursor: pointer;
-  padding: 11px 20px;
-  font-family: 'Inter', sans-serif;
-  font-weight: 500;
-  font-size: 16px;
-  text-align: center;
-  color: white;
-  font-style: normal;
-  line-height: normal;
-}
-
-.primaryButton:hover {
-  background: #c00010;
-}
-
-.primaryButton:disabled {
-  background-color: #D7D8D6;
-  color: #b3b3b3;
-  cursor: not-allowed;
-  opacity: 1;
-}
-
-.primaryButton:hover:not(:disabled) {
-  background-color: #c00010;
-}
-
-/* Grey info panel */
 .greyPanel {
   background: #ededed;
   position: relative;
-  flex-shrink: 0;
   width: 100%;
 }
 
@@ -575,25 +334,19 @@
   gap: 14px;
   align-items: center;
   padding: 20px 24px;
-  position: relative;
   width: 100%;
 }
 
 .greyPanelText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 16px;
-  position: relative;
-  flex-shrink: 0;
-  color: #333333;
   text-align: center;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
+  color: #333333;
+  margin: 0;
 }
 
 .greyPanelBold {
-  font-family: 'Inter', sans-serif;
   font-weight: 500;
 }
 
@@ -602,9 +355,7 @@
   gap: 8px;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   width: 100%;
-  position: relative;
 }
 
 .linkButton {
@@ -612,16 +363,10 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  font-family: 'Inter', 'Noto Sans', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  white-space: pre;
-  text-wrap: nowrap;
-  font-style: normal;
-  line-height: normal;
 }
 
 .linkButton:hover {
@@ -630,10 +375,185 @@
 
 .linkText {
   text-decoration: underline;
-  text-underline-position: from-font;
 }
 
-/* Modal */
+/* ============================================================================
+   ICON & LIST COMPONENTS
+   ============================================================================ */
+
+.icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.iconSvg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.successIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ============================================================================
+   ANALYSIS SECTIONS
+   ============================================================================ */
+
+.analysisInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.sectionTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  font-size: 19px;
+  color: #333333;
+  margin: 0;
+}
+
+.detailsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.listItem {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.listContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.listText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #333333;
+  margin: 0;
+}
+
+.improvementContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: #333333;
+}
+
+.improvementTitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  margin: 0;
+}
+
+.improvementSubtitle {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* ============================================================================
+   CTA SECTION
+   ============================================================================ */
+
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.notificationBanner {
+  position: relative;
+  width: 100%;
+  background: #ebeff4;
+}
+
+.notificationBorder {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #305a85;
+  pointer-events: none;
+}
+
+.notificationContent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 11px 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.notificationIconContainer {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.notificationMessageContainer {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+}
+
+.notificationText {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  color: #333333;
+  margin: 0;
+}
+
+.primaryButton {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 11px 20px;
+  background: #db0011;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  transition: background 0.15s ease-in-out;
+}
+
+.primaryButton:hover {
+  background: #c00010;
+}
+
+/* ============================================================================
+   MODAL
+   ============================================================================ */
+
 .modalOverlay {
   position: fixed;
   inset: 0;
@@ -661,14 +581,11 @@
 
 .closeButtonWrapper {
   height: 44px;
-  position: relative;
-  flex-shrink: 0;
   width: 100%;
 }
 
 .closeButtonInner {
   display: flex;
-  flex-direction: row;
   justify-content: flex-end;
   width: 100%;
   height: 100%;
@@ -677,13 +594,11 @@
 .closeButtonContent {
   box-sizing: border-box;
   display: flex;
-  gap: 10px;
-  height: 44px;
   align-items: flex-start;
   justify-content: flex-end;
   padding: 13px;
-  position: relative;
   width: 100%;
+  height: 44px;
 }
 
 .closeButton {
@@ -702,9 +617,9 @@
 
 .closeIcon {
   position: relative;
-  flex-shrink: 0;
   width: 18px;
   height: 18px;
+  flex-shrink: 0;
 }
 
 .closeIconSvg {
@@ -715,14 +630,11 @@
 
 .modalContent {
   position: relative;
-  flex-shrink: 0;
   width: 100%;
 }
 
 .modalContentInner {
   display: flex;
-  flex-direction: row;
-  align-items: center;
   width: 100%;
   height: 100%;
 }
@@ -730,92 +642,60 @@
 .modalContentWrapper {
   box-sizing: border-box;
   display: flex;
-  gap: 10px;
-  align-items: center;
   padding: 0 24px 24px 24px;
-  position: relative;
   width: 100%;
 }
 
 .modalBody {
-  flex-basis: 0;
-  flex-grow: 1;
-  min-height: 1px;
-  min-width: 1px;
-  position: relative;
-  flex-shrink: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  align-items: flex-start;
 }
 
 .modalTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 400;
   font-size: 19px;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
+  margin: 0;
 }
 
 .modalSections {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  align-items: flex-start;
   width: 100%;
-  flex-shrink: 0;
-  position: relative;
 }
 
 .modalSection {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  align-items: flex-start;
-  flex-shrink: 0;
   width: 100%;
-  position: relative;
 }
 
 .modalSectionTitle {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 500;
   font-size: 16px;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
+  margin: 0;
 }
 
 .modalSectionText {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
+  margin: 0;
 }
 
 .modalSectionTextMulti {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
 }
 
 .modalSectionTextMulti p {
@@ -830,20 +710,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-items: flex-start;
   width: 100%;
-  flex-shrink: 0;
-  position: relative;
 }
 
 .modalDetailsList {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  align-items: flex-start;
   width: 100%;
-  flex-shrink: 0;
-  position: relative;
 }
 
 .modalListItem {
@@ -851,22 +725,13 @@
   gap: 12px;
   align-items: flex-start;
   width: 100%;
-  flex-shrink: 0;
-  position: relative;
 }
 
 .modalListText {
-  font-family: 'Inter', sans-serif;
+  flex: 1;
+  font-family: 'Inter', system-ui, sans-serif;
   font-weight: 300;
   font-size: 12px;
-  position: relative;
-  flex-shrink: 0;
   color: #333333;
-  width: 100%;
-  font-style: normal;
-  line-height: normal;
-  flex-basis: 0;
-  flex-grow: 1;
-  min-height: 1px;
-  min-width: 1px;
+  margin: 0;
 }

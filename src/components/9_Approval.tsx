@@ -1,214 +1,145 @@
-import { useRef } from 'react';
-import svgPaths from "../imports/svg-nq7ybeon38";
-import imgImage12 from "figma:asset/3829741e751ce4f7046f64d51fbb12a7d591c83b.png";
-import imgImage13 from "figma:asset/d2a0302e4cf8d9b5144b454b7c3f01a511cc6e59.png";
-import imgImage14 from "figma:asset/a82416f130a1bc5e31ed94d8693371aef4efa93b.png";
+import React, { useRef } from 'react';
+import svgPaths from '../imports/svg-nq7ybeon38';
+import imgImage12 from 'figma:asset/3829741e751ce4f7046f64d51fbb12a7d591c83b.png';
+import imgImage13 from 'figma:asset/d2a0302e4cf8d9b5144b454b7c3f01a511cc6e59.png';
+import imgImage14 from 'figma:asset/a82416f130a1bc5e31ed94d8693371aef4efa93b.png';
 import styles from './9_Approval.module.css';
 
-interface ApprovalProps {
+// ============================================================================
+// TYPES
+// ============================================================================
+
+type HeaderProps = Record<string, never>;
+
+type YourOfferProps = {
   onViewAgreement: () => void;
-}
+};
 
-function Header() {
-  return (
-    <div className={styles.header} data-name="Header">
-      <p className={styles.headerTitle}>Great news! Your loan application is approved.</p>
-      <p className={styles.headerSubtitle}>Let's confirm the details and get you set up.</p>
-    </div>
-  );
-}
+type ProductCardProps = {
+  title: string;
+  description: string;
+  image: string;
+};
 
-function Text() {
-  return (
-    <div className={styles.offerText} data-name="Text">
-      <p className={styles.offerTitle}>Your offer</p>
-      <p className={styles.offerDescription}>Click here to view and accept your loan agreement.</p>
-    </div>
-  );
-}
+type CarouselProps = Record<string, never>;
 
-function ElementsContainer() {
-  return (
-    <div className={styles.primaryButtonContent} data-name="Elements container">
-      <p className={styles.primaryButtonText}>View your loan agreement</p>
-    </div>
-  );
-}
+type ContentProps = {
+  onViewAgreement: () => void;
+};
 
-function PrimaryButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button className={styles.primaryButton} data-name="On Light: Button primary" onClick={onClick}>
-      <ElementsContainer />
-    </button>
-  );
-}
+type CtaProps = Record<string, never>;
 
-function YourOffer({ onViewAgreement }: { onViewAgreement: () => void }) {
-  return (
-    <div className={styles.yourOfferSection} data-name="Your offer">
-      <Text />
-      <PrimaryButton onClick={onViewAgreement} />
-    </div>
-  );
-}
+export type ApprovalProps = {
+  onViewAgreement: () => void;
+};
 
-function Text1() {
-  return (
-    <div className={styles.productsText} data-name="Text">
-      <p className={styles.productsTitle}>Products for you</p>
-      <p className={styles.productsDescription}>Based on your new hybrid Stability Score, we've picked out a range of products just for you:</p>
-    </div>
-  );
-}
+// ============================================================================
+// COMPONENTS
+// ============================================================================
 
-function ProductsForYou() {
-  return (
-    <div className={styles.productsSection} data-name="Products for you">
-      <Text1 />
-    </div>
-  );
-}
+const Header: React.FC<HeaderProps> = () => (
+  <header className={styles.header}>
+    <p className={styles.headerTitle}>Great news! Your loan application is approved.</p>
+    <p className={styles.headerSubtitle}>Let's confirm the details and get you set up.</p>
+  </header>
+);
 
-function ContentContainer({ children }: { children: React.ReactNode }) {
-  return (
-    <div className={styles.cardDescriptionContainer} data-name="Content container">
-      <p className={styles.cardDescription}>{children}</p>
-    </div>
-  );
-}
+// ============================================================================
+// YOUR OFFER SECTION
+// ============================================================================
 
-function ArrowRightNarrow() {
-  return (
-    <div className={styles.cardLinkIcon} data-name="Arrow right narrow">
-      <svg className={styles.cardLinkIconSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 6 12">
-        <g id="Arrow right narrow">
-          <path clipRule="evenodd" d="M0 12L0 0L6 6L0 12Z" fill="var(--fill-0, #DB0011)" fillRule="evenodd" id="Icon" />
-        </g>
-      </svg>
-    </div>
-  );
-}
+const YourOfferText: React.FC = () => (
+  <div className={styles.offerText}>
+    <p className={styles.offerTitle}>Your offer</p>
+    <p className={styles.offerDescription}>
+      Click here to view and accept your loan agreement.
+    </p>
+  </div>
+);
 
-function IconContainer() {
-  return (
-    <div className={styles.cardLinkIconContainer} data-name="Icon container">
-      <ArrowRightNarrow />
-    </div>
-  );
-}
+const PrimaryButton: React.FC<{ onClick: () => void }> = ({ onClick }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    className={styles.primaryButton}
+  >
+    <p className={styles.primaryButtonText}>View your loan agreement</p>
+  </button>
+);
 
-function Link() {
-  return (
-    <div className={styles.cardLink} data-name="Link">
-      <p className={styles.cardLinkText}>Learn more</p>
-      <IconContainer />
-    </div>
-  );
-}
+const YourOffer: React.FC<YourOfferProps> = ({ onViewAgreement }) => (
+  <section className={styles.yourOfferSection}>
+    <YourOfferText />
+    <PrimaryButton onClick={onViewAgreement} />
+  </section>
+);
 
-function LinkOne() {
-  return (
-    <div className={styles.cardLinkWrapper} data-name="Link one">
-      <Link />
-    </div>
-  );
-}
+// ============================================================================
+// PRODUCTS FOR YOU SECTION
+// ============================================================================
 
-function LinkContainer() {
-  return (
-    <div className={styles.cardLinkContainer} data-name="Link container">
-      <LinkOne />
-    </div>
-  );
-}
+const ProductsHeader: React.FC = () => (
+  <div className={styles.productsText}>
+    <p className={styles.productsTitle}>Products for you</p>
+    <p className={styles.productsDescription}>
+      Based on your new hybrid Stability Score, we've picked out a range of
+      products just for you:
+    </p>
+  </div>
+);
 
-function Content() {
-  return (
-    <div className={styles.cardContentOuter} data-name="Content">
-      <div className={styles.cardContentInner}>
-        <div className={styles.cardContent}>
-          <p className={styles.cardTitle}>Regular Savings Account</p>
-          <ContentContainer>Save between £25 and £250 every month with a 12-month fixed rate account. Available to customers with a current account.</ContentContainer>
-          <LinkContainer />
-        </div>
+const ProductCard: React.FC<ProductCardProps> = ({ title, description, image }) => (
+  <div className={styles.card}>
+    <div className={styles.cardBorder} aria-hidden="true" />
+    <div className={styles.cardImageContainer}>
+      <div className={styles.cardImageWrapper}>
+        <img alt="" className={styles.cardImage} src={image} />
       </div>
     </div>
-  );
-}
-
-function CardImageWithBorder() {
-  return (
-    <div className={styles.card} data-name="Card Image with border">
-      <div aria-hidden="true" className={styles.cardBorder} />
-      <div className={styles.cardImageContainer} data-name="image 12">
-        <div className={styles.cardImageWrapper}>
-          <img alt="" className={styles.cardImage} src={imgImage12} />
-        </div>
-      </div>
-      <Content />
-    </div>
-  );
-}
-
-function Content1() {
-  return (
-    <div className={styles.cardContentOuter} data-name="Content">
+    <div className={styles.cardContentOuter}>
       <div className={styles.cardContentInner}>
         <div className={styles.cardContentFlexible}>
-          <p className={styles.cardTitle}>Savings Booster Pot</p>
-          <ContentContainer>Get timely alerts so you never miss a scheduled payment.</ContentContainer>
-          <LinkContainer />
+          <p className={styles.cardTitle}>{title}</p>
+          <div className={styles.cardDescriptionContainer}>
+            <p className={styles.cardDescription}>{description}</p>
+          </div>
+          <div className={styles.cardLinkContainer}>
+            <div className={styles.cardLinkWrapper}>
+              <div className={styles.cardLink}>
+                <p className={styles.cardLinkText}>Learn more</p>
+                <div className={styles.cardLinkIconContainer}>
+                  <div className={styles.cardLinkIcon}>
+                    <svg
+                      className={styles.cardLinkIconSvg}
+                      fill="none"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 6 12"
+                    >
+                      <path
+                        clipRule="evenodd"
+                        d="M0 12L0 0L6 6L0 12Z"
+                        fill="#DB0011"
+                        fillRule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  );
-}
+  </div>
+);
 
-function CardImageWithBorder1() {
-  return (
-    <div className={styles.card} data-name="Card Image with border">
-      <div aria-hidden="true" className={styles.cardBorder} />
-      <div className={styles.cardImageContainer} data-name="image 12">
-        <img alt="" className={styles.cardImageCover} src={imgImage13} />
-      </div>
-      <Content1 />
-    </div>
-  );
-}
-
-function Content2() {
-  return (
-    <div className={styles.cardContentOuter} data-name="Content">
-      <div className={styles.cardContentInner}>
-        <div className={styles.cardContentFlexible}>
-          <p className={styles.cardTitle}>Set Repayment Reminders</p>
-          <ContentContainer>Automatically set aside small amounts to build a repayment buffer.</ContentContainer>
-          <LinkContainer />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CardImageWithBorder2() {
-  return (
-    <div className={styles.card} data-name="Card Image with border">
-      <div aria-hidden="true" className={styles.cardBorder} />
-      <div className={styles.cardImageContainer} data-name="image 12">
-        <img alt="" className={styles.cardImageCover} src={imgImage14} />
-      </div>
-      <Content2 />
-    </div>
-  );
-}
-
-function Carousel() {
+const Carousel: React.FC<CarouselProps> = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (!scrollRef.current) return;
     isDraggingRef.current = true;
     scrollRef.current.classList.add(styles.carouselDragging);
@@ -216,19 +147,19 @@ function Carousel() {
     scrollLeftRef.current = scrollRef.current.scrollLeft;
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (!isDraggingRef.current || !scrollRef.current) return;
     const dx = e.clientX - startXRef.current;
     scrollRef.current.scrollLeft = scrollLeftRef.current - dx;
   };
 
-  const endDrag = () => {
+  const endDrag = (): void => {
     if (!scrollRef.current) return;
     isDraggingRef.current = false;
     scrollRef.current.classList.remove(styles.carouselDragging);
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>): void => {
     if (!scrollRef.current) return;
     isDraggingRef.current = true;
     scrollRef.current.classList.add(styles.carouselDragging);
@@ -236,13 +167,13 @@ function Carousel() {
     scrollLeftRef.current = scrollRef.current.scrollLeft;
   };
 
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>): void => {
     if (!isDraggingRef.current || !scrollRef.current) return;
     const dx = e.touches[0].clientX - startXRef.current;
     scrollRef.current.scrollLeft = scrollLeftRef.current - dx;
   };
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = (): void => {
     if (!scrollRef.current) return;
     isDraggingRef.current = false;
     scrollRef.current.classList.remove(styles.carouselDragging);
@@ -260,125 +191,122 @@ function Carousel() {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className={styles.carouselContainer} data-name="Carousel">
+      <div className={styles.carouselContainer}>
         <div className={styles.carouselCardWrapper}>
-          <CardImageWithBorder />
+          <ProductCard
+            title="Regular Savings Account"
+            description="Save between £25 and £250 every month with a 12-month fixed rate account. Available to customers with a current account."
+            image={imgImage12}
+          />
         </div>
         <div className={styles.carouselCardWrapper}>
-          <CardImageWithBorder1 />
+          <ProductCard
+            title="Savings Booster Pot"
+            description="Get timely alerts so you never miss a scheduled payment."
+            image={imgImage13}
+          />
         </div>
         <div className={styles.carouselCardWrapper}>
-          <CardImageWithBorder2 />
+          <ProductCard
+            title="Set Repayment Reminders"
+            description="Automatically set aside small amounts to build a repayment buffer."
+            image={imgImage14}
+          />
         </div>
       </div>
     </div>
   );
-}
+};
 
-function Content3({ onViewAgreement }: { onViewAgreement: () => void }) {
-  return (
-    <div className={styles.contentSection} data-name="Content">
-      <YourOffer onViewAgreement={onViewAgreement} />
-      <ProductsForYou />
-      <Carousel />
-    </div>
-  );
-}
+const ProductsForYou: React.FC = () => (
+  <section className={styles.productsSection}>
+    <ProductsHeader />
+    <Carousel />
+  </section>
+);
 
-function Icon() {
-  return (
-    <div className={styles.notificationIcon} data-name="Icon">
-      <svg className={styles.notificationIconSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 18 18">
-        <g id="Icon">
-          <g id="Container"></g>
-          <circle cx="9" cy="9" fill="var(--fill-0, #FFBB33)" id="Backround" r="9" />
-          <g id="Content">
-            <path d={svgPaths.pb121c80} fill="var(--fill-0, #333333)" />
-            <path d={svgPaths.p3d68b000} fill="var(--fill-0, #333333)" />
-          </g>
-        </g>
-      </svg>
-    </div>
-  );
-}
+// ============================================================================
+// MAIN CONTENT
+// ============================================================================
 
-function Warning() {
-  return (
-    <div className={styles.notificationIconWrapper} data-name="Warning">
-      <Icon />
-    </div>
-  );
-}
+const Content: React.FC<ContentProps> = ({ onViewAgreement }) => (
+  <div className={styles.contentSection}>
+    <YourOffer onViewAgreement={onViewAgreement} />
+    <ProductsForYou />
+  </div>
+);
 
-function MessageContainer() {
-  return (
-    <div className={styles.notificationMessageContainer} data-name="Message container">
-      <p className={styles.notificationText}>Please view and accept the agreement before continuing</p>
-    </div>
-  );
-}
+// ============================================================================
+// CTA SECTION
+// ============================================================================
 
-function NotificationContextual() {
-  return (
-    <div className={styles.notificationBanner} data-name="Notification contextual">
-      <div aria-hidden="true" className={styles.notificationBorder} />
-      <div className={styles.notificationInner}>
-        <div className={styles.notificationContent}>
-          <Warning />
-          <MessageContainer />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
-function DisabledButton() {
-  return (
-    <button
-      className={styles.primaryButton}
-      data-name="On Light: Button primary"
-      disabled
+const NotificationIcon: React.FC = () => (
+  <div className={styles.notificationIcon}>
+    <svg
+      className={styles.notificationIconSvg}
+      fill="none"
+      preserveAspectRatio="none"
+      viewBox="0 0 18 18"
     >
-      <div className={styles.primaryButtonContent}>
-        <p className={styles.primaryButtonText}>Continue</p>
+      <circle cx="9" cy="9" fill="#FFBB33" r="9" />
+      <path d={svgPaths.pb121c80} fill="#333333" />
+      <path d={svgPaths.p3d68b000} fill="#333333" />
+    </svg>
+  </div>
+);
+
+const NotificationBanner: React.FC = () => (
+  <div className={styles.notificationBanner}>
+    <div className={styles.notificationBorder} aria-hidden="true" />
+    <div className={styles.notificationContent}>
+      <div className={styles.notificationIconWrapper}>
+        <NotificationIcon />
       </div>
-    </button>
-  );
-}
-
-function Cta() {
-  return (
-    <div className={styles.ctaSection} data-name="CTA">
-      <NotificationContextual />
-      <DisabledButton />
+      <div className={styles.notificationMessageContainer}>
+        <p className={styles.notificationText}>
+          Please view and accept the agreement before continuing
+        </p>
+      </div>
     </div>
-  );
-}
+  </div>
+);
 
-function Frame({ onViewAgreement }: { onViewAgreement: () => void }) {
-  return (
-    <div className={styles.frame}>
-      <Content3 onViewAgreement={onViewAgreement} />
-      <Cta />
-    </div>
-  );
-}
+const ContinueButton: React.FC = () => (
+  <button type="button" className={styles.primaryButton} disabled>
+    <p className={styles.primaryButtonText}>Continue</p>
+  </button>
+);
 
-export default function Approval({ onViewAgreement }: ApprovalProps) {
-  return (
-    <div className={styles.root} data-name="9. Approval">
-      <div className={styles.inner}>
-        <Header />
-        <div className={styles.dividerContainer}>
-          <div className={styles.dividerLineWrapper}>
-            <svg className={styles.dividerSvg} fill="none" preserveAspectRatio="none" viewBox="0 0 348 1">
-              <line id="Line 1" stroke="var(--stroke-0, #9B9B9B)" x2="348" y1="0.5" y2="0.5" />
-            </svg>
-          </div>
+const Cta: React.FC<CtaProps> = () => (
+  <section className={styles.ctaSection}>
+    <NotificationBanner />
+    <ContinueButton />
+  </section>
+);
+
+// ============================================================================
+// APPROVAL SCREEN
+// ============================================================================
+
+const Approval: React.FC<ApprovalProps> = ({ onViewAgreement }) => (
+  <div className={styles.root}>
+    <div className={styles.inner}>
+      <Header />
+
+      <div className={styles.dividerContainer}>
+        <div className={styles.dividerLineWrapper}>
+          <svg className={styles.dividerSvg} fill="none" viewBox="0 0 348 1">
+            <line x2="348" y1="0.5" y2="0.5" stroke="#9B9B9B" />
+          </svg>
         </div>
-        <Frame onViewAgreement={onViewAgreement} />
       </div>
+
+      <main className={styles.frame}>
+        <Content onViewAgreement={onViewAgreement} />
+        <Cta />
+      </main>
     </div>
-  );
-}
+  </div>
+);
+
+export default Approval;
