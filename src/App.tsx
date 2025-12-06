@@ -22,7 +22,7 @@ export default function App() {
         | "reviewloan"
         | "approval"
         | "approvalaccepted"
-    >("openbankingadded");
+    >("entry");
 
     // Store loan properties from entry screen
     const [loanAmount, setLoanAmount] = useState(10000);

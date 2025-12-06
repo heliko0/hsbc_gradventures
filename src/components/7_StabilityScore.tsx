@@ -286,10 +286,9 @@ function Frame1({ onOpenModal }: { onOpenModal: () => void }) {
                     <p className={styles.greyPanelText}>
                         <span>Your </span>
                         <span>hybrid </span>
-                        <span>score is </span>
-                        over{" "}
+                        <span>score is </span>{" "}
                         <span className={styles.greyPanelBold}>
-                            180 points higher
+                            140 points higher
                         </span>
                         <span> than a traditional credit score</span>
                     </p>

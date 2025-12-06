@@ -40,7 +40,7 @@ function TextContent({
                 const score = (window as any).__stabilityScore;
                 console.log("Calling onComplete with score:", score);
                 onComplete?.(score);
-            }, 3000); // increased from 1000 to 3000
+            }, 5000); // increased from 1000 to 3000
             return () => clearTimeout(timeout);
         }
 
